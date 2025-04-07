@@ -396,3 +396,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+VehicleRegistrationSystem/VehicleRegistrationSystem.csproj
+VehicleRegistrationSystem/VehicleRegistrationSystem.sln
+VehicleRegistrationSystem.sln
