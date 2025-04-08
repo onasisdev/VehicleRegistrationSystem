@@ -134,13 +134,7 @@ namespace VehicleRegistrationSystem
 
                     if (userVehicleStorageSelection == 1)
                     {
-                        Console.WriteLine("Vehículos:");
-                        foreach (var id in Ids)
-                        {
-                            Console.WriteLine($"""
-                                id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {LicensePlateNumbers[id]}
-                                """);
-                        }
+                        ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
 
                         Console.WriteLine("Favor seleccione el id del carro que desea cambiar: ");
                         getId = Convert.ToInt32(Console.ReadLine());
@@ -204,14 +198,7 @@ namespace VehicleRegistrationSystem
                     else if (userVehicleStorageSelection == 2)
                     {
 
-                        Console.WriteLine("Vehículos:");
-
-                        foreach (var id in Ids)
-                        {
-                            Console.WriteLine($"""
-                                id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {LicensePlateNumbers[id]}
-                                """);
-                        }
+                        ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
 
                         Console.WriteLine("Favor seleccione el id del vehículo que desea cambiar todos sus datos: ");
                         getId = Convert.ToInt32(Console.ReadLine());
@@ -265,6 +252,42 @@ namespace VehicleRegistrationSystem
                     }
 
                     break;
+
+                case 4:
+
+                    ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
+
+                    Console.WriteLine("Favor ingrese el id del vehículo que desee eliminar");
+                    getId = Convert.ToInt32(Console.ReadLine());
+                    
+                    
+                    foreach (var id in Ids.ToArray())
+                    {
+                        if (id == getId)
+                        {
+                            Brands.Remove(id);
+                            Models.Remove(id);
+                            Years.Remove(id);
+                            Colors.Remove(id);
+                            LicensePlateNumbers.Remove(id);
+                            FuelTypes.Remove(id);
+                            Ids.Remove(id);
+                        }
+                    }
+                    
+                    break;
+            }
+
+            static void ViewAllCars(Dictionary<int, string> Brands, Dictionary<int, string> Models, Dictionary<int, int> Years, Dictionary<int, string> Colors, Dictionary<int, string> LicensePlateNumbers, List<int> Ids)
+            {
+                Console.WriteLine("Vehículos:");
+
+                foreach (var id in Ids)
+                {
+                    Console.WriteLine($"""
+                        id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {LicensePlateNumbers[id]}
+                        """);
+                }
             }
         }
     }
