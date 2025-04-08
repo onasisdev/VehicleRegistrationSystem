@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace VehicleRegistrationSystem
 {
@@ -69,10 +70,10 @@ namespace VehicleRegistrationSystem
 
             Console.WriteLine("""
                 Favor escoja la acción que desea realizar: 
-                1. Agregar un nuevo vehículo 
-                2. Editar la informacion de vehiculos existentes
-                3. Buscar vehículos por número de placa, marca o modelo.
-                4. Eliminar vehículos.
+                1.Agregar un nuevo vehículo.
+                2.Editar la informacion de vehiculos existentes.
+                3.Buscar vehículos por número de placa, marca o modelo.
+                4.Eliminar vehículos.
 
                 """);
 
@@ -119,7 +120,7 @@ namespace VehicleRegistrationSystem
                 case 2:
 
                     int getId;
-                    
+
                     var getAllElements = string.Empty;
 
                     Console.WriteLine("""
@@ -149,57 +150,57 @@ namespace VehicleRegistrationSystem
                         {
                             if (id == getId)
                             {
-                                Console.WriteLine("Favor escoja una de los datos que desee cambiar:");
+                                Console.WriteLine("Favor seleccione uno de los datos que desee cambiar:");
 
                                 Console.WriteLine("1.Marca 2.Modelo 3.Año 4.Color 5.Número de placa 6.Tipo de combustible");
                                 int getElementToModifyCar = Convert.ToInt32(Console.ReadLine());
 
-                                Console.WriteLine("Ingrese el nuevo elemento:");
+                                Console.WriteLine("Ingrese el nuevo elemtno:");
                                 var newElement = Console.ReadLine();
 
 
                                 switch (getElementToModifyCar)
-                                    {
-                                        case 1:
+                                {
+                                    case 1:
 
-                                            Brands[id] = newElement;
+                                        Brands[id] = newElement;
 
-                                            break;
+                                        break;
 
-                                        case 2:
+                                    case 2:
 
-                                            Models[id] = newElement;
+                                        Models[id] = newElement;
 
-                                            break;
+                                        break;
 
-                                        case 3:
+                                    case 3:
 
-                                            Years[id] = Convert.ToInt32(newElement);
+                                        Years[id] = Convert.ToInt32(newElement);
 
-                                            break;
+                                        break;
 
-                                        case 4:
+                                    case 4:
 
-                                            Colors[id] = newElement;
+                                        Colors[id] = newElement;
 
-                                            break;
+                                        break;
 
-                                        case 5:
+                                    case 5:
 
-                                            LicensePlateNumbers[id] = newElement;
+                                        LicensePlateNumbers[id] = newElement;
 
-                                            break;
+                                        break;
 
-                                        case 6:
+                                    case 6:
 
-                                            FuelTypes[id] = newElement;
+                                        FuelTypes[id] = newElement;
 
-                                            break;
-                                    }
+                                        break;
                                 }
                             }
                         }
-                    
+                    }
+
                     else if (userVehicleStorageSelection == 2)
                     {
 
@@ -212,7 +213,7 @@ namespace VehicleRegistrationSystem
                                 """);
                         }
 
-                        Console.WriteLine("Favor seleccione el id del carro que desea cambiar todos sus datos: ");
+                        Console.WriteLine("Favor seleccione el id del vehículo que desea cambiar todos sus datos: ");
                         getId = Convert.ToInt32(Console.ReadLine());
 
 
@@ -220,7 +221,7 @@ namespace VehicleRegistrationSystem
                         {
                             if (id == getId)
                             {
-                                Console.WriteLine("Favor ingrese el la nueva marca: ");
+                                Console.WriteLine("Favor ingrese la nueva marca: ");
                                 getAllElements = Console.ReadLine();
                                 Brands[id] = getAllElements;
 
@@ -246,6 +247,23 @@ namespace VehicleRegistrationSystem
                             }
                         }
                     }
+                    break;
+
+                case 3:
+
+                    Console.WriteLine("Favor ingrese el número de placa, marca o modelo del vehíçulo que desee buscar:");
+                    var searchCriteria = Console.ReadLine();
+
+                    foreach (var id in Ids)
+                    {
+                        if (LicensePlateNumbers[id].ToLower().Contains(searchCriteria) || Brands[id].ToLower().Contains(searchCriteria) || Models[id].ToLower().Contains(searchCriteria))
+                            {
+                            Console.WriteLine($"""
+                                id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {LicensePlateNumbers[id]}
+                                """);
+                        }
+                    }
+
                     break;
             }
         }
