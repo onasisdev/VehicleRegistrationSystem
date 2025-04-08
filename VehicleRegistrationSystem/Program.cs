@@ -1,4 +1,7 @@
-﻿namespace VehicleRegistrationSystem
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace VehicleRegistrationSystem
 {
     public class Program
     {
@@ -6,12 +9,8 @@
         static void Main(string[] args)
         {
 
-
-
-
             VehicleStorage vehicleStorage = new VehicleStorage();
             vehicleStorage.userActionSelection();
-
 
         }
 
@@ -30,21 +29,11 @@
         public List<int> Id = new List<int>();
 
 
-
-        //public VehicleStorage(List<string> Brand, List<string> Model, List<int> Year, List<string> Color, List<string> LicensePlateNumber, List<string> FuelType) 
-        //{ 
-        //    this.Brand = Brand;
-        //    this.Model = Model;
-        //    this.Year = Year;
-        //    this.Color = Color;
-        //    this.LicensePlateNumber = LicensePlateNumber;
-        //    this.FuelType = FuelType;
-        //}
-
         public void userActionSelection()
         {
             bool running = true;
 
+            
             while (running)
             {
                 Console.WriteLine("""
@@ -56,25 +45,25 @@
                 5.Salir
 
                 """);
+
                 int userModulesSelection = Convert.ToInt32(Console.ReadLine());
 
                 switch (userModulesSelection)
                 {
                     case 1:
                         VehicleStorageFunction(Brand, Model, Year, Color, LicensePlateNumber, FuelType, Id);
+                        
+                        break;
+
+                    case 5:
+                        running = false;
 
                         break;
-                        //case 5:
-                        //    running = false;
-
-                        //    break;
                 }
             }
-
-
-
         }
 
+        
         public void VehicleStorageFunction(Dictionary<int, string> Brands, Dictionary<int, string> Models, Dictionary<int, int> Years, Dictionary<int, string> Colors, Dictionary<int, string> LicensePlateNumbers, Dictionary<int, string> FuelTypes, List<int> Ids)
         {
 
@@ -127,15 +116,138 @@
 
                     break;
 
+                case 2:
+
+                    int getId;
+                    
+                    var getAllElements = string.Empty;
+
+                    Console.WriteLine("""
+                        Favor escoja la acción que desea realizar:
+                        1.Editar una información de un vehículo ya existente.
+                        2.Editar toda la información de un vehículo ya existente.
+
+                        """);
+
+                    userVehicleStorageSelection = Convert.ToInt32(Console.ReadLine());
+
+                    if (userVehicleStorageSelection == 1)
+                    {
+                        Console.WriteLine("Vehículos:");
+                        foreach (var id in Ids)
+                        {
+                            Console.WriteLine($"""
+                                id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {LicensePlateNumbers[id]}
+                                """);
+                        }
+
+                        Console.WriteLine("Favor seleccione el id del carro que desea cambiar: ");
+                        getId = Convert.ToInt32(Console.ReadLine());
 
 
+                        foreach (var id in Ids)
+                        {
+                            if (id == getId)
+                            {
+                                Console.WriteLine("Favor escoja una de los datos que desee cambiar:");
 
+                                Console.WriteLine("1.Marca 2.Modelo 3.Año 4.Color 5.Número de placa 6.Tipo de combustible");
+                                int getElementToModifyCar = Convert.ToInt32(Console.ReadLine());
+
+                                Console.WriteLine("Ingrese el nuevo elemento:");
+                                var newElement = Console.ReadLine();
+
+
+                                switch (getElementToModifyCar)
+                                    {
+                                        case 1:
+
+                                            Brands[id] = newElement;
+
+                                            break;
+
+                                        case 2:
+
+                                            Models[id] = newElement;
+
+                                            break;
+
+                                        case 3:
+
+                                            Years[id] = Convert.ToInt32(newElement);
+
+                                            break;
+
+                                        case 4:
+
+                                            Colors[id] = newElement;
+
+                                            break;
+
+                                        case 5:
+
+                                            LicensePlateNumbers[id] = newElement;
+
+                                            break;
+
+                                        case 6:
+
+                                            FuelTypes[id] = newElement;
+
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                    
+                    else if (userVehicleStorageSelection == 2)
+                    {
+
+                        Console.WriteLine("Vehículos:");
+
+                        foreach (var id in Ids)
+                        {
+                            Console.WriteLine($"""
+                                id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {LicensePlateNumbers[id]}
+                                """);
+                        }
+
+                        Console.WriteLine("Favor seleccione el id del carro que desea cambiar todos sus datos: ");
+                        getId = Convert.ToInt32(Console.ReadLine());
+
+
+                        foreach (var id in Ids)
+                        {
+                            if (id == getId)
+                            {
+                                Console.WriteLine("Favor ingrese el la nueva marca: ");
+                                getAllElements = Console.ReadLine();
+                                Brands[id] = getAllElements;
+
+                                Console.WriteLine("Favor ingrese el nuevo modelo: ");
+                                getAllElements = Console.ReadLine();
+                                Models[id] = getAllElements;
+
+                                Console.WriteLine("Favor ingrese el nuevo año: ");
+                                getAllElements = Console.ReadLine();
+                                Years[id] = Convert.ToInt32(getAllElements);
+
+                                Console.WriteLine("Favor ingrese el nuevo color: ");
+                                getAllElements = Console.ReadLine();
+                                Colors[id] = getAllElements;
+
+                                Console.WriteLine("Favor ingrese el nuevo número de placa: ");
+                                getAllElements = Console.ReadLine();
+                                LicensePlateNumbers[id] = getAllElements;
+
+                                Console.WriteLine("Favor ingrese el nuevo tipo de combustible: ");
+                                getAllElements = Console.ReadLine();
+                                FuelTypes[id] = getAllElements;
+                            }
+                        }
+                    }
+                    break;
             }
-
-
         }
-
-
-
     }
 }
