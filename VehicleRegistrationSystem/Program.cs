@@ -13,6 +13,11 @@ namespace VehicleRegistrationSystem
             VehicleStorage vehicleStorage = new VehicleStorage();
             vehicleStorage.userActionSelection();
 
+            OwnersManagament ownersManagament = new OwnersManagament();
+            ownersManagament.userActionSelection();
+
+           
+
         }
 
     }
@@ -20,14 +25,14 @@ namespace VehicleRegistrationSystem
     public class VehicleStorage
     {
 
-        public Dictionary<int, string> Brand = new Dictionary<int, string>();
-        public Dictionary<int, string> Model = new Dictionary<int, string>();
-        public Dictionary<int, int> Year = new Dictionary<int, int>();
-        public Dictionary<int, string> Color = new Dictionary<int, string>();
-        public Dictionary<int, string> LicensePlateNumber = new Dictionary<int, string>();
-        public Dictionary<int, string> FuelType = new Dictionary<int, string>();
+        public Dictionary<int, string> Brands = new Dictionary<int, string>();
+        public Dictionary<int, string> Models = new Dictionary<int, string>();
+        public Dictionary<int, int> Years = new Dictionary<int, int>();
+        public Dictionary<int, string> Colors = new Dictionary<int, string>();
+        public Dictionary<int, string> LicensePlateNumbers = new Dictionary<int, string>();
+        public Dictionary<int, string> FuelTypes = new Dictionary<int, string>();
 
-        public List<int> Id = new List<int>();
+        public List<int> Ids = new List<int>();
 
 
         public void userActionSelection()
@@ -52,11 +57,21 @@ namespace VehicleRegistrationSystem
                 switch (userModulesSelection)
                 {
                     case 1:
-                        VehicleStorageFunction(Brand, Model, Year, Color, LicensePlateNumber, FuelType, Id);
+                        VehicleStorageFunction(Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids);
                         
                         break;
 
+                    case 2:
+                        OwnersManagament ownersManagament = new OwnersManagament();
+                        ownersManagament.OwnersManagamentFunction();
+
+
+                        break;
+
                     case 5:
+                        
+
+
                         running = false;
 
                         break;
@@ -290,5 +305,56 @@ namespace VehicleRegistrationSystem
                 }
             }
         }
+
+        
+
     }
+
+    public class OwnersManagament : VehicleStorage
+    {
+        public Dictionary<int, string> OwnerFullNames = new Dictionary<int, string>();
+        public Dictionary<int, int> OwnerSocialIds = new Dictionary<int, int>();
+        public Dictionary<int, string> OwnerAddresses = new Dictionary<int, string>();
+        public Dictionary<int, int> OwnerPhoneNumbers = new Dictionary<int, int>();
+        public Dictionary<int, string> OwnerEmails = new Dictionary<int, string>();
+
+
+        public List<int> OwnerIds = new List<int>();
+
+        public void OwnersManagamentFunction()
+        {
+
+            var OwnerId = OwnerIds.Count() + 1;
+            OwnerIds.Add(OwnerId);
+
+            Console.WriteLine("Favor ingrese el nombre del propietario: ");
+            var OwnerFullName = Console.ReadLine();
+            OwnerFullNames.Add(OwnerId, OwnerFullName);
+
+            Console.WriteLine("Favor ingrese la cédula del propietario: ");
+            var OwnerSocialId = Convert.ToInt32(Console.ReadLine());
+            OwnerSocialIds.Add(OwnerId, OwnerSocialId);
+
+            Console.WriteLine("Favor ingrese la dirección del propietario: ");
+            var OwnerAddress = Console.ReadLine();
+            OwnerAddresses.Add(OwnerId, OwnerAddress);
+
+            Console.WriteLine("Favor ingrese el teléfono del propietario: ");
+            var OwnerPhoneNumber = Convert.ToInt32(Console.ReadLine());
+            OwnerPhoneNumbers.Add(OwnerId, OwnerPhoneNumber);
+
+            Console.WriteLine("Favor ingrese el correo electrónico del propietario: ");
+            var OwnerEmail = Console.ReadLine();
+            OwnerEmails.Add(OwnerId, OwnerEmail);
+
+
+        }
+
+
+
+    }
+
+
+
+
 }
