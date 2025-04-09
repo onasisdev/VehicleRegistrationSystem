@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace VehicleRegistrationSystem
 {
@@ -10,19 +11,13 @@ namespace VehicleRegistrationSystem
         static void Main(string[] args)
         {
 
-            VehicleStorage vehicleStorage = new VehicleStorage();
-            vehicleStorage.userActionSelection();
-
-            OwnersManagament ownersManagament = new OwnersManagament();
-            ownersManagament.userActionSelection();
-
-           
-
+            MainVehicleRegistrationSystem mainVehicleRegistrationSystem = new MainVehicleRegistrationSystem();
+            mainVehicleRegistrationSystem.userActionSelection();
         }
 
     }
 
-    public class VehicleStorage
+    public class MainVehicleRegistrationSystem
     {
 
         public Dictionary<int, string> Brands = new Dictionary<int, string>();
@@ -31,15 +26,23 @@ namespace VehicleRegistrationSystem
         public Dictionary<int, string> Colors = new Dictionary<int, string>();
         public Dictionary<int, string> LicensePlateNumbers = new Dictionary<int, string>();
         public Dictionary<int, string> FuelTypes = new Dictionary<int, string>();
-
         public List<int> Ids = new List<int>();
+        public int getId { get; set; }
+
+
+        public Dictionary<int, string> OwnerFullNames = new Dictionary<int, string>();
+        public Dictionary<int, int> OwnerSocialIds = new Dictionary<int, int>();
+        public Dictionary<int, string> OwnerAddresses = new Dictionary<int, string>();
+        public Dictionary<int, int> OwnerPhoneNumbers = new Dictionary<int, int>();
+        public Dictionary<int, string> OwnerEmails = new Dictionary<int, string>();
+        public List<int> OwnerIds = new List<int>();
 
 
         public void userActionSelection()
         {
             bool running = true;
 
-            
+
             while (running)
             {
                 Console.WriteLine("""
@@ -63,14 +66,15 @@ namespace VehicleRegistrationSystem
 
                     case 2:
                         OwnersManagament ownersManagament = new OwnersManagament();
-                        ownersManagament.OwnersManagamentFunction();
 
+                        ownersManagament.OwnersManagamentFunction(
+                            OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds,
+                            Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids
+                            );
 
                         break;
 
                     case 5:
-                        
-
 
                         running = false;
 
@@ -79,23 +83,43 @@ namespace VehicleRegistrationSystem
             }
         }
 
-        
-        public void VehicleStorageFunction(Dictionary<int, string> Brands, Dictionary<int, string> Models, Dictionary<int, int> Years, Dictionary<int, string> Colors, Dictionary<int, string> LicensePlateNumbers, Dictionary<int, string> FuelTypes, List<int> Ids)
+        public void ViewAllCars(Dictionary<int, string> Brands, Dictionary<int, string> Models, Dictionary<int, int> Years, Dictionary<int, string> Colors, Dictionary<int, string> LicensePlateNumbers, List<int> Ids)
         {
+            Console.WriteLine("Vehículos:");
 
+            foreach (var id in Ids)
+            {
+                Console.WriteLine($"""
+                        id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {LicensePlateNumbers[id]}
+                        """);
+            }
+
+            Console.WriteLine("");
+        }
+
+        public void VehicleStorageFunction(
+            Dictionary<int, string>Brands, 
+            Dictionary<int, string> Models, 
+            Dictionary<int, int> Years, 
+            Dictionary<int, string> Colors, 
+            Dictionary<int, string> LicensePlateNumbers, 
+            Dictionary<int, string> FuelTypes, 
+            List<int> Ids
+            )
+        {
+            
             Console.WriteLine("""
-                Favor escoja la acción que desea realizar: 
+                Favor escoja la acción que desea realizar:
                 1.Agregar un nuevo vehículo.
                 2.Editar la informacion de vehiculos existentes.
                 3.Buscar vehículos por número de placa, marca o modelo.
                 4.Eliminar vehículos.
 
                 """);
-
+            
             int userVehicleStorageSelection = Convert.ToInt32(Console.ReadLine());
-
-
-
+            
+            
             switch (userVehicleStorageSelection)
             {
                 case 1:
@@ -121,6 +145,7 @@ namespace VehicleRegistrationSystem
                     var Color = Console.ReadLine();
                     Colors.Add(Id, Color);
 
+
                     Console.WriteLine("Favor ingrese el número de placa del vehículo que desea almacenar: ");
                     var LicensePlateNumber = Console.ReadLine();
                     LicensePlateNumbers.Add(Id, LicensePlateNumber);
@@ -132,9 +157,8 @@ namespace VehicleRegistrationSystem
 
                     break;
 
+                
                 case 2:
-
-                    int getId;
 
                     var getAllElements = string.Empty;
 
@@ -291,70 +315,161 @@ namespace VehicleRegistrationSystem
                     }
                     
                     break;
-            }
-
-            static void ViewAllCars(Dictionary<int, string> Brands, Dictionary<int, string> Models, Dictionary<int, int> Years, Dictionary<int, string> Colors, Dictionary<int, string> LicensePlateNumbers, List<int> Ids)
-            {
-                Console.WriteLine("Vehículos:");
-
-                foreach (var id in Ids)
-                {
-                    Console.WriteLine($"""
-                        id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {LicensePlateNumbers[id]}
-                        """);
-                }
-            }
+            }    
         }
-
-        
-
     }
 
-    public class OwnersManagament : VehicleStorage
+    public class OwnersManagament : MainVehicleRegistrationSystem
     {
-        public Dictionary<int, string> OwnerFullNames = new Dictionary<int, string>();
-        public Dictionary<int, int> OwnerSocialIds = new Dictionary<int, int>();
-        public Dictionary<int, string> OwnerAddresses = new Dictionary<int, string>();
-        public Dictionary<int, int> OwnerPhoneNumbers = new Dictionary<int, int>();
-        public Dictionary<int, string> OwnerEmails = new Dictionary<int, string>();
+      
+        public void OwnersManagamentFunction(
+            Dictionary<int, string> OwnerFullNames,
+            Dictionary<int, int> OwnerSocialIds, 
+            Dictionary<int, string> OwnerAddresses, 
+            Dictionary<int, int> OwnerPhoneNumbers ,
+            Dictionary<int, string> OwnerEmails, 
+            List<int> OwnerIds,
 
-
-        public List<int> OwnerIds = new List<int>();
-
-        public void OwnersManagamentFunction()
+            Dictionary<int, string> Brands,
+            Dictionary<int, string> Models,
+            Dictionary<int, int> Years,
+            Dictionary<int, string> Colors,
+            Dictionary<int, string> LicensePlateNumbers,
+            Dictionary<int, string> FuelTypes,
+            List<int> Ids
+            )
         {
+            
+            Console.WriteLine("""
+                Favor escoja la acción que desea realizar: 
+                1.Agregar un nuevo propietario.
+                2.Asociar uno o más vehículos a un propietario.
+                3.Editar la información de los propietarios.
+                4.Buscar propietarios por nombre o cédula.
+                5.Eliminar propietarios.
 
-            var OwnerId = OwnerIds.Count() + 1;
-            OwnerIds.Add(OwnerId);
+                """);
+            
+            int userOwnersManagamentSelection = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Favor ingrese el nombre del propietario: ");
-            var OwnerFullName = Console.ReadLine();
-            OwnerFullNames.Add(OwnerId, OwnerFullName);
+               
+            switch (userOwnersManagamentSelection)
+            {
+                case 1:
+                    
+                    int OwnerId = OwnerIds.Count() + 1;
+                    OwnerIds.Add(OwnerId);
 
-            Console.WriteLine("Favor ingrese la cédula del propietario: ");
-            var OwnerSocialId = Convert.ToInt32(Console.ReadLine());
-            OwnerSocialIds.Add(OwnerId, OwnerSocialId);
+                    Console.WriteLine("Favor ingrese el nombre del propietario: ");
+                    var OwnerFullName = Console.ReadLine();
+                    OwnerFullNames.Add(OwnerId, OwnerFullName);
 
-            Console.WriteLine("Favor ingrese la dirección del propietario: ");
-            var OwnerAddress = Console.ReadLine();
-            OwnerAddresses.Add(OwnerId, OwnerAddress);
+                    Console.WriteLine("Favor ingrese la cédula del propietario: ");
+                    var OwnerSocialId = Convert.ToInt32(Console.ReadLine());
+                    OwnerSocialIds.Add(OwnerId, OwnerSocialId);
 
-            Console.WriteLine("Favor ingrese el teléfono del propietario: ");
-            var OwnerPhoneNumber = Convert.ToInt32(Console.ReadLine());
-            OwnerPhoneNumbers.Add(OwnerId, OwnerPhoneNumber);
+                    Console.WriteLine("Favor ingrese la dirección del propietario: ");
+                    var OwnerAddress = Console.ReadLine();
+                    OwnerAddresses.Add(OwnerId, OwnerAddress);
 
-            Console.WriteLine("Favor ingrese el correo electrónico del propietario: ");
-            var OwnerEmail = Console.ReadLine();
-            OwnerEmails.Add(OwnerId, OwnerEmail);
+                    Console.WriteLine("Favor ingrese el teléfono del propietario: ");
+                    var OwnerPhoneNumber = Convert.ToInt32(Console.ReadLine());
+                    OwnerPhoneNumbers.Add(OwnerId, OwnerPhoneNumber);
+
+                    Console.WriteLine("Favor ingrese el correo electrónico del propietario: ");
+                    var OwnerEmail = Console.ReadLine();
+                    OwnerEmails.Add(OwnerId, OwnerEmail);
+
+                    break;
 
 
+                case 2:
+
+                    List<int> getCarIds = new List<int>();
+                    List<int> getOwnerIds = new List<int>();
+
+
+                    ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
+
+                    Console.WriteLine("Ingrese el id del vehículo para asociarlo con un propietario: ");
+                    getCarIds.Add(Convert.ToInt32(Console.ReadLine()));
+
+                    
+                    ViewAllOwners(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
+
+                    Console.WriteLine("Ingrese el id del propietario: ");
+                    getOwnerIds.Add(Convert.ToInt32(Console.ReadLine()));
+
+                    Console.WriteLine("¿Desea asociar más vehículos a un propietario?  1.Sí  2.No");
+                    int wantToContinue = Convert.ToInt32(Console.ReadLine());
+
+                    while (wantToContinue != 2)
+                    {
+                        ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
+
+                        Console.WriteLine("Ingrese el id de un vehículo para asociarlo con un propietario: ");
+                        getCarIds.Add(Convert.ToInt32(Console.ReadLine()));
+
+                        Console.WriteLine("Ingrese el id del propietario: ");
+                        getOwnerIds.Add(Convert.ToInt32(Console.ReadLine()));
+
+                        Console.WriteLine("¿Desea asociar más vehículos a un propietario?  1.Sí  2.No");
+                        wantToContinue = Convert.ToInt32(Console.ReadLine());
+                    }
+
+                    if (wantToContinue == 2)
+                    {
+                        Console.WriteLine("Vehiculo(s) asociados a propietarios: ");
+
+                        Console.WriteLine("Vehiculo(s):");
+
+                        foreach (var id in Ids)
+                        {
+                            if (getCarIds.Contains(id)) 
+                            {
+                                Console.WriteLine($"""
+                                        id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {LicensePlateNumbers[id]}
+                                        """);
+                            }    
+                        }
+
+
+                        Console.WriteLine("Propietario:");
+
+                        foreach (var ownerId in OwnerIds)
+                        {
+                            if (getOwnerIds.Contains(ownerId))
+                            {
+                                Console.WriteLine($"""
+                                        id: {ownerId}   Nombre completo: {OwnerFullNames[ownerId]}   Cédula: {OwnerSocialIds[ownerId]}   Dirección: {OwnerAddresses[ownerId]}   Teléfono: {OwnerPhoneNumbers[ownerId]}   Correo electrónico: {OwnerEmails[ownerId]}
+                                        """);
+                            }
+                        }
+                    }
+
+                    break;
+            }
         }
 
+        private static void ViewAllOwners(Dictionary<int, string> OwnerFullNames, Dictionary<int, int> OwnerSocialIds, Dictionary<int, string> OwnerAddresses, Dictionary<int, int> OwnerPhoneNumbers, Dictionary<int, string> OwnerEmails, List<int> OwnerIds)
+        {
+            Console.WriteLine("");
 
+            Console.WriteLine("Propietarios: ");
 
+            foreach (var ownerId in OwnerIds)
+            {
+                Console.WriteLine($"""
+                    id: {ownerId}   Nombre completo: {OwnerFullNames[ownerId]}   Cédula: {OwnerSocialIds[ownerId]}   Dirección: {OwnerAddresses[ownerId]}   Teléfono: {OwnerPhoneNumbers[ownerId]}   Correo electrónico: {OwnerEmails[ownerId]}
+                    """);
+            }
+
+            Console.WriteLine("");
+        }
     }
-
-
-
-
 }
+
+
+
+
+
