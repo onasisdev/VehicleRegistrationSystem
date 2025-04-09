@@ -31,9 +31,9 @@ namespace VehicleRegistrationSystem
 
 
         public Dictionary<int, string> OwnerFullNames = new Dictionary<int, string>();
-        public Dictionary<int, int> OwnerSocialIds = new Dictionary<int, int>();
+        public Dictionary<int, decimal> OwnerSocialIds = new Dictionary<int, decimal>();
         public Dictionary<int, string> OwnerAddresses = new Dictionary<int, string>();
-        public Dictionary<int, int> OwnerPhoneNumbers = new Dictionary<int, int>();
+        public Dictionary<int, decimal> OwnerPhoneNumbers = new Dictionary<int, decimal>();
         public Dictionary<int, string> OwnerEmails = new Dictionary<int, string>();
         public List<int> OwnerIds = new List<int>();
 
@@ -160,7 +160,7 @@ namespace VehicleRegistrationSystem
                 
                 case 2:
 
-                    var getAllElements = string.Empty;
+                    var getAllNewElements = string.Empty;
 
                     Console.WriteLine("""
                         Favor escoja la acción que desea realizar:
@@ -175,7 +175,7 @@ namespace VehicleRegistrationSystem
                     {
                         ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
 
-                        Console.WriteLine("Favor seleccione el id del carro que desea cambiar: ");
+                        Console.WriteLine("Favor seleccione el id del carro que desea modificar: ");
                         getId = Convert.ToInt32(Console.ReadLine());
 
 
@@ -183,12 +183,12 @@ namespace VehicleRegistrationSystem
                         {
                             if (id == getId)
                             {
-                                Console.WriteLine("Favor seleccione uno de los datos que desee cambiar:");
+                                Console.WriteLine("Favor seleccione uno de los datos que desee modificar:");
 
                                 Console.WriteLine("1.Marca 2.Modelo 3.Año 4.Color 5.Número de placa 6.Tipo de combustible");
                                 int getElementToModifyCar = Convert.ToInt32(Console.ReadLine());
 
-                                Console.WriteLine("Ingrese el nuevo elemtno:");
+                                Console.WriteLine("Favor ingrese el nuevo elemento:");
                                 var newElement = Console.ReadLine();
 
 
@@ -239,7 +239,7 @@ namespace VehicleRegistrationSystem
 
                         ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
 
-                        Console.WriteLine("Favor seleccione el id del vehículo que desea cambiar todos sus datos: ");
+                        Console.WriteLine("Favor seleccione el id del vehículo que desea modificar todos sus datos: ");
                         getId = Convert.ToInt32(Console.ReadLine());
 
 
@@ -248,28 +248,28 @@ namespace VehicleRegistrationSystem
                             if (id == getId)
                             {
                                 Console.WriteLine("Favor ingrese la nueva marca: ");
-                                getAllElements = Console.ReadLine();
-                                Brands[id] = getAllElements;
+                                getAllNewElements = Console.ReadLine();
+                                Brands[id] = getAllNewElements;
 
                                 Console.WriteLine("Favor ingrese el nuevo modelo: ");
-                                getAllElements = Console.ReadLine();
-                                Models[id] = getAllElements;
+                                getAllNewElements = Console.ReadLine();
+                                Models[id] = getAllNewElements;
 
                                 Console.WriteLine("Favor ingrese el nuevo año: ");
-                                getAllElements = Console.ReadLine();
-                                Years[id] = Convert.ToInt32(getAllElements);
+                                getAllNewElements = Console.ReadLine();
+                                Years[id] = Convert.ToInt32(getAllNewElements);
 
                                 Console.WriteLine("Favor ingrese el nuevo color: ");
-                                getAllElements = Console.ReadLine();
-                                Colors[id] = getAllElements;
+                                getAllNewElements = Console.ReadLine();
+                                Colors[id] = getAllNewElements;
 
                                 Console.WriteLine("Favor ingrese el nuevo número de placa: ");
-                                getAllElements = Console.ReadLine();
-                                LicensePlateNumbers[id] = getAllElements;
+                                getAllNewElements = Console.ReadLine();
+                                LicensePlateNumbers[id] = getAllNewElements;
 
                                 Console.WriteLine("Favor ingrese el nuevo tipo de combustible: ");
-                                getAllElements = Console.ReadLine();
-                                FuelTypes[id] = getAllElements;
+                                getAllNewElements = Console.ReadLine();
+                                FuelTypes[id] = getAllNewElements;
                             }
                         }
                     }
@@ -324,9 +324,9 @@ namespace VehicleRegistrationSystem
       
         public void OwnersManagamentFunction(
             Dictionary<int, string> OwnerFullNames,
-            Dictionary<int, int> OwnerSocialIds, 
+            Dictionary<int, decimal> OwnerSocialIds, 
             Dictionary<int, string> OwnerAddresses, 
-            Dictionary<int, int> OwnerPhoneNumbers ,
+            Dictionary<int, decimal> OwnerPhoneNumbers ,
             Dictionary<int, string> OwnerEmails, 
             List<int> OwnerIds,
 
@@ -373,7 +373,7 @@ namespace VehicleRegistrationSystem
                     OwnerAddresses.Add(OwnerId, OwnerAddress);
 
                     Console.WriteLine("Favor ingrese el teléfono del propietario: ");
-                    var OwnerPhoneNumber = Convert.ToInt32(Console.ReadLine());
+                    var OwnerPhoneNumber = Convert.ToDecimal(Console.ReadLine());
                     OwnerPhoneNumbers.Add(OwnerId, OwnerPhoneNumber);
 
                     Console.WriteLine("Favor ingrese el correo electrónico del propietario: ");
@@ -391,13 +391,13 @@ namespace VehicleRegistrationSystem
 
                     ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
 
-                    Console.WriteLine("Ingrese el id del vehículo para asociarlo con un propietario: ");
+                    Console.WriteLine("Favor ingrese el id del vehículo para asociarlo con un propietario: ");
                     getCarIds.Add(Convert.ToInt32(Console.ReadLine()));
 
                     
                     ViewAllOwners(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
 
-                    Console.WriteLine("Ingrese el id del propietario: ");
+                    Console.WriteLine("Favor ingrese el id del propietario: ");
                     getOwnerIds.Add(Convert.ToInt32(Console.ReadLine()));
 
                     Console.WriteLine("¿Desea asociar más vehículos a un propietario?  1.Sí  2.No");
@@ -448,10 +448,121 @@ namespace VehicleRegistrationSystem
                     }
 
                     break;
+
+                case 3:
+
+                    var getAllNewElementsFromOwners = string.Empty;
+
+                    Console.WriteLine("""
+                        Favor escoja la acción que desea realizar:
+                        1.Editar una información de un propietario.
+                        2.Editar toda la información de un propietario.
+
+                        """);
+
+                    userOwnersManagamentSelection = Convert.ToInt32(Console.ReadLine());
+
+                    if (userOwnersManagamentSelection == 1)
+                    {
+                        ViewAllOwners(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
+
+                        Console.WriteLine("Favor seleccione el id del propietario que desea modificar: ");
+                        getId = Convert.ToInt32(Console.ReadLine());
+
+
+                        foreach (var ownerId in OwnerIds)
+                        {
+                            if (ownerId == getId)
+                            {
+                                Console.WriteLine("Favor seleccione uno de los datos que desee modificar:");
+
+                                Console.WriteLine("1.Nombre completo 2.Cédula 3.Dirección 4.Teléfono 5.correo electrónico");
+                                
+                                int getElementToModifyOwner = Convert.ToInt32(Console.ReadLine());
+
+                                Console.WriteLine("Favor ingrese el nuevo elemento:");
+                                var newElementFromOwners = Console.ReadLine();
+
+
+                                switch (getElementToModifyOwner)
+                                {
+                                    case 1:
+
+                                        OwnerFullNames[ownerId] = newElementFromOwners;
+
+                                        break;
+
+                                    case 2:
+
+                                        OwnerSocialIds[ownerId] = Convert.ToDecimal(newElementFromOwners);
+
+                                        break;
+
+                                    case 3:
+
+                                        OwnerAddresses[ownerId] = newElementFromOwners;
+
+                                        break;
+
+                                    case 4:
+
+                                        OwnerPhoneNumbers[ownerId] = Convert.ToDecimal(newElementFromOwners);
+
+                                        break;
+
+                                    case 5:
+
+                                        OwnerEmails[ownerId] = newElementFromOwners;
+
+                                        break;
+
+                                   
+                                }
+                            }
+                        }
+                    }
+
+                    else if (userOwnersManagamentSelection == 2)
+                    {
+
+                        ViewAllOwners(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
+
+                        Console.WriteLine("Favor seleccione el id del propietario que desea modificar: ");
+                        getId = Convert.ToInt32(Console.ReadLine());
+
+
+                        foreach (var ownerId in OwnerIds)
+                        {
+                            if (ownerId == getId)
+                            {
+                                Console.WriteLine("Favor ingrese el nuevo nombre completo: ");
+                                getAllNewElementsFromOwners = Console.ReadLine();
+                                OwnerFullNames[ownerId] = getAllNewElementsFromOwners;
+
+                                Console.WriteLine("Favor ingrese la nueva cédula: ");
+                                getAllNewElementsFromOwners = Console.ReadLine();
+                                OwnerSocialIds[ownerId] = Convert.ToDecimal(getAllNewElementsFromOwners);
+
+                                Console.WriteLine("Favor ingrese la nueva dirección: ");
+                                getAllNewElementsFromOwners = Console.ReadLine();
+                                OwnerAddresses[ownerId] = getAllNewElementsFromOwners;
+
+                                Console.WriteLine("Favor ingrese el nuevo número de teléfono: ");
+                                getAllNewElementsFromOwners = Console.ReadLine();
+                                OwnerPhoneNumbers[ownerId] = Convert.ToDecimal(getAllNewElementsFromOwners);
+
+                                Console.WriteLine("Favor ingrese el nuevo correo electrónico: ");
+                                getAllNewElementsFromOwners = Console.ReadLine();
+                                OwnerEmails[ownerId] = getAllNewElementsFromOwners;
+                            }
+                        }
+                    }
+
+                    break;
             }
         }
 
-        private static void ViewAllOwners(Dictionary<int, string> OwnerFullNames, Dictionary<int, int> OwnerSocialIds, Dictionary<int, string> OwnerAddresses, Dictionary<int, int> OwnerPhoneNumbers, Dictionary<int, string> OwnerEmails, List<int> OwnerIds)
+        private static void ViewAllOwners(Dictionary<int, string> OwnerFullNames, Dictionary<int, decimal> OwnerSocialIds, Dictionary<int, string> OwnerAddresses, Dictionary<int, decimal> OwnerPhoneNumbers, Dictionary<int, string> OwnerEmails, List<int> OwnerIds)
         {
             Console.WriteLine("");
 
