@@ -580,6 +580,33 @@ namespace VehicleRegistrationSystem
                     }
                     break;
 
+
+                case 5:
+                    
+                    ViewAllOwners(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
+
+                    Console.WriteLine("Favor ingrese el id del propietario que desee eliminar: ");
+                    getId = Convert.ToInt32(Console.ReadLine());
+
+
+                    foreach (var ownerId in OwnerIds.ToArray())
+                    {
+                        if (ownerId == getId)
+                        {
+                            OwnerFullNames.Remove(ownerId);
+                            OwnerSocialIds.Remove(ownerId);
+                            OwnerAddresses.Remove(ownerId);
+                            OwnerPhoneNumbers.Remove(ownerId);
+                            OwnerEmails.Remove(ownerId);
+                            
+                            OwnerIds.Remove(ownerId);
+                        }
+                    }
+
+
+
+                    break;
+
             }
         }
 
