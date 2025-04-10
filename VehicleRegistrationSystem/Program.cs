@@ -37,6 +37,10 @@ namespace VehicleRegistrationSystem
         public Dictionary<int, string> OwnerEmails = new Dictionary<int, string>();
         public List<int> OwnerIds = new List<int>();
 
+        public string searchCriteria { get; set; }
+
+        
+
 
         public void userActionSelection()
         {
@@ -94,7 +98,7 @@ namespace VehicleRegistrationSystem
                         """);
             }
 
-            Console.WriteLine("");
+      
         }
 
         public void VehicleStorageFunction(
@@ -277,8 +281,8 @@ namespace VehicleRegistrationSystem
 
                 case 3:
 
-                    Console.WriteLine("Favor ingrese el número de placa, marca o modelo del vehíçulo que desee buscar:");
-                    var searchCriteria = Console.ReadLine();
+                    Console.WriteLine("Favor ingrese el número de placa, marca o modelo del vehículo que desee buscar:");
+                    searchCriteria = Console.ReadLine().ToLower();
 
                     foreach (var id in Ids)
                     {
@@ -293,6 +297,7 @@ namespace VehicleRegistrationSystem
                     break;
 
                 case 4:
+                    
 
                     ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
 
@@ -365,7 +370,7 @@ namespace VehicleRegistrationSystem
                     OwnerFullNames.Add(OwnerId, OwnerFullName);
 
                     Console.WriteLine("Favor ingrese la cédula del propietario: ");
-                    var OwnerSocialId = Convert.ToInt32(Console.ReadLine());
+                    var OwnerSocialId = Convert.ToDecimal(Console.ReadLine());
                     OwnerSocialIds.Add(OwnerId, OwnerSocialId);
 
                     Console.WriteLine("Favor ingrese la dirección del propietario: ");
@@ -559,6 +564,22 @@ namespace VehicleRegistrationSystem
                     }
 
                     break;
+
+                case 4:
+                    Console.WriteLine("Favor ingrese el nombre o cédula del propietario que desee buscar:");
+                    searchCriteria = Console.ReadLine().ToLower();
+
+                    foreach (var ownerId in OwnerIds)
+                    {
+                        if (OwnerFullNames[ownerId].ToLower().Contains(searchCriteria) || OwnerSocialIds[ownerId].ToString().Contains(searchCriteria))
+                        {
+                            Console.WriteLine($"""
+                                id: {ownerId}   Nombre completo: {OwnerFullNames[ownerId]}   Cédula: {OwnerSocialIds[ownerId]}   Dirección: {OwnerAddresses[ownerId]}   Teléfono: {OwnerPhoneNumbers[ownerId]}   Correo electrónico: {OwnerEmails[ownerId]}
+                                """);
+                        }
+                    }
+                    break;
+
             }
         }
 
