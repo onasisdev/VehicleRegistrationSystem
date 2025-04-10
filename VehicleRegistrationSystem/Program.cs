@@ -41,8 +41,8 @@ namespace VehicleRegistrationSystem
 
         public Dictionary<int, string> InsuranceCompanieNames = new Dictionary<int, string>();
         public Dictionary<int, string> InsurancePolicyNumbers = new Dictionary<int, string>();
-        public Dictionary<int, DateTime> InsuranceStartDates = new Dictionary<int, DateTime>();
-        public Dictionary<int, DateTime> InsuranceExpirationDates = new Dictionary<int, DateTime>();
+        public Dictionary<int, DateOnly> InsuranceStartDates = new Dictionary<int, DateOnly>();
+        public Dictionary<int, DateOnly> InsuranceExpirationDates = new Dictionary<int, DateOnly>();
 
 
         public List<int> InsuranceIds = new List<int>();
@@ -652,8 +652,8 @@ namespace VehicleRegistrationSystem
         public void InsuranceManagementFunction(
             Dictionary<int, string> InsuranceCompanieNames,
             Dictionary<int, string> InsurancePolicyNumbers,
-            Dictionary<int, DateTime> InsuranceStartDates,
-            Dictionary<int, DateTime> InsuranceExpirationDates,
+            Dictionary<int, DateOnly> InsuranceStartDates,
+            Dictionary<int, DateOnly> InsuranceExpirationDates,
             List<int> InsuranceIds
             )
         {
@@ -673,7 +673,7 @@ namespace VehicleRegistrationSystem
             switch (userInsuranceManagementSelection)
             {
                 case 1:
-                    int InsuranceId = Ids.Count() + 1;
+                    int InsuranceId = InsuranceIds.Count() + 1;
                     InsuranceIds.Add(InsuranceId);
 
                     
@@ -681,23 +681,145 @@ namespace VehicleRegistrationSystem
                     var InsuranceCompanieName = Console.ReadLine();
                     InsuranceCompanieNames.Add(InsuranceId, InsuranceCompanieName);
 
+                    
                     Console.WriteLine("Favor ingrese el número de poliza que desea almacenar: ");
                     var InsurancePolicyNumber = Console.ReadLine();
                     InsurancePolicyNumbers.Add(InsuranceId, InsurancePolicyNumber);
 
+                    
                     Console.WriteLine("Favor ingrese la fecha de inicio que desea almacenar en el formato (aaaa-mm-dd): ");
-                    var InsuranceStartDate = DateTime.Parse(Console.ReadLine());
+                    var InsuranceStartDate = DateOnly.Parse(Console.ReadLine());
                     InsuranceStartDates.Add(InsuranceId, InsuranceStartDate);
 
+                    
                     Console.WriteLine("Favor ingrese la fecha de vencimiento que desea almacenar en el formato (aaaa-mm-dd): ");
-                    var InsuranceExpirationDate = DateTime.Parse(Console.ReadLine());
+                    var InsuranceExpirationDate = DateOnly.Parse(Console.ReadLine());
                     InsuranceExpirationDates.Add(InsuranceId, InsuranceExpirationDate);
 
-
-
-
                     break;
+
+                case 2:
+                    var getAllNewElementsFromInsurances = string.Empty;
+
+                    Console.WriteLine("""
+                        Favor escoja la acción que desea realizar:
+                        1.Editar una información de un seguro.
+                        2.Editar toda la información de un seguro.
+
+                        """);
+
+                    userInsuranceManagementSelection = Convert.ToInt32(Console.ReadLine());
+
+                    if (userInsuranceManagementSelection == 1)
+                    {
+                        ViewAllInsurances(InsuranceCompanieNames, InsurancePolicyNumbers, InsuranceStartDates, InsuranceExpirationDates,
+                            InsuranceIds);
+
+                        Console.WriteLine("Favor seleccione el id del seguro que desea modificar: ");
+                        GetId = Convert.ToInt32(Console.ReadLine());
+
+
+                        foreach (var insuranceId in InsuranceIds)
+                        {
+                            if (insuranceId == GetId)
+                            {
+                                Console.WriteLine("Favor seleccione uno de los datos que desee modificar:");
+
+                                Console.WriteLine("1.Compañía aseguradora 2.Número de póliza 3.fecha de inicio 4.fecha de vencimiento");
+
+                                int getElementToModifyInsurance = Convert.ToInt32(Console.ReadLine());
+
+                                Console.WriteLine("Favor ingrese el nuevo elemento:");
+                                var newElementFromInsurances = Console.ReadLine();
+
+
+                                switch (getElementToModifyInsurance)
+                                {
+                                    case 1:
+
+                                        InsuranceCompanieNames[insuranceId] = newElementFromInsurances;
+
+                                        break;
+
+                                    case 2:
+
+                                        InsurancePolicyNumbers[insuranceId] = newElementFromInsurances;
+
+                                        break;
+
+                                    case 3:
+
+                                        InsuranceStartDates[insuranceId] = DateOnly.Parse(newElementFromInsurances);
+
+                                        break;
+
+                                    case 4:
+
+                                        InsuranceExpirationDates[insuranceId] = DateOnly.Parse(newElementFromInsurances);
+
+                                        break;
+
+
+                                }
+                            }
+                        }
+                    }
+
+                    else if (userInsuranceManagementSelection == 2)
+                    {
+                        
+                        ViewAllInsurances(InsuranceCompanieNames, InsurancePolicyNumbers, InsuranceStartDates, InsuranceExpirationDates,
+                            InsuranceIds);
+
+                        Console.WriteLine("Favor seleccione el id del seguro que desea modificar: ");
+                        GetId = Convert.ToInt32(Console.ReadLine());
+
+
+                        foreach (var insuranceId in InsuranceIds)
+                        {
+                            if (insuranceId == GetId)
+                            {
+                                Console.WriteLine("Favor ingrese la nueva compañía aseguradora: ");
+                                getAllNewElementsFromInsurances = Console.ReadLine();
+                                InsuranceCompanieNames[insuranceId] = getAllNewElementsFromInsurances;
+
+                                Console.WriteLine("Favor ingrese el nuevo número de póliza: ");
+                                getAllNewElementsFromInsurances = Console.ReadLine();
+                                InsurancePolicyNumbers[insuranceId] = getAllNewElementsFromInsurances;
+
+                                Console.WriteLine("Favor ingrese la nueva fecha de inicio : ");
+                                getAllNewElementsFromInsurances = Console.ReadLine();
+                                InsuranceStartDates[insuranceId] = DateOnly.Parse(getAllNewElementsFromInsurances);
+
+                                Console.WriteLine("Favor ingrese la nueva fecha de vencimiento : ");
+                                getAllNewElementsFromInsurances = Console.ReadLine();
+                                InsuranceExpirationDates[insuranceId] = DateOnly.Parse(getAllNewElementsFromInsurances);
+
+
+
+
+                            }
+                        }
+                    }
+                    break;
+
             }
+        }
+
+        private static void ViewAllInsurances(Dictionary<int, string> InsuranceCompanieNames, Dictionary<int, string> InsurancePolicyNumbers, Dictionary<int, DateOnly> InsuranceStartDates, Dictionary<int, DateOnly> InsuranceExpirationDates, List<int> InsuranceIds)
+        {
+            Console.WriteLine("");
+
+            Console.WriteLine("Propietarios: ");
+
+            foreach (var insuranceId in InsuranceIds)
+            {
+                Console.WriteLine($"""
+                    id: {insuranceId}   Compañía aseguradora: {InsuranceCompanieNames[insuranceId]}   Número de póliza: {InsurancePolicyNumbers[insuranceId]}   Fecha de inicio: {InsuranceStartDates[insuranceId]}   Fecha de vencimiento: {InsuranceExpirationDates[insuranceId]}
+                    """);
+            }
+
+            Console.WriteLine("");
         }
     }
 }
