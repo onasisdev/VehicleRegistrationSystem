@@ -27,19 +27,31 @@ namespace VehicleRegistrationSystem
         public Dictionary<int, string> LicensePlateNumbers = new Dictionary<int, string>();
         public Dictionary<int, string> FuelTypes = new Dictionary<int, string>();
         public List<int> Ids = new List<int>();
-        public int getId { get; set; }
+
 
 
         public Dictionary<int, string> OwnerFullNames = new Dictionary<int, string>();
-        public Dictionary<int, decimal> OwnerSocialIds = new Dictionary<int, decimal>();
+        public Dictionary<int, string> OwnerSocialIds = new Dictionary<int, string>();
         public Dictionary<int, string> OwnerAddresses = new Dictionary<int, string>();
-        public Dictionary<int, decimal> OwnerPhoneNumbers = new Dictionary<int, decimal>();
+        public Dictionary<int, string> OwnerPhoneNumbers = new Dictionary<int, string>();
         public Dictionary<int, string> OwnerEmails = new Dictionary<int, string>();
         public List<int> OwnerIds = new List<int>();
 
-        public string searchCriteria { get; set; }
 
-        
+
+        public Dictionary<int, string> InsuranceCompanieNames = new Dictionary<int, string>();
+        public Dictionary<int, string> InsurancePolicyNumbers = new Dictionary<int, string>();
+        public Dictionary<int, DateTime> InsuranceStartDates = new Dictionary<int, DateTime>();
+        public Dictionary<int, DateTime> InsuranceExpirationDates = new Dictionary<int, DateTime>();
+
+
+        public List<int> InsuranceIds = new List<int>();
+
+
+        public int GetId { get; set; }
+        public string SearchCriteria { get; set; }
+
+
 
 
         public void userActionSelection()
@@ -65,7 +77,7 @@ namespace VehicleRegistrationSystem
                 {
                     case 1:
                         VehicleStorageFunction(Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids);
-                        
+
                         break;
 
                     case 2:
@@ -76,6 +88,14 @@ namespace VehicleRegistrationSystem
                             Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids
                             );
 
+                        break;
+
+                    case 3:
+                        InsuranceManagement insuranceManagement = new InsuranceManagement();
+
+                        insuranceManagement.InsuranceManagementFunction(
+                            InsuranceCompanieNames, InsurancePolicyNumbers, InsuranceStartDates, InsuranceExpirationDates, 
+                            InsuranceIds);
                         break;
 
                     case 5:
@@ -98,20 +118,20 @@ namespace VehicleRegistrationSystem
                         """);
             }
 
-      
+
         }
 
         public void VehicleStorageFunction(
-            Dictionary<int, string>Brands, 
-            Dictionary<int, string> Models, 
-            Dictionary<int, int> Years, 
-            Dictionary<int, string> Colors, 
-            Dictionary<int, string> LicensePlateNumbers, 
-            Dictionary<int, string> FuelTypes, 
+            Dictionary<int, string> Brands,
+            Dictionary<int, string> Models,
+            Dictionary<int, int> Years,
+            Dictionary<int, string> Colors,
+            Dictionary<int, string> LicensePlateNumbers,
+            Dictionary<int, string> FuelTypes,
             List<int> Ids
             )
         {
-            
+
             Console.WriteLine("""
                 Favor escoja la acción que desea realizar:
                 1.Agregar un nuevo vehículo.
@@ -120,10 +140,10 @@ namespace VehicleRegistrationSystem
                 4.Eliminar vehículos.
 
                 """);
-            
+
             int userVehicleStorageSelection = Convert.ToInt32(Console.ReadLine());
-            
-            
+
+
             switch (userVehicleStorageSelection)
             {
                 case 1:
@@ -161,7 +181,7 @@ namespace VehicleRegistrationSystem
 
                     break;
 
-                
+
                 case 2:
 
                     var getAllNewElements = string.Empty;
@@ -180,12 +200,12 @@ namespace VehicleRegistrationSystem
                         ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
 
                         Console.WriteLine("Favor seleccione el id del carro que desea modificar: ");
-                        getId = Convert.ToInt32(Console.ReadLine());
+                        GetId = Convert.ToInt32(Console.ReadLine());
 
 
                         foreach (var id in Ids)
                         {
-                            if (id == getId)
+                            if (id == GetId)
                             {
                                 Console.WriteLine("Favor seleccione uno de los datos que desee modificar:");
 
@@ -244,12 +264,12 @@ namespace VehicleRegistrationSystem
                         ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
 
                         Console.WriteLine("Favor seleccione el id del vehículo que desea modificar todos sus datos: ");
-                        getId = Convert.ToInt32(Console.ReadLine());
+                        GetId = Convert.ToInt32(Console.ReadLine());
 
 
                         foreach (var id in Ids)
                         {
-                            if (id == getId)
+                            if (id == GetId)
                             {
                                 Console.WriteLine("Favor ingrese la nueva marca: ");
                                 getAllNewElements = Console.ReadLine();
@@ -282,12 +302,12 @@ namespace VehicleRegistrationSystem
                 case 3:
 
                     Console.WriteLine("Favor ingrese el número de placa, marca o modelo del vehículo que desee buscar:");
-                    searchCriteria = Console.ReadLine().ToLower();
+                    SearchCriteria = Console.ReadLine().ToLower();
 
                     foreach (var id in Ids)
                     {
-                        if (LicensePlateNumbers[id].ToLower().Contains(searchCriteria) || Brands[id].ToLower().Contains(searchCriteria) || Models[id].ToLower().Contains(searchCriteria))
-                            {
+                        if (LicensePlateNumbers[id].ToLower().Contains(SearchCriteria) || Brands[id].ToLower().Contains(SearchCriteria) || Models[id].ToLower().Contains(SearchCriteria))
+                        {
                             Console.WriteLine($"""
                                 id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {LicensePlateNumbers[id]}
                                 """);
@@ -297,17 +317,17 @@ namespace VehicleRegistrationSystem
                     break;
 
                 case 4:
-                    
+
 
                     ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
 
                     Console.WriteLine("Favor ingrese el id del vehículo que desee eliminar");
-                    getId = Convert.ToInt32(Console.ReadLine());
-                    
-                    
+                    GetId = Convert.ToInt32(Console.ReadLine());
+
+
                     foreach (var id in Ids.ToArray())
                     {
-                        if (id == getId)
+                        if (id == GetId)
                         {
                             Brands.Remove(id);
                             Models.Remove(id);
@@ -318,21 +338,21 @@ namespace VehicleRegistrationSystem
                             Ids.Remove(id);
                         }
                     }
-                    
+
                     break;
-            }    
+            }
         }
     }
 
     public class OwnersManagament : MainVehicleRegistrationSystem
     {
-      
+
         public void OwnersManagamentFunction(
             Dictionary<int, string> OwnerFullNames,
-            Dictionary<int, decimal> OwnerSocialIds, 
-            Dictionary<int, string> OwnerAddresses, 
-            Dictionary<int, decimal> OwnerPhoneNumbers ,
-            Dictionary<int, string> OwnerEmails, 
+            Dictionary<int, string> OwnerSocialIds,
+            Dictionary<int, string> OwnerAddresses,
+            Dictionary<int, string> OwnerPhoneNumbers,
+            Dictionary<int, string> OwnerEmails,
             List<int> OwnerIds,
 
             Dictionary<int, string> Brands,
@@ -344,7 +364,7 @@ namespace VehicleRegistrationSystem
             List<int> Ids
             )
         {
-            
+
             Console.WriteLine("""
                 Favor escoja la acción que desea realizar: 
                 1.Agregar un nuevo propietario.
@@ -354,14 +374,14 @@ namespace VehicleRegistrationSystem
                 5.Eliminar propietarios.
 
                 """);
-            
+
             int userOwnersManagamentSelection = Convert.ToInt32(Console.ReadLine());
 
-               
+
             switch (userOwnersManagamentSelection)
             {
                 case 1:
-                    
+
                     int OwnerId = OwnerIds.Count() + 1;
                     OwnerIds.Add(OwnerId);
 
@@ -370,7 +390,7 @@ namespace VehicleRegistrationSystem
                     OwnerFullNames.Add(OwnerId, OwnerFullName);
 
                     Console.WriteLine("Favor ingrese la cédula del propietario: ");
-                    var OwnerSocialId = Convert.ToDecimal(Console.ReadLine());
+                    var OwnerSocialId = Console.ReadLine();
                     OwnerSocialIds.Add(OwnerId, OwnerSocialId);
 
                     Console.WriteLine("Favor ingrese la dirección del propietario: ");
@@ -378,7 +398,7 @@ namespace VehicleRegistrationSystem
                     OwnerAddresses.Add(OwnerId, OwnerAddress);
 
                     Console.WriteLine("Favor ingrese el teléfono del propietario: ");
-                    var OwnerPhoneNumber = Convert.ToDecimal(Console.ReadLine());
+                    var OwnerPhoneNumber = Console.ReadLine();
                     OwnerPhoneNumbers.Add(OwnerId, OwnerPhoneNumber);
 
                     Console.WriteLine("Favor ingrese el correo electrónico del propietario: ");
@@ -399,7 +419,7 @@ namespace VehicleRegistrationSystem
                     Console.WriteLine("Favor ingrese el id del vehículo para asociarlo con un propietario: ");
                     getCarIds.Add(Convert.ToInt32(Console.ReadLine()));
 
-                    
+
                     ViewAllOwners(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
 
                     Console.WriteLine("Favor ingrese el id del propietario: ");
@@ -430,12 +450,12 @@ namespace VehicleRegistrationSystem
 
                         foreach (var id in Ids)
                         {
-                            if (getCarIds.Contains(id)) 
+                            if (getCarIds.Contains(id))
                             {
                                 Console.WriteLine($"""
                                         id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {LicensePlateNumbers[id]}
                                         """);
-                            }    
+                            }
                         }
 
 
@@ -472,17 +492,17 @@ namespace VehicleRegistrationSystem
                         ViewAllOwners(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
 
                         Console.WriteLine("Favor seleccione el id del propietario que desea modificar: ");
-                        getId = Convert.ToInt32(Console.ReadLine());
+                        GetId = Convert.ToInt32(Console.ReadLine());
 
 
                         foreach (var ownerId in OwnerIds)
                         {
-                            if (ownerId == getId)
+                            if (ownerId == GetId)
                             {
                                 Console.WriteLine("Favor seleccione uno de los datos que desee modificar:");
 
                                 Console.WriteLine("1.Nombre completo 2.Cédula 3.Dirección 4.Teléfono 5.correo electrónico");
-                                
+
                                 int getElementToModifyOwner = Convert.ToInt32(Console.ReadLine());
 
                                 Console.WriteLine("Favor ingrese el nuevo elemento:");
@@ -499,7 +519,7 @@ namespace VehicleRegistrationSystem
 
                                     case 2:
 
-                                        OwnerSocialIds[ownerId] = Convert.ToDecimal(newElementFromOwners);
+                                        OwnerSocialIds[ownerId] = newElementFromOwners;
 
                                         break;
 
@@ -511,7 +531,7 @@ namespace VehicleRegistrationSystem
 
                                     case 4:
 
-                                        OwnerPhoneNumbers[ownerId] = Convert.ToDecimal(newElementFromOwners);
+                                        OwnerPhoneNumbers[ownerId] = newElementFromOwners;
 
                                         break;
 
@@ -521,7 +541,7 @@ namespace VehicleRegistrationSystem
 
                                         break;
 
-                                   
+
                                 }
                             }
                         }
@@ -533,12 +553,12 @@ namespace VehicleRegistrationSystem
                         ViewAllOwners(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
 
                         Console.WriteLine("Favor seleccione el id del propietario que desea modificar: ");
-                        getId = Convert.ToInt32(Console.ReadLine());
+                        GetId = Convert.ToInt32(Console.ReadLine());
 
 
                         foreach (var ownerId in OwnerIds)
                         {
-                            if (ownerId == getId)
+                            if (ownerId == GetId)
                             {
                                 Console.WriteLine("Favor ingrese el nuevo nombre completo: ");
                                 getAllNewElementsFromOwners = Console.ReadLine();
@@ -546,7 +566,7 @@ namespace VehicleRegistrationSystem
 
                                 Console.WriteLine("Favor ingrese la nueva cédula: ");
                                 getAllNewElementsFromOwners = Console.ReadLine();
-                                OwnerSocialIds[ownerId] = Convert.ToDecimal(getAllNewElementsFromOwners);
+                                OwnerSocialIds[ownerId] = getAllNewElementsFromOwners;
 
                                 Console.WriteLine("Favor ingrese la nueva dirección: ");
                                 getAllNewElementsFromOwners = Console.ReadLine();
@@ -554,7 +574,7 @@ namespace VehicleRegistrationSystem
 
                                 Console.WriteLine("Favor ingrese el nuevo número de teléfono: ");
                                 getAllNewElementsFromOwners = Console.ReadLine();
-                                OwnerPhoneNumbers[ownerId] = Convert.ToDecimal(getAllNewElementsFromOwners);
+                                OwnerPhoneNumbers[ownerId] = getAllNewElementsFromOwners;
 
                                 Console.WriteLine("Favor ingrese el nuevo correo electrónico: ");
                                 getAllNewElementsFromOwners = Console.ReadLine();
@@ -567,11 +587,11 @@ namespace VehicleRegistrationSystem
 
                 case 4:
                     Console.WriteLine("Favor ingrese el nombre o cédula del propietario que desee buscar:");
-                    searchCriteria = Console.ReadLine().ToLower();
+                    SearchCriteria = Console.ReadLine().ToLower();
 
                     foreach (var ownerId in OwnerIds)
                     {
-                        if (OwnerFullNames[ownerId].ToLower().Contains(searchCriteria) || OwnerSocialIds[ownerId].ToString().Contains(searchCriteria))
+                        if (OwnerFullNames[ownerId].ToLower().Contains(SearchCriteria) || OwnerSocialIds[ownerId].ToString().Contains(SearchCriteria))
                         {
                             Console.WriteLine($"""
                                 id: {ownerId}   Nombre completo: {OwnerFullNames[ownerId]}   Cédula: {OwnerSocialIds[ownerId]}   Dirección: {OwnerAddresses[ownerId]}   Teléfono: {OwnerPhoneNumbers[ownerId]}   Correo electrónico: {OwnerEmails[ownerId]}
@@ -582,23 +602,23 @@ namespace VehicleRegistrationSystem
 
 
                 case 5:
-                    
+
                     ViewAllOwners(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
 
                     Console.WriteLine("Favor ingrese el id del propietario que desee eliminar: ");
-                    getId = Convert.ToInt32(Console.ReadLine());
+                    GetId = Convert.ToInt32(Console.ReadLine());
 
 
                     foreach (var ownerId in OwnerIds.ToArray())
                     {
-                        if (ownerId == getId)
+                        if (ownerId == GetId)
                         {
                             OwnerFullNames.Remove(ownerId);
                             OwnerSocialIds.Remove(ownerId);
                             OwnerAddresses.Remove(ownerId);
                             OwnerPhoneNumbers.Remove(ownerId);
                             OwnerEmails.Remove(ownerId);
-                            
+
                             OwnerIds.Remove(ownerId);
                         }
                     }
@@ -610,7 +630,7 @@ namespace VehicleRegistrationSystem
             }
         }
 
-        private static void ViewAllOwners(Dictionary<int, string> OwnerFullNames, Dictionary<int, decimal> OwnerSocialIds, Dictionary<int, string> OwnerAddresses, Dictionary<int, decimal> OwnerPhoneNumbers, Dictionary<int, string> OwnerEmails, List<int> OwnerIds)
+        private static void ViewAllOwners(Dictionary<int, string> OwnerFullNames, Dictionary<int, string> OwnerSocialIds, Dictionary<int, string> OwnerAddresses, Dictionary<int, string> OwnerPhoneNumbers, Dictionary<int, string> OwnerEmails, List<int> OwnerIds)
         {
             Console.WriteLine("");
 
@@ -626,7 +646,63 @@ namespace VehicleRegistrationSystem
             Console.WriteLine("");
         }
     }
+
+    public class InsuranceManagement : MainVehicleRegistrationSystem
+    {
+        public void InsuranceManagementFunction(
+            Dictionary<int, string> InsuranceCompanieNames,
+            Dictionary<int, string> InsurancePolicyNumbers,
+            Dictionary<int, DateTime> InsuranceStartDates,
+            Dictionary<int, DateTime> InsuranceExpirationDates,
+            List<int> InsuranceIds
+            )
+        {
+
+            Console.WriteLine("""
+                Favor escoja la acción que desea realizar:
+                1.Agregar un nuevo seguro.
+                2.Editar la informacion de seguros existentes.
+                3.Mostrar los seguros próximos a vencer.
+                4.Eliminar seguros vencidos.
+
+                """);
+
+            int userInsuranceManagementSelection = Convert.ToInt32(Console.ReadLine());
+
+
+            switch (userInsuranceManagementSelection)
+            {
+                case 1:
+                    int InsuranceId = Ids.Count() + 1;
+                    InsuranceIds.Add(InsuranceId);
+
+                    
+                    Console.WriteLine("Favor ingrese la compañía aseguradora que desea almacenar: ");
+                    var InsuranceCompanieName = Console.ReadLine();
+                    InsuranceCompanieNames.Add(InsuranceId, InsuranceCompanieName);
+
+                    Console.WriteLine("Favor ingrese el número de poliza que desea almacenar: ");
+                    var InsurancePolicyNumber = Console.ReadLine();
+                    InsurancePolicyNumbers.Add(InsuranceId, InsurancePolicyNumber);
+
+                    Console.WriteLine("Favor ingrese la fecha de inicio que desea almacenar en el formato (aaaa-mm-dd): ");
+                    var InsuranceStartDate = DateTime.Parse(Console.ReadLine());
+                    InsuranceStartDates.Add(InsuranceId, InsuranceStartDate);
+
+                    Console.WriteLine("Favor ingrese la fecha de vencimiento que desea almacenar en el formato (aaaa-mm-dd): ");
+                    var InsuranceExpirationDate = DateTime.Parse(Console.ReadLine());
+                    InsuranceExpirationDates.Add(InsuranceId, InsuranceExpirationDate);
+
+
+
+
+                    break;
+            }
+        }
+    }
 }
+
+
 
 
 
