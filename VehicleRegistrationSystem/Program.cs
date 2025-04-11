@@ -792,7 +792,10 @@ namespace VehicleRegistrationSystem
                 
                 case 3:
 
-                    //Taking in consideration that the expiration date for all insurances are 2025-12-30.
+                    //Taking in consideration that the expiration date for all the insurances is 2025-12-30.
+                    Console.WriteLine("La fecha de vencimiento para los seguros es 30/12/2025");
+
+                    Console.WriteLine("Seguro(s) próximos a vencer: ");
 
                     foreach (var insuranceId in InsuranceIds)
                     {
@@ -801,9 +804,7 @@ namespace VehicleRegistrationSystem
 
                         if (getInsuranceDate.Year == 2025 && getInsuranceDate.Month == 11 && getInsuranceDate.Day >= 20)
                         {
-                            Console.WriteLine("La fecha de vencimiento para los seguros es 30/12/2025");
 
-                            Console.WriteLine("Seguro(s) próximos a vencer: ");
                             Console.WriteLine($"""
                                 id: {insuranceId}   Compañía aseguradora: {InsuranceCompanieNames[insuranceId]}   Número de póliza: {InsurancePolicyNumbers[insuranceId]}   Fecha de inicio: {InsuranceStartDates[insuranceId]}   Fecha de vencimiento: {InsuranceExpirationDates[insuranceId]}
                                 """);
@@ -811,6 +812,46 @@ namespace VehicleRegistrationSystem
                     }
 
                     break;
+
+                case 4:
+                    bool isInsuranceExpired = false;
+
+                    foreach (var insuranceId in InsuranceIds.ToArray())
+                    {
+                        DateOnly getInsuranceDateToRemoveIt = InsuranceExpirationDates[insuranceId];
+
+
+                        if (getInsuranceDateToRemoveIt.Year == 2025 && getInsuranceDateToRemoveIt.Month == 11 && getInsuranceDateToRemoveIt.Day >= 20)
+                        {
+
+                            
+                            InsuranceCompanieNames.Remove(insuranceId);
+                            InsurancePolicyNumbers.Remove(insuranceId);
+                            InsuranceStartDates.Remove(insuranceId);
+                            InsuranceExpirationDates.Remove(insuranceId);
+
+                            InsuranceIds.Remove(insuranceId);
+
+                            isInsuranceExpired = true;
+                           
+
+
+
+
+                        } 
+
+                 
+                    }
+
+                    if (isInsuranceExpired == true)
+                    {
+                        Console.WriteLine("Seguros vencidos eliminados satisfactoriamente.");
+                    }
+
+
+
+                    break;
+
             }
         }
 
