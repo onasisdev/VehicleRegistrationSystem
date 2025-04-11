@@ -11,9 +11,16 @@ namespace VehicleRegistrationSystem
 
         static void Main(string[] args)
         {
+            try
+            {
+                MainVehicleRegistrationSystem mainVehicleRegistrationSystem = new MainVehicleRegistrationSystem();
+                mainVehicleRegistrationSystem.userActionSelection();
+            }
 
-            MainVehicleRegistrationSystem mainVehicleRegistrationSystem = new MainVehicleRegistrationSystem();
-            mainVehicleRegistrationSystem.userActionSelection();
+            catch (FormatException)
+            {
+                Console.WriteLine("El formato ingresado es incorrecto.");
+            }  
         }
 
     }
@@ -30,14 +37,12 @@ namespace VehicleRegistrationSystem
         public List<int> Ids = new List<int>();
 
 
-
         public Dictionary<int, string> OwnerFullNames = new Dictionary<int, string>();
         public Dictionary<int, string> OwnerSocialIds = new Dictionary<int, string>();
         public Dictionary<int, string> OwnerAddresses = new Dictionary<int, string>();
         public Dictionary<int, string> OwnerPhoneNumbers = new Dictionary<int, string>();
         public Dictionary<int, string> OwnerEmails = new Dictionary<int, string>();
         public List<int> OwnerIds = new List<int>();
-
 
 
         public Dictionary<int, string> InsuranceCompanieNames = new Dictionary<int, string>();
@@ -85,6 +90,7 @@ namespace VehicleRegistrationSystem
 
                         break;
 
+                    
                     case 2:
                         OwnersManagament ownersManagament = new OwnersManagament();
 
@@ -95,6 +101,7 @@ namespace VehicleRegistrationSystem
 
                         break;
 
+                    
                     case 3:
                         InsuranceManagement insuranceManagement = new InsuranceManagement();
 
@@ -104,6 +111,7 @@ namespace VehicleRegistrationSystem
 
                         break;
 
+                    
                     case 4:
                         MaintenanceManagement maintenanceManagement = new MaintenanceManagement();
 
@@ -114,11 +122,17 @@ namespace VehicleRegistrationSystem
 
                         break;
 
+                    
                     case 5:
                         
                         running = false;
 
                         break;
+                }
+
+                if (userModulesSelection > 5 || userModulesSelection == 0)
+                {
+                    Console.WriteLine("Debe ingresar una de las opciones.");
                 }
             }
         }
@@ -133,8 +147,6 @@ namespace VehicleRegistrationSystem
                         id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {LicensePlateNumbers[id]}
                         """);
             }
-
-
         }
 
         public void VehicleStorageFunction(
@@ -193,7 +205,7 @@ namespace VehicleRegistrationSystem
 
                     break;
 
-
+                
                 case 2:
 
                     var getAllNewElements = string.Empty;
@@ -309,8 +321,10 @@ namespace VehicleRegistrationSystem
                             }
                         }
                     }
+
                     break;
 
+                
                 case 3:
 
                     Console.WriteLine("Favor ingrese el número de placa, marca o modelo del vehículo que desee buscar:");
@@ -328,6 +342,7 @@ namespace VehicleRegistrationSystem
 
                     break;
 
+                
                 case 4:
 
                     bool isCarRemoved = false;
@@ -361,6 +376,11 @@ namespace VehicleRegistrationSystem
                         
 
                     break;
+            }
+
+            if (userVehicleStorageSelection > 4 || userVehicleStorageSelection == 0)
+            {
+                Console.WriteLine("Debe ingresar una de las opciones.");
             }
         }
     }
@@ -658,6 +678,11 @@ namespace VehicleRegistrationSystem
 
                     break;
             }
+
+            if (userOwnersManagamentSelection > 5 || userOwnersManagamentSelection == 0)
+            {
+                Console.WriteLine("Debe ingresar una de las opciones.");
+            }
         }
 
         private static void ViewAllOwners(Dictionary<int, string> OwnerFullNames, Dictionary<int, string> OwnerSocialIds, Dictionary<int, string> OwnerAddresses, Dictionary<int, string> OwnerPhoneNumbers, Dictionary<int, string> OwnerEmails, List<int> OwnerIds)
@@ -852,6 +877,7 @@ namespace VehicleRegistrationSystem
 
                     break;
 
+                
                 case 4:
                     bool isInsuranceExpired = false;
 
@@ -880,7 +906,11 @@ namespace VehicleRegistrationSystem
                     }
 
                     break;
+            }
 
+            if (userInsuranceManagementSelection > 4 || userInsuranceManagementSelection == 0)
+            {
+                Console.WriteLine("Debe ingresar una de las opciones.");
             }
         }
 
@@ -912,6 +942,7 @@ namespace VehicleRegistrationSystem
             List<int> MaintenanceIds
             )
         {
+            
             Console.WriteLine("""
                 Favor escoja la acción que desea realizar:
                 1.Agregar un nuevo registro de mantenimiento
@@ -953,11 +984,13 @@ namespace VehicleRegistrationSystem
 
                     break;
 
+                
                 case 2:
                     ViewAllMaintanences(MaintenanceDates, MaintenanceServiceTypes, MaintenanceWorkshopNames, MaintenanceOwnerFullNames, MaintenanceOwnerSocialIds, MaintenanceIds);
 
                     break;
 
+                
                 case 3:
                     var getAllNewElementsFromMaintenances = string.Empty;
 
@@ -1078,7 +1111,6 @@ namespace VehicleRegistrationSystem
                     }
 
                     
-
                     else if (userMaintenanceManagementSelection == 3)
                     {
                         ViewAllMaintanences(MaintenanceDates, MaintenanceServiceTypes,
@@ -1106,15 +1138,22 @@ namespace VehicleRegistrationSystem
                         isMaintenanceRemoved = true;
                     }
 
+
                     if (isMaintenanceRemoved == true)
                     {
                         Console.WriteLine("Registro de mantenimiento eliminado satisfactoriamente.");
                     }
                         
 
-                        break;
+                    break;
+            }
+
+            if (userMaintenanceManagementSelection > 3 || userMaintenanceManagementSelection == 0)
+            {
+                Console.WriteLine("Debe ingresar una de las opciones.");
             }
         }
+
 
         private static void ViewAllMaintanences(Dictionary<int, DateOnly> MaintenanceDates, Dictionary<int, string> MaintenanceServiceTypes, Dictionary<int, string> MaintenanceWorkshopNames, Dictionary<int, string> MaintenanceOwnerFullNames, Dictionary<int, string> MaintenanceOwnerSocialIds, List<int> MaintenanceIds)
         {
@@ -1131,10 +1170,8 @@ namespace VehicleRegistrationSystem
 
             Console.WriteLine("");
         }
-
     }
 }
-
 
 
 
