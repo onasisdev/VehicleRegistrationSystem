@@ -150,10 +150,10 @@ namespace VehicleRegistrationSystem
 
             Console.WriteLine("""
                 Favor escoja la acción que desea realizar:
-                1.Agregar un nuevo registro de vehículo.
-                2.Editar la informacion de vehiculos existentes.
-                3.Buscar vehículos por número de placa, marca o modelo.
-                4.Eliminar vehículos.
+                1.Agregar un nuevo registro de vehículo
+                2.Editar la informacion de vehiculos existentes
+                3.Buscar vehículos por número de placa, marca o modelo
+                4.Eliminar vehículos
 
                 """);
 
@@ -200,8 +200,8 @@ namespace VehicleRegistrationSystem
 
                     Console.WriteLine("""
                         Favor escoja la acción que desea realizar:
-                        1.Editar una información de un vehículo ya existente.
-                        2.Editar toda la información de un vehículo ya existente.
+                        1.Editar una información de un vehículo ya existente
+                        2.Editar toda la información de un vehículo ya existente
 
                         """);
 
@@ -330,6 +330,8 @@ namespace VehicleRegistrationSystem
 
                 case 4:
 
+                    bool isCarRemoved = false;
+
                     ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
 
                     Console.WriteLine("Favor ingrese el id del vehículo que desee eliminar");
@@ -347,8 +349,16 @@ namespace VehicleRegistrationSystem
                             LicensePlateNumbers.Remove(id);
                             FuelTypes.Remove(id);
                             Ids.Remove(id);
+
+                            isCarRemoved = true;
                         }
                     }
+
+                    if (isCarRemoved == true)
+                    {
+                        Console.WriteLine("Registro de vehículo eliminado satisfacoriamente.");
+                    }
+                        
 
                     break;
             }
@@ -378,11 +388,11 @@ namespace VehicleRegistrationSystem
 
             Console.WriteLine("""
                 Favor escoja la acción que desea realizar: 
-                1.Agregar un nuevo registro de propietario.
-                2.Asociar uno o más vehículos a un propietario.
-                3.Editar la información de los propietarios.
-                4.Buscar propietarios por nombre o cédula.
-                5.Eliminar propietarios.
+                1.Agregar un nuevo registro de propietario
+                2.Asociar uno o más vehículos a un propietario
+                3.Editar la información de los propietarios
+                4.Buscar propietarios por nombre o cédula
+                5.Eliminar propietarios
 
                 """);
 
@@ -493,8 +503,8 @@ namespace VehicleRegistrationSystem
 
                     Console.WriteLine("""
                         Favor escoja la acción que desea realizar:
-                        1.Editar una información de un propietario.
-                        2.Editar toda la información de un propietario.
+                        1.Editar una información de un propietario
+                        2.Editar toda la información de un propietario
 
                         """);
 
@@ -616,9 +626,11 @@ namespace VehicleRegistrationSystem
 
                 case 5:
 
+                    bool isOwnerRemoved = false;
+
                     ViewAllOwners(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
 
-                    Console.WriteLine("Favor ingrese el id del propietario que desee eliminar: ");
+                    Console.WriteLine("Favor ingrese el id del registro del propietario que desee eliminar: ");
                     GetId = Convert.ToInt32(Console.ReadLine());
 
 
@@ -626,6 +638,7 @@ namespace VehicleRegistrationSystem
                     {
                         if (ownerId == GetId)
                         {
+                            
                             OwnerFullNames.Remove(ownerId);
                             OwnerSocialIds.Remove(ownerId);
                             OwnerAddresses.Remove(ownerId);
@@ -633,7 +646,14 @@ namespace VehicleRegistrationSystem
                             OwnerEmails.Remove(ownerId);
 
                             OwnerIds.Remove(ownerId);
+
+                            isOwnerRemoved = true;
                         }
+                    }
+
+                    if (isOwnerRemoved == true)
+                    {
+                        Console.WriteLine("Registro de propietario eliminado satisfactoriamente.");
                     }
 
                     break;
@@ -671,10 +691,10 @@ namespace VehicleRegistrationSystem
             
             Console.WriteLine("""
                 Favor escoja la acción que desea realizar:
-                1.Agregar un nuevo registro de seguro.
-                2.Editar la informacion de seguros existentes.
-                3.Mostrar los seguros próximos a vencer.
-                4.Eliminar seguros vencidos.
+                1.Agregar un nuevo registro de seguro
+                2.Editar la informacion de seguros existentes
+                3.Mostrar los seguros próximos a vencer
+                4.Eliminar seguros vencidos
 
                 """);
 
@@ -713,8 +733,8 @@ namespace VehicleRegistrationSystem
 
                     Console.WriteLine("""
                         Favor escoja la acción que desea realizar:
-                        1.Editar una información de un seguro.
-                        2.Editar toda la información de un seguro.
+                        1.Editar una información de un seguro
+                        2.Editar toda la información de un seguro
 
                         """);
 
@@ -894,9 +914,9 @@ namespace VehicleRegistrationSystem
         {
             Console.WriteLine("""
                 Favor escoja la acción que desea realizar:
-                1.Agregar un nuevo registro de mantenimiento.
-                2.Consultar el historial de mantenimientos.
-                3.Editar o eliminar registros de mantenimiento.
+                1.Agregar un nuevo registro de mantenimiento
+                2.Consultar el historial de mantenimientos
+                3.Editar o eliminar registros de mantenimiento
 
                 """);
 
@@ -933,11 +953,166 @@ namespace VehicleRegistrationSystem
 
                     break;
 
-                    case 2:
+                case 2:
                     ViewAllMaintanences(MaintenanceDates, MaintenanceServiceTypes, MaintenanceWorkshopNames, MaintenanceOwnerFullNames, MaintenanceOwnerSocialIds, MaintenanceIds);
 
                     break;
 
+                case 3:
+                    var getAllNewElementsFromMaintenances = string.Empty;
+
+                    bool isMaintenanceRemoved = false;
+
+                    Console.WriteLine("""
+                        1.Editar una información de un registro de mantenimiento
+                        2.Editar toda la información de un registro de mantenimiento
+                        3.Eliminar registros de mantenimiento
+
+                        """);
+
+                    userMaintenanceManagementSelection = Convert.ToInt32(Console.ReadLine());
+
+                    if (userMaintenanceManagementSelection == 1)
+                    {
+                        ViewAllMaintanences(MaintenanceDates, MaintenanceServiceTypes, 
+                            MaintenanceWorkshopNames, MaintenanceOwnerFullNames,MaintenanceOwnerSocialIds, 
+                            MaintenanceIds);
+
+                        Console.WriteLine("Favor seleccione el id del registro de mantenimiento que desee modificar: ");
+                        GetId = Convert.ToInt32(Console.ReadLine());
+
+
+                        foreach (var maintenanceId  in MaintenanceIds)
+                        {
+                            if (maintenanceId == GetId)
+                            {
+                                Console.WriteLine("Favor seleccione uno de los datos que desee modificar:");
+
+                                Console.WriteLine("""
+                                    1.Fecha del mantenimiento
+                                    2.Tipo de servicio
+                                    3.Nombre del taller
+                                    4.Nombre completo del propietario del vehículo
+                                    5.Cédula del propietario del vehículo
+                                    
+                                    """);
+
+                                int getElementToModifyMaintenance = Convert.ToInt32(Console.ReadLine());
+
+                                Console.WriteLine("Favor ingrese el nuevo elemento:");
+                                var newElementFromMaintenance = Console.ReadLine();
+
+
+                                switch (getElementToModifyMaintenance)
+                                {
+                                    case 1:
+
+                                        MaintenanceDates[maintenanceId] = DateOnly.Parse(newElementFromMaintenance);
+
+                                        break;
+
+                                    case 2:
+
+                                        MaintenanceServiceTypes[maintenanceId] = newElementFromMaintenance;
+
+                                        break;
+
+                                    case 3:
+
+                                        MaintenanceWorkshopNames[maintenanceId] = newElementFromMaintenance;
+
+                                        break;
+
+                                    case 4:
+
+                                        MaintenanceOwnerFullNames[maintenanceId] = newElementFromMaintenance;
+
+                                        break;
+
+                                    case 5:
+
+                                        MaintenanceOwnerSocialIds[maintenanceId] = newElementFromMaintenance;
+
+                                        break;
+                                }
+                            }
+                        }
+                    }
+
+                    else if (userMaintenanceManagementSelection == 2)
+                    {
+
+                        ViewAllMaintanences(MaintenanceDates, MaintenanceServiceTypes,
+                            MaintenanceWorkshopNames, MaintenanceOwnerFullNames, MaintenanceOwnerSocialIds,
+                            MaintenanceIds);
+
+                        Console.WriteLine("Favor seleccione el id del registro de mantenimiento que desea modificar: ");
+                        GetId = Convert.ToInt32(Console.ReadLine());
+
+
+                        foreach (var maintenanceId in MaintenanceIds)
+                        {
+                            if (maintenanceId == GetId)
+                            {
+                                Console.WriteLine("Favor ingrese la nueva fecha de mantenimiento: ");
+                                getAllNewElementsFromMaintenances = Console.ReadLine();
+                                MaintenanceDates[maintenanceId] = DateOnly.Parse(getAllNewElementsFromMaintenances);
+
+                                Console.WriteLine("Favor ingrese el nuevo tipo de servicio: ");
+                                getAllNewElementsFromMaintenances = Console.ReadLine();
+                                MaintenanceServiceTypes[maintenanceId] = getAllNewElementsFromMaintenances;
+
+                                Console.WriteLine("Favor ingrese el nuevo nombre de taller: ");
+                                getAllNewElementsFromMaintenances = Console.ReadLine();
+                                MaintenanceWorkshopNames[maintenanceId] = getAllNewElementsFromMaintenances;
+
+                                Console.WriteLine("Favor ingrese el nuevo nombre completo del propietario del vehículo: ");
+                                getAllNewElementsFromMaintenances = Console.ReadLine();
+                                MaintenanceOwnerFullNames[maintenanceId] = getAllNewElementsFromMaintenances;
+
+                                Console.WriteLine("Favor ingrese la nueva cédula del propietario del vehículo: ");
+                                getAllNewElementsFromMaintenances = Console.ReadLine();
+                                MaintenanceOwnerSocialIds[maintenanceId] = getAllNewElementsFromMaintenances;
+                            }
+                        }
+                    }
+
+                    
+
+                    else if (userMaintenanceManagementSelection == 3)
+                    {
+                        ViewAllMaintanences(MaintenanceDates, MaintenanceServiceTypes,
+                            MaintenanceWorkshopNames, MaintenanceOwnerFullNames, MaintenanceOwnerSocialIds,
+                            MaintenanceIds);
+
+
+                        Console.WriteLine("Favor ingrese el id del registro de mantenimiento que desee eliminar: ");
+                        GetId = Convert.ToInt32(Console.ReadLine());
+
+                        foreach (var maintenanceId in MaintenanceIds.ToArray())
+                        {
+                            if (maintenanceId == GetId)
+                            {
+                                MaintenanceDates.Remove(maintenanceId);
+                                MaintenanceServiceTypes.Remove(maintenanceId);
+                                MaintenanceWorkshopNames.Remove(maintenanceId);
+                                MaintenanceWorkshopNames.Remove(maintenanceId);
+                                MaintenanceOwnerSocialIds.Remove(maintenanceId);
+
+                                MaintenanceIds.Remove(maintenanceId);
+                            }
+                        }
+
+                        isMaintenanceRemoved = true;
+                    }
+
+                    if (isMaintenanceRemoved == true)
+                    {
+                        Console.WriteLine("Registro de mantenimiento eliminado satisfactoriamente.");
+                    }
+                        
+
+                        break;
             }
         }
 
