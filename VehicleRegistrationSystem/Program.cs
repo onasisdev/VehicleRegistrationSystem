@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.VisualBasic;
 
 namespace VehicleRegistrationSystem
 {
@@ -43,15 +44,11 @@ namespace VehicleRegistrationSystem
         public Dictionary<int, string> InsurancePolicyNumbers = new Dictionary<int, string>();
         public Dictionary<int, DateOnly> InsuranceStartDates = new Dictionary<int, DateOnly>();
         public Dictionary<int, DateOnly> InsuranceExpirationDates = new Dictionary<int, DateOnly>();
-
-
         public List<int> InsuranceIds = new List<int>();
 
 
         public int GetId { get; set; }
         public string SearchCriteria { get; set; }
-
-
 
 
         public void userActionSelection()
@@ -147,6 +144,7 @@ namespace VehicleRegistrationSystem
             switch (userVehicleStorageSelection)
             {
                 case 1:
+
                     int Id = Ids.Count() + 1;
                     Ids.Add(Id);
 
@@ -154,26 +152,21 @@ namespace VehicleRegistrationSystem
                     var Brand = Console.ReadLine();
                     Brands.Add(Id, Brand);
 
-
                     Console.WriteLine("Favor ingrese el modelo del vehículo que desea almacenar: ");
                     var Model = Console.ReadLine();
                     Models.Add(Id, Model);
-
 
                     Console.WriteLine("Favor ingrese el año del vehículo que desea almacenar: ");
                     var Year = Convert.ToInt32(Console.ReadLine());
                     Years.Add(Id, Year);
 
-
                     Console.WriteLine("Favor ingrese el color del vehículo que desea almacenar: ");
                     var Color = Console.ReadLine();
                     Colors.Add(Id, Color);
 
-
                     Console.WriteLine("Favor ingrese el número de placa del vehículo que desea almacenar: ");
                     var LicensePlateNumber = Console.ReadLine();
                     LicensePlateNumbers.Add(Id, LicensePlateNumber);
-
 
                     Console.WriteLine("Favor ingrese el tipo de combustible del vehículo que desea almacenar: ");
                     var FuelType = Console.ReadLine();
@@ -318,7 +311,6 @@ namespace VehicleRegistrationSystem
 
                 case 4:
 
-
                     ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
 
                     Console.WriteLine("Favor ingrese el id del vehículo que desee eliminar");
@@ -428,6 +420,7 @@ namespace VehicleRegistrationSystem
                     Console.WriteLine("¿Desea asociar más vehículos a un propietario?  1.Sí  2.No");
                     int wantToContinue = Convert.ToInt32(Console.ReadLine());
 
+                    
                     while (wantToContinue != 2)
                     {
                         ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
@@ -473,6 +466,7 @@ namespace VehicleRegistrationSystem
                     }
 
                     break;
+
 
                 case 3:
 
@@ -540,8 +534,6 @@ namespace VehicleRegistrationSystem
                                         OwnerEmails[ownerId] = newElementFromOwners;
 
                                         break;
-
-
                                 }
                             }
                         }
@@ -585,6 +577,7 @@ namespace VehicleRegistrationSystem
 
                     break;
 
+
                 case 4:
                     Console.WriteLine("Favor ingrese el nombre o cédula del propietario que desee buscar:");
                     SearchCriteria = Console.ReadLine().ToLower();
@@ -598,6 +591,7 @@ namespace VehicleRegistrationSystem
                                 """);
                         }
                     }
+
                     break;
 
 
@@ -623,10 +617,7 @@ namespace VehicleRegistrationSystem
                         }
                     }
 
-
-
                     break;
-
             }
         }
 
@@ -655,9 +646,10 @@ namespace VehicleRegistrationSystem
             Dictionary<int, DateOnly> InsuranceStartDates,
             Dictionary<int, DateOnly> InsuranceExpirationDates,
             List<int> InsuranceIds
-            )
+            ) 
         {
-
+            
+            
             Console.WriteLine("""
                 Favor escoja la acción que desea realizar:
                 1.Agregar un nuevo seguro.
@@ -673,30 +665,29 @@ namespace VehicleRegistrationSystem
             switch (userInsuranceManagementSelection)
             {
                 case 1:
+
                     int InsuranceId = InsuranceIds.Count() + 1;
                     InsuranceIds.Add(InsuranceId);
 
-                    
+
                     Console.WriteLine("Favor ingrese la compañía aseguradora que desea almacenar: ");
                     var InsuranceCompanieName = Console.ReadLine();
                     InsuranceCompanieNames.Add(InsuranceId, InsuranceCompanieName);
 
-                    
                     Console.WriteLine("Favor ingrese el número de poliza que desea almacenar: ");
                     var InsurancePolicyNumber = Console.ReadLine();
                     InsurancePolicyNumbers.Add(InsuranceId, InsurancePolicyNumber);
 
-                    
                     Console.WriteLine("Favor ingrese la fecha de inicio que desea almacenar en el formato (aaaa-mm-dd): ");
                     var InsuranceStartDate = DateOnly.Parse(Console.ReadLine());
                     InsuranceStartDates.Add(InsuranceId, InsuranceStartDate);
 
-                    
                     Console.WriteLine("Favor ingrese la fecha de vencimiento que desea almacenar en el formato (aaaa-mm-dd): ");
                     var InsuranceExpirationDate = DateOnly.Parse(Console.ReadLine());
                     InsuranceExpirationDates.Add(InsuranceId, InsuranceExpirationDate);
 
                     break;
+
 
                 case 2:
                     var getAllNewElementsFromInsurances = string.Empty;
@@ -758,8 +749,6 @@ namespace VehicleRegistrationSystem
                                         InsuranceExpirationDates[insuranceId] = DateOnly.Parse(newElementFromInsurances);
 
                                         break;
-
-
                                 }
                             }
                         }
@@ -794,15 +783,34 @@ namespace VehicleRegistrationSystem
                                 Console.WriteLine("Favor ingrese la nueva fecha de vencimiento : ");
                                 getAllNewElementsFromInsurances = Console.ReadLine();
                                 InsuranceExpirationDates[insuranceId] = DateOnly.Parse(getAllNewElementsFromInsurances);
-
-
-
-
                             }
                         }
                     }
+
                     break;
 
+                
+                case 3:
+
+                    //Taking in consideration that the expiration date for all insurances are 2025-12-30.
+
+                    foreach (var insuranceId in InsuranceIds)
+                    {
+                        DateOnly getInsuranceDate = InsuranceExpirationDates[insuranceId];
+
+
+                        if (getInsuranceDate.Year == 2025 && getInsuranceDate.Month == 11 && getInsuranceDate.Day >= 20)
+                        {
+                            Console.WriteLine("La fecha de vencimiento para los seguros es 30/12/2025");
+
+                            Console.WriteLine("Seguro(s) próximos a vencer: ");
+                            Console.WriteLine($"""
+                                id: {insuranceId}   Compañía aseguradora: {InsuranceCompanieNames[insuranceId]}   Número de póliza: {InsurancePolicyNumbers[insuranceId]}   Fecha de inicio: {InsuranceStartDates[insuranceId]}   Fecha de vencimiento: {InsuranceExpirationDates[insuranceId]}
+                                """);
+                        }
+                    }
+
+                    break;
             }
         }
 
@@ -810,7 +818,7 @@ namespace VehicleRegistrationSystem
         {
             Console.WriteLine("");
 
-            Console.WriteLine("Propietarios: ");
+            Console.WriteLine("Seguros: ");
 
             foreach (var insuranceId in InsuranceIds)
             {
