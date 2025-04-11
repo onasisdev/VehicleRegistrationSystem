@@ -72,7 +72,7 @@ namespace VehicleRegistrationSystem
             while (running)
             {
                 Console.WriteLine("""
-                Favor escoja la acción que desea realizar:
+                Favor escoja la acción que desee realizar:
                 1.Gestionar vehículos
                 2.Gestionar Propietarios
                 3.Gestionar Seguros
@@ -161,9 +161,9 @@ namespace VehicleRegistrationSystem
         {
 
             Console.WriteLine("""
-                Favor escoja la acción que desea realizar:
+                Favor escoja la acción que desee realizar:
                 1.Agregar un nuevo registro de vehículo
-                2.Editar la informacion de vehiculos existentes
+                2.Editar la información de vehículo existentes
                 3.Buscar vehículos por número de placa, marca o modelo
                 4.Eliminar vehículos
 
@@ -179,27 +179,27 @@ namespace VehicleRegistrationSystem
                     int Id = Ids.Count() + 1;
                     Ids.Add(Id);
 
-                    Console.WriteLine("Favor ingrese la marca del vehículo que desea almacenar: ");
+                    Console.WriteLine("Favor ingrese la marca del vehículo que desee registrar: ");
                     var Brand = Console.ReadLine();
                     Brands.Add(Id, Brand);
 
-                    Console.WriteLine("Favor ingrese el modelo del vehículo que desea almacenar: ");
+                    Console.WriteLine("Favor ingrese el modelo del vehículo que desee registrar: ");
                     var Model = Console.ReadLine();
                     Models.Add(Id, Model);
 
-                    Console.WriteLine("Favor ingrese el año del vehículo que desea almacenar: ");
+                    Console.WriteLine("Favor ingrese el año del vehículo que desee registrar: ");
                     var Year = Convert.ToInt32(Console.ReadLine());
                     Years.Add(Id, Year);
 
-                    Console.WriteLine("Favor ingrese el color del vehículo que desea almacenar: ");
+                    Console.WriteLine("Favor ingrese el color del vehículo que desee registrar: ");
                     var Color = Console.ReadLine();
                     Colors.Add(Id, Color);
 
-                    Console.WriteLine("Favor ingrese el número de placa del vehículo que desea almacenar: ");
+                    Console.WriteLine("Favor ingrese el número de placa del vehículo que desee registrar: ");
                     var LicensePlateNumber = Console.ReadLine();
                     LicensePlateNumbers.Add(Id, LicensePlateNumber);
 
-                    Console.WriteLine("Favor ingrese el tipo de combustible del vehículo que desea almacenar: ");
+                    Console.WriteLine("Favor ingrese el tipo de combustible del vehículo que desee registrar: ");
                     var FuelType = Console.ReadLine();
                     FuelTypes.Add(Id, FuelType);
 
@@ -211,7 +211,7 @@ namespace VehicleRegistrationSystem
                     var getAllNewElements = string.Empty;
 
                     Console.WriteLine("""
-                        Favor escoja la acción que desea realizar:
+                        Favor escoja la acción que desee realizar:
                         1.Editar una información de un vehículo ya existente
                         2.Editar toda la información de un vehículo ya existente
 
@@ -223,7 +223,7 @@ namespace VehicleRegistrationSystem
                     {
                         ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
 
-                        Console.WriteLine("Favor seleccione el id del carro que desea modificar: ");
+                        Console.WriteLine("Favor seleccione el id del vehículo que desee modificar: ");
                         GetId = Convert.ToInt32(Console.ReadLine());
 
 
@@ -287,7 +287,7 @@ namespace VehicleRegistrationSystem
 
                         ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
 
-                        Console.WriteLine("Favor seleccione el id del vehículo que desea modificar todos sus datos: ");
+                        Console.WriteLine("Favor seleccione el id del vehículo que desee modificar todos sus datos: ");
                         GetId = Convert.ToInt32(Console.ReadLine());
 
 
@@ -534,7 +534,7 @@ namespace VehicleRegistrationSystem
                     {
                         ViewAllOwners(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
 
-                        Console.WriteLine("Favor seleccione el id del propietario que desea modificar: ");
+                        Console.WriteLine("Favor seleccione el id del registro de propietario que desee modificar: ");
                         GetId = Convert.ToInt32(Console.ReadLine());
 
 
@@ -593,7 +593,7 @@ namespace VehicleRegistrationSystem
 
                         ViewAllOwners(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
 
-                        Console.WriteLine("Favor seleccione el id del propietario que desea modificar: ");
+                        Console.WriteLine("Favor seleccione el id del registro de propietario que desee modificar: ");
                         GetId = Convert.ToInt32(Console.ReadLine());
 
 
@@ -628,7 +628,7 @@ namespace VehicleRegistrationSystem
 
 
                 case 4:
-                    Console.WriteLine("Favor ingrese el nombre o cédula del propietario que desee buscar:");
+                    Console.WriteLine("Favor ingrese el nombre o cédula del registro de propietario que desee buscar:");
                     SearchCriteria = Console.ReadLine().ToLower();
 
                     foreach (var ownerId in OwnerIds)
@@ -650,7 +650,7 @@ namespace VehicleRegistrationSystem
 
                     ViewAllOwners(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
 
-                    Console.WriteLine("Favor ingrese el id del registro del propietario que desee eliminar: ");
+                    Console.WriteLine("Favor ingrese el id del registro de propietario que desee eliminar: ");
                     GetId = Convert.ToInt32(Console.ReadLine());
 
 
@@ -734,19 +734,19 @@ namespace VehicleRegistrationSystem
                     InsuranceIds.Add(InsuranceId);
 
 
-                    Console.WriteLine("Favor ingrese la compañía aseguradora que desea almacenar: ");
+                    Console.WriteLine("Favor ingrese la compañía aseguradora que desee registrar: ");
                     var InsuranceCompanieName = Console.ReadLine();
                     InsuranceCompanieNames.Add(InsuranceId, InsuranceCompanieName);
 
-                    Console.WriteLine("Favor ingrese el número de poliza que desea almacenar: ");
+                    Console.WriteLine("Favor ingrese el número de poliza que desee registrar: ");
                     var InsurancePolicyNumber = Console.ReadLine();
                     InsurancePolicyNumbers.Add(InsuranceId, InsurancePolicyNumber);
 
-                    Console.WriteLine("Favor ingrese la fecha de inicio que desea almacenar en el formato (aaaa-mm-dd): ");
+                    Console.WriteLine("Favor ingrese la fecha de inicio que desee registrar en el formato (aaaa-mm-dd): ");
                     var InsuranceStartDate = DateOnly.Parse(Console.ReadLine());
                     InsuranceStartDates.Add(InsuranceId, InsuranceStartDate);
 
-                    Console.WriteLine("Favor ingrese la fecha de vencimiento que desea almacenar en el formato (aaaa-mm-dd): ");
+                    Console.WriteLine("Favor ingrese la fecha de vencimiento que desee registrar en el formato (aaaa-mm-dd): ");
                     var InsuranceExpirationDate = DateOnly.Parse(Console.ReadLine());
                     InsuranceExpirationDates.Add(InsuranceId, InsuranceExpirationDate);
 
@@ -770,7 +770,7 @@ namespace VehicleRegistrationSystem
                         ViewAllInsurances(InsuranceCompanieNames, InsurancePolicyNumbers, InsuranceStartDates, InsuranceExpirationDates,
                             InsuranceIds);
 
-                        Console.WriteLine("Favor seleccione el id del seguro que desea modificar: ");
+                        Console.WriteLine("Favor seleccione el id del registro de seguro que desee modificar: ");
                         GetId = Convert.ToInt32(Console.ReadLine());
 
 
@@ -824,7 +824,7 @@ namespace VehicleRegistrationSystem
                         ViewAllInsurances(InsuranceCompanieNames, InsurancePolicyNumbers, InsuranceStartDates, InsuranceExpirationDates,
                             InsuranceIds);
 
-                        Console.WriteLine("Favor seleccione el id del seguro que desea modificar: ");
+                        Console.WriteLine("Favor seleccione el id del registro de seguro que desee modificar: ");
                         GetId = Convert.ToInt32(Console.ReadLine());
 
 
@@ -857,7 +857,7 @@ namespace VehicleRegistrationSystem
                 case 3:
 
                     //Taking in consideration that the expiration date for all the insurances is 2025-12-30.
-                    Console.WriteLine("La fecha de vencimiento para los seguros es 30/12/2025");
+                    Console.WriteLine("La fecha de vencimiento para los seguros es 30/12/2025.");
 
                     Console.WriteLine("Seguro(s) próximos a vencer: ");
 
