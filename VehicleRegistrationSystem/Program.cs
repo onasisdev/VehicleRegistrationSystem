@@ -1132,10 +1132,12 @@ namespace VehicleRegistrationSystem
                                 MaintenanceOwnerSocialIds.Remove(maintenanceId);
 
                                 MaintenanceIds.Remove(maintenanceId);
+
+                                isMaintenanceRemoved = true;
                             }
                         }
 
-                        isMaintenanceRemoved = true;
+                        
                     }
 
 
