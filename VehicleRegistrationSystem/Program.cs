@@ -47,6 +47,14 @@ namespace VehicleRegistrationSystem
         public List<int> InsuranceIds = new List<int>();
 
 
+        public Dictionary<int, DateOnly> MaintenanceDates = new Dictionary<int, DateOnly>();
+        public Dictionary<int, string> MaintenanceServiceTypes = new Dictionary<int, string>();
+        public Dictionary<int, string> MaintenanceWorkshopNames = new Dictionary<int, string>();
+        public Dictionary<int, string> MaintenanceOwnerFullNames = new Dictionary<int, string>();
+        public Dictionary<int, string> MaintenanceOwnerSocialIds = new Dictionary<int, string>();
+        public List<int> MaintenanceIds = new List<int>();
+
+
         public int GetId { get; set; }
         public string SearchCriteria { get; set; }
 
@@ -60,10 +68,10 @@ namespace VehicleRegistrationSystem
             {
                 Console.WriteLine("""
                 Favor escoja la acción que desea realizar:
-                1.Almacenar vehículos
+                1.Gestionar vehículos
                 2.Gestionar Propietarios
                 3.Gestionar Seguros
-                4.Registrar mantenimientos
+                4.Gestionar mantenimientos
                 5.Salir
 
                 """);
@@ -93,10 +101,21 @@ namespace VehicleRegistrationSystem
                         insuranceManagement.InsuranceManagementFunction(
                             InsuranceCompanieNames, InsurancePolicyNumbers, InsuranceStartDates, InsuranceExpirationDates, 
                             InsuranceIds);
+
+                        break;
+
+                    case 4:
+                        MaintenanceManagement maintenanceManagement = new MaintenanceManagement();
+
+                        maintenanceManagement.MaintenanceManagementFunction(
+                            MaintenanceDates, MaintenanceServiceTypes, MaintenanceWorkshopNames,
+                            MaintenanceOwnerFullNames, MaintenanceOwnerSocialIds,
+                            MaintenanceIds);
+
                         break;
 
                     case 5:
-
+                        
                         running = false;
 
                         break;
@@ -131,7 +150,7 @@ namespace VehicleRegistrationSystem
 
             Console.WriteLine("""
                 Favor escoja la acción que desea realizar:
-                1.Agregar un nuevo vehículo.
+                1.Agregar un nuevo registro de vehículo.
                 2.Editar la informacion de vehiculos existentes.
                 3.Buscar vehículos por número de placa, marca o modelo.
                 4.Eliminar vehículos.
@@ -359,7 +378,7 @@ namespace VehicleRegistrationSystem
 
             Console.WriteLine("""
                 Favor escoja la acción que desea realizar: 
-                1.Agregar un nuevo propietario.
+                1.Agregar un nuevo registro de propietario.
                 2.Asociar uno o más vehículos a un propietario.
                 3.Editar la información de los propietarios.
                 4.Buscar propietarios por nombre o cédula.
@@ -652,7 +671,7 @@ namespace VehicleRegistrationSystem
             
             Console.WriteLine("""
                 Favor escoja la acción que desea realizar:
-                1.Agregar un nuevo seguro.
+                1.Agregar un nuevo registro de seguro.
                 2.Editar la informacion de seguros existentes.
                 3.Mostrar los seguros próximos a vencer.
                 4.Eliminar seguros vencidos.
@@ -824,7 +843,6 @@ namespace VehicleRegistrationSystem
                         if (getInsuranceDateToRemoveIt.Year == 2025 && getInsuranceDateToRemoveIt.Month == 11 && getInsuranceDateToRemoveIt.Day >= 20)
                         {
 
-                            
                             InsuranceCompanieNames.Remove(insuranceId);
                             InsurancePolicyNumbers.Remove(insuranceId);
                             InsuranceStartDates.Remove(insuranceId);
@@ -833,22 +851,13 @@ namespace VehicleRegistrationSystem
                             InsuranceIds.Remove(insuranceId);
 
                             isInsuranceExpired = true;
-                           
-
-
-
-
                         } 
-
-                 
                     }
 
                     if (isInsuranceExpired == true)
                     {
                         Console.WriteLine("Seguros vencidos eliminados satisfactoriamente.");
                     }
-
-
 
                     break;
 
@@ -870,6 +879,84 @@ namespace VehicleRegistrationSystem
 
             Console.WriteLine("");
         }
+    }
+
+    public class MaintenanceManagement : MainVehicleRegistrationSystem
+    {
+        public void MaintenanceManagementFunction(
+            Dictionary<int, DateOnly> MaintenanceDates,
+            Dictionary<int, string> MaintenanceServiceTypes,
+            Dictionary<int, string> MaintenanceWorkshopNames,
+            Dictionary<int, string> MaintenanceOwnerFullNames,
+            Dictionary<int, string> MaintenanceOwnerSocialIds,
+            List<int> MaintenanceIds
+            )
+        {
+            Console.WriteLine("""
+                Favor escoja la acción que desea realizar:
+                1.Agregar un nuevo registro de mantenimiento.
+                2.Consultar el historial de mantenimientos.
+                3.Editar o eliminar registros de mantenimiento.
+
+                """);
+
+            int userMaintenanceManagementSelection = Convert.ToInt32(Console.ReadLine());
+
+
+            switch (userMaintenanceManagementSelection)
+            {
+                case 1:
+
+                    int MaintenanceId = MaintenanceIds.Count() + 1;
+                    MaintenanceIds.Add(MaintenanceId);
+
+
+                    Console.WriteLine("Favor ingrese la fecha de mantenimiento que desee registrar en el formato (aaaa-mm-dd): ");
+                    var MaintenanceDate = DateOnly.Parse(Console.ReadLine());
+                    MaintenanceDates.Add(MaintenanceId, MaintenanceDate);
+
+                    Console.WriteLine("Favor ingrese el tipo de servicio que desee registrar: ");
+                    var MaintenanceServiceType = Console.ReadLine();
+                    MaintenanceServiceTypes.Add(MaintenanceId, MaintenanceServiceType);
+
+                    Console.WriteLine("Favor ingrese el nombre de taller que desee registrar: ");
+                    var MaintenanceWorkshopName = Console.ReadLine();
+                    MaintenanceWorkshopNames.Add(MaintenanceId, MaintenanceWorkshopName);
+
+                    Console.WriteLine("Favor ingrese el nombre completo del propietario del vehículo que recibió el mantenimiento: ");
+                    var MaintenanceOwnerFullName = Console.ReadLine();
+                    MaintenanceOwnerFullNames.Add(MaintenanceId, MaintenanceOwnerFullName);
+
+                    Console.WriteLine("Favor ingrese la cédula del propietario del vehículo que recibió el mantenimiento: ");
+                    var MaintenanceOwnerSocialId = Console.ReadLine();
+                    MaintenanceOwnerSocialIds.Add(MaintenanceId, MaintenanceOwnerSocialId);
+
+                    break;
+
+                    case 2:
+                    ViewAllMaintanences(MaintenanceDates, MaintenanceServiceTypes, MaintenanceWorkshopNames, MaintenanceOwnerFullNames, MaintenanceOwnerSocialIds, MaintenanceIds);
+
+                    break;
+
+            }
+        }
+
+        private static void ViewAllMaintanences(Dictionary<int, DateOnly> MaintenanceDates, Dictionary<int, string> MaintenanceServiceTypes, Dictionary<int, string> MaintenanceWorkshopNames, Dictionary<int, string> MaintenanceOwnerFullNames, Dictionary<int, string> MaintenanceOwnerSocialIds, List<int> MaintenanceIds)
+        {
+            Console.WriteLine("");
+
+            Console.WriteLine("Mantenimientos: ");
+
+            foreach (var maintenanceId in MaintenanceIds)
+            {
+                Console.WriteLine($"""
+                    id: {maintenanceId}   Fecha del mantenimiento: {MaintenanceDates[maintenanceId]}   Tipo de servicio: {MaintenanceServiceTypes[maintenanceId]}   Nombre del taller: {MaintenanceWorkshopNames[maintenanceId]} Nombre completo del propietario: {MaintenanceOwnerFullNames[maintenanceId]}   Cédula del propietario: {MaintenanceOwnerSocialIds[maintenanceId]}
+                    """);
+            }
+
+            Console.WriteLine("");
+        }
+
     }
 }
 
