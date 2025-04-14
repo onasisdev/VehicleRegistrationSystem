@@ -71,6 +71,8 @@ namespace VehicleRegistrationSystem
             while (running)
             {
                 Console.WriteLine("""
+                Bienvenido a nuestro sistema de registro de vehículos!
+
                 Favor escoja la acción que desee realizar:
                 1.Gestionar vehículos
                 2.Gestionar Propietarios
