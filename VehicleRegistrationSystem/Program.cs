@@ -22,7 +22,6 @@ namespace VehicleRegistrationSystem
                 Console.WriteLine("El formato ingresado es incorrecto.");
             }  
         }
-
     }
 
     public class MainVehicleRegistrationSystem
@@ -1156,9 +1155,7 @@ namespace VehicleRegistrationSystem
 
                                 isMaintenanceRemoved = true;
                             }
-                        }
-
-                        
+                        }      
                     }
 
 
