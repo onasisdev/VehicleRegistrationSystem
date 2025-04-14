@@ -165,7 +165,8 @@ namespace VehicleRegistrationSystem
                 1.Agregar un nuevo registro de vehículo
                 2.Editar la información de vehículo existentes
                 3.Buscar vehículos por número de placa, marca o modelo
-                4.Eliminar vehículos
+                4.Consultar el historial de vehículos.
+                5.Eliminar vehículos
 
                 """);
 
@@ -344,6 +345,12 @@ namespace VehicleRegistrationSystem
 
                 
                 case 4:
+                    ViewAllCars(Brands, Models, Years, Colors, LicensePlateNumbers, Ids);
+
+                    break;
+
+                
+                case 5:
 
                     bool isCarRemoved = false;
 
@@ -378,7 +385,7 @@ namespace VehicleRegistrationSystem
                     break;
             }
 
-            if (userVehicleStorageSelection > 4 || userVehicleStorageSelection == 0)
+            if (userVehicleStorageSelection > 5 || userVehicleStorageSelection == 0)
             {
                 Console.WriteLine("Debe ingresar una de las opciones.");
             }
@@ -412,7 +419,8 @@ namespace VehicleRegistrationSystem
                 2.Asociar uno o más vehículos a un propietario
                 3.Editar la información de los propietarios
                 4.Buscar propietarios por nombre o cédula
-                5.Eliminar propietarios
+                5.Consultar el historial de propietarios
+                6.Eliminar propietarios
 
                 """);
 
@@ -643,8 +651,14 @@ namespace VehicleRegistrationSystem
 
                     break;
 
-
+                
                 case 5:
+                    ViewAllOwners(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
+                    
+                    break;
+
+                
+                case 6:
 
                     bool isOwnerRemoved = false;
 
@@ -679,7 +693,7 @@ namespace VehicleRegistrationSystem
                     break;
             }
 
-            if (userOwnersManagamentSelection > 5 || userOwnersManagamentSelection == 0)
+            if (userOwnersManagamentSelection > 6 || userOwnersManagamentSelection == 0)
             {
                 Console.WriteLine("Debe ingresar una de las opciones.");
             }
@@ -719,7 +733,8 @@ namespace VehicleRegistrationSystem
                 1.Agregar un nuevo registro de seguro
                 2.Editar la informacion de seguros existentes
                 3.Mostrar los seguros próximos a vencer
-                4.Eliminar seguros vencidos
+                4.Consultar el historial de seguros
+                5.Eliminar seguros vencidos
 
                 """);
 
@@ -879,6 +894,12 @@ namespace VehicleRegistrationSystem
 
                 
                 case 4:
+                    ViewAllInsurances(InsuranceCompanieNames, InsurancePolicyNumbers, InsuranceStartDates, InsuranceExpirationDates,
+                            InsuranceIds);
+                    break;
+
+
+                case 5:
                     bool isInsuranceExpired = false;
 
                     foreach (var insuranceId in InsuranceIds.ToArray())
@@ -908,7 +929,7 @@ namespace VehicleRegistrationSystem
                     break;
             }
 
-            if (userInsuranceManagementSelection > 4 || userInsuranceManagementSelection == 0)
+            if (userInsuranceManagementSelection > 5 || userInsuranceManagementSelection == 0)
             {
                 Console.WriteLine("Debe ingresar una de las opciones.");
             }
