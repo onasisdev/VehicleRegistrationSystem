@@ -3,12 +3,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.VisualBasic;
+using System.Data.SqlClient;
 
 namespace VehicleRegistrationSystem
 {
     public class Program
     {
-
+        
         static void Main(string[] args)
         {
             try
@@ -26,6 +27,7 @@ namespace VehicleRegistrationSystem
 
     public class MainVehicleRegistrationSystem
     {
+        internal static string connectionToDatabase = "Server=ONASIS-LAPTOP-H\\SQLEXPRESS;Database=vehicle_registration_system;Trusted_Connection=True;";
 
         public Dictionary<int, string> Brands = new Dictionary<int, string>();
         public Dictionary<int, string> Models = new Dictionary<int, string>();
@@ -99,6 +101,7 @@ namespace VehicleRegistrationSystem
                             OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds,
                             Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids
                             );
+                  
 
                         break;
 
@@ -160,7 +163,8 @@ namespace VehicleRegistrationSystem
             List<int> Ids
             )
         {
-
+            
+                        
             Console.WriteLine("""
                 Favor escoja la acción que desee realizar:
                 1.Agregar un nuevo registro de vehículo
@@ -204,6 +208,31 @@ namespace VehicleRegistrationSystem
                     Console.WriteLine("Favor ingrese el tipo de combustible del vehículo que desee registrar: ");
                     var FuelType = Console.ReadLine();
                     FuelTypes.Add(Id, FuelType);
+
+                    
+                    string BrandsToString = string.Join(", ", Brands.Select(c => $"{c.Value}"));
+                    string ModelsToString = string.Join(", ", Models.Select(c => $"{c.Value}"));
+                    string YearsToString = string.Join(", ", Years.Select(c => $"{c.Value}"));
+                    string ColorsToString = string.Join(", ", Colors.Select(c => $"{c.Value}"));
+                    string LicensePlateNumbersToString = string.Join(", ", LicensePlateNumbers.Select(c => $"{c.Value}"));
+                    string FuelTypesToString = string.Join(", ", FuelTypes.Select(c => $"{c.Value}"));
+
+                   
+                    using (SqlConnection conn = new SqlConnection(connectionToDatabase))
+                    {
+
+                        conn.Open();
+                        string sql = "INSERT INTO Vehiculo (Marca, Modelo, Anio, Color, NumeroDePlaca, TipoDeCombustible) VALUES (@Marca, @Modelo, @Anio, @Color, @NumeroDePlaca, @TipoDeCombustible)";
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+                        cmd.Parameters.AddWithValue("@Marca", BrandsToString);
+                        cmd.Parameters.AddWithValue("@Modelo", ModelsToString);
+                        cmd.Parameters.AddWithValue("@Anio", YearsToString);
+                        cmd.Parameters.AddWithValue("@Color", ColorsToString);
+                        cmd.Parameters.AddWithValue("@NumeroDePlaca", LicensePlateNumbersToString);
+                        cmd.Parameters.AddWithValue("@TipoDeCombustible", FuelTypesToString);
+
+                        cmd.ExecuteNonQuery();
+                    }
 
                     break;
 
@@ -454,6 +483,29 @@ namespace VehicleRegistrationSystem
                     Console.WriteLine("Favor ingrese el correo electrónico del propietario: ");
                     var OwnerEmail = Console.ReadLine();
                     OwnerEmails.Add(OwnerId, OwnerEmail);
+
+
+                    string OwnerFullNamesToString = string.Join(", ", OwnerFullNames.Select(c => $"{c.Value}"));
+                    string OwnerSocialIdsToString = string.Join(", ", OwnerSocialIds.Select(c => $"{c.Value}"));
+                    string OwnerAdressesToString = string.Join(", ", OwnerAddresses.Select(c => $"{c.Value}"));
+                    string OwnerPhoneNumberToString = string.Join(", ", OwnerPhoneNumbers.Select(c => $"{c.Value}"));
+                    string OwnerEmailsToString = string.Join(", ", OwnerEmails.Select(c => $"{c.Value}"));
+                    
+
+                    using (SqlConnection conn = new SqlConnection(connectionToDatabase))
+                    {
+
+                        conn.Open();
+                        string sql = "INSERT INTO Propietario (NombreCompleto, Cedula, Direccion, Telefono, Email) VALUES (@NombreCompleto, @Cedula, @Direccion, @Telefono, @Email)";
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+                        cmd.Parameters.AddWithValue("@NombreCompleto", OwnerFullNamesToString);
+                        cmd.Parameters.AddWithValue("@Cedula", OwnerSocialIdsToString);
+                        cmd.Parameters.AddWithValue("@Direccion", OwnerAdressesToString);
+                        cmd.Parameters.AddWithValue("@Telefono", OwnerPhoneNumberToString);
+                        cmd.Parameters.AddWithValue("@Email", OwnerEmailsToString);
+
+                        cmd.ExecuteNonQuery();
+                    }
 
                     break;
 
@@ -766,6 +818,27 @@ namespace VehicleRegistrationSystem
                     var InsuranceExpirationDate = DateOnly.Parse(Console.ReadLine());
                     InsuranceExpirationDates.Add(InsuranceId, InsuranceExpirationDate);
 
+
+                    string InsuranceCompanieNamesToString = string.Join(", ", InsuranceCompanieNames.Select(c => $"{c.Value}"));
+                    string InsurancePolicyNumbersToString = string.Join(", ", InsurancePolicyNumbers.Select(c => $"{c.Value}"));
+                    string InsuranceStartDatesToString = string.Join(", ", InsuranceStartDates.Select(c => $"{c.Value}"));
+                    string InsuranceExpirationDatesToString = string.Join(", ", InsuranceExpirationDates.Select(c => $"{c.Value}"));
+                    
+
+                    using (SqlConnection conn = new SqlConnection(connectionToDatabase))
+                    {
+
+                        conn.Open();
+                        string sql = "INSERT INTO Seguro (NombreDeCompania, NumeroDePoliza, FechaDeInicio, FechaDeVencimiento) VALUES (@NombreDeCompania, @NumeroDePoliza, @FechaDeInicio, @FechaDeVencimiento)";
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+                        cmd.Parameters.AddWithValue("@NombreDeCompania", InsuranceCompanieNamesToString);
+                        cmd.Parameters.AddWithValue("@NumeroDePoliza", InsurancePolicyNumbersToString);
+                        cmd.Parameters.AddWithValue("@FechaDeInicio", InsuranceStartDatesToString);
+                        cmd.Parameters.AddWithValue("@FechaDeVencimiento", InsuranceExpirationDatesToString);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
                     break;
 
 
@@ -1003,6 +1076,29 @@ namespace VehicleRegistrationSystem
                     Console.WriteLine("Favor ingrese la cédula del propietario del vehículo que recibió el mantenimiento: ");
                     var MaintenanceOwnerSocialId = Console.ReadLine();
                     MaintenanceOwnerSocialIds.Add(MaintenanceId, MaintenanceOwnerSocialId);
+
+
+                    string MaintenanceDatesToString = string.Join(", ", MaintenanceDates.Select(c => $"{c.Value}"));
+                    string MaintenanceServiceTypesToString = string.Join(", ", MaintenanceServiceTypes.Select(c => $"{c.Value}"));
+                    string MaintenanceWorkshopNamesToString = string.Join(", ", MaintenanceWorkshopNames.Select(c => $"{c.Value}"));
+                    string MaintenanceOwnerFullNamesToString = string.Join(", ", MaintenanceOwnerFullNames.Select(c => $"{c.Value}"));
+                    string MaintenanceOwnerSocialIdsToString = string.Join(", ", MaintenanceOwnerSocialIds.Select(c => $"{c.Value}"));
+
+
+                    using (SqlConnection conn = new SqlConnection(connectionToDatabase))
+                    {
+
+                        conn.Open();
+                        string sql = "INSERT INTO Mantenimiento (FechaDeMantenimiento, TipoDeServicio, NombreDeTaller, NombreCompletoPropietaio, CedulaDelPropietaio) VALUES (@FechaDeMantenimiento, @TipoDeServicio, @NombreDeTaller, @NombreCompletoPropietaio, @CedulaDelPropietaio)";
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+                        cmd.Parameters.AddWithValue("@FechaDeMantenimiento", MaintenanceDatesToString);
+                        cmd.Parameters.AddWithValue("@TipoDeServicio", MaintenanceServiceTypesToString);
+                        cmd.Parameters.AddWithValue("@NombreDeTaller", MaintenanceWorkshopNamesToString);
+                        cmd.Parameters.AddWithValue("@NombreCompletoPropietaio", MaintenanceOwnerFullNamesToString);
+                        cmd.Parameters.AddWithValue("@CedulaDelPropietaio", MaintenanceOwnerSocialIdsToString);
+
+                        cmd.ExecuteNonQuery();
+                    }
 
                     break;
 
