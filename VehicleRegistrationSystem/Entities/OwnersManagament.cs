@@ -9,32 +9,18 @@
         public override Dictionary<int, string> OwnerEmails { get; set; }
         public override List<int> OwnerIds { get; set; }
 
-        public OwnersManagement(Dictionary<int, string> ownerFullNames, Dictionary<int, string> ownerSocialIds, Dictionary<int, string> ownerAddresses, Dictionary<int, string> ownerPhoneNumbers, Dictionary<int, string> ownerEmails, List<int> ownerIds)
+        public OwnersManagement()
         {
-            this.OwnerFullNames = ownerFullNames;
-            this.OwnerSocialIds = ownerSocialIds;
-            this.OwnerAddresses = ownerAddresses;
-            this.OwnerPhoneNumbers = ownerPhoneNumbers;
-            this.OwnerEmails = ownerEmails;
-            this.OwnerIds = ownerIds;
+            this.OwnerFullNames = new Dictionary<int, string>();
+            this.OwnerSocialIds = new Dictionary<int, string>();
+            this.OwnerAddresses = new Dictionary<int, string>();
+            this.OwnerPhoneNumbers = new Dictionary<int, string>();
+            this.OwnerEmails = new Dictionary<int, string>();
+            this.OwnerIds = new List<int>();
 
         }
 
-        public override void ViewAllOwners()
-        {
-            Console.WriteLine("");
-
-            Console.WriteLine("Propietarios: ");
-
-            foreach (var ownerId in OwnerIds)
-            {
-                Console.WriteLine($"""
-                    id: {ownerId}   Nombre completo: {OwnerFullNames[ownerId]}   Cédula: {OwnerSocialIds[ownerId]}   Dirección: {OwnerAddresses[ownerId]}   Teléfono: {OwnerPhoneNumbers[ownerId]}   Correo electrónico: {OwnerEmails[ownerId]}
-                    """);
-            }
-
-            Console.WriteLine("");
-        }
+        
     }
 }
 

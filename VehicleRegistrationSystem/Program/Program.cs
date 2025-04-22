@@ -35,9 +35,19 @@ namespace Logic
         {
             bool running = true;
 
-            VehicleManagement vehicleManagament = new VehicleManagement();
+            VehicleManagement vehicleManagement = new VehicleManagement();
+
+            
 
             VehicleManagementLogic vehicleManagementLogic = new VehicleManagementLogic();
+            
+
+           
+            OwnersManagement ownersManagement = new OwnersManagement();
+            OwnersManagamentLogic ownersManagamentLogic = new OwnersManagamentLogic();
+            
+
+            
 
             while (running)
             {
@@ -60,28 +70,41 @@ namespace Logic
                     case 1:
 
                         vehicleManagementLogic.VehicleManagementF(
-                            vehicleManagament.Brands,
-                            vehicleManagament.Models,
-                            vehicleManagament.Years,
-                            vehicleManagament.Colors,
-                            vehicleManagament.LicensePlateNumbers,
-                            vehicleManagament.FuelTypes,
-                            vehicleManagament.Ids
+                            vehicleManagement.Brands,
+                            vehicleManagement.Models,
+                            vehicleManagement.Years,
+                            vehicleManagement.Colors,
+                            vehicleManagement.LicensePlateNumbers,
+                            vehicleManagement.FuelTypes,
+                            vehicleManagement.Ids
                         );
 
                         break;
 
 
-                    //case 2:
-                    //    OwnersManagament ownersManagament = new OwnersManagament();
-
-                    //    ownersManagament.OwnersManagamentFunction(
-                    //        OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds,
-                    //        Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids
-                    //        );
+                    case 2:
+                        ownersManagamentLogic.OwnersManagamentF(
 
 
-                    //    break;
+                           ownersManagement.OwnerFullNames,
+                           ownersManagement.OwnerSocialIds,
+                           ownersManagement.OwnerAddresses,
+                           ownersManagement.OwnerPhoneNumbers,
+                           ownersManagement.OwnerEmails,
+                           ownersManagement.OwnerIds,
+
+                           vehicleManagement.Brands,
+                           vehicleManagement.Models,
+                           vehicleManagement.Years,
+                           vehicleManagement.Colors,
+                           vehicleManagement.LicensePlateNumbers,
+                           vehicleManagement.FuelTypes,
+                           vehicleManagement.Ids
+                       );
+
+
+
+                        break;
 
 
                     //case 3:

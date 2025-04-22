@@ -10,28 +10,11 @@
 
         public InsuranceManagement(Dictionary<int, string> insuranceCompanieNames, Dictionary<int, string> insurancePolicyNumbers, Dictionary<int, DateOnly> insuranceStartDates, Dictionary<int, DateOnly> insuranceExpirationDates, List<int> insuranceIds) 
         { 
-            this.InsuranceCompanieNames = insuranceCompanieNames;
-            this.InsurancePolicyNumbers = insurancePolicyNumbers;
-            this.InsuranceStartDates = insuranceStartDates;
-            this.InsuranceExpirationDates = insuranceExpirationDates;
-            this.InsuranceIds = insuranceIds;
-
-        }
-
-        public override void ViewAllInsurances()
-        {
-            Console.WriteLine("");
-
-            Console.WriteLine("Seguros: ");
-
-            foreach (var insuranceId in InsuranceIds)
-            {
-                Console.WriteLine($"""
-                    id: {insuranceId}   Compañía aseguradora: {InsuranceCompanieNames[insuranceId]}   Número de póliza: {InsurancePolicyNumbers[insuranceId]}   Fecha de inicio: {InsuranceStartDates[insuranceId]}   Fecha de vencimiento: {InsuranceExpirationDates[insuranceId]}
-                    """);
-            }
-
-            Console.WriteLine("");
+            this.InsuranceCompanieNames = new Dictionary<int, string>();
+            this.InsurancePolicyNumbers = new Dictionary<int, string>();
+            this.InsuranceStartDates = new Dictionary<int, DateOnly>();
+            this.InsuranceExpirationDates = new Dictionary<int, DateOnly>();
+            this.InsuranceIds = new List<int>();
 
         }
     }

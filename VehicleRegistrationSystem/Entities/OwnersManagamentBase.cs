@@ -10,7 +10,7 @@
         public virtual List<int> OwnerIds { get; set;}
 
 
-        public abstract void ViewAllOwners();
+        
     }
 }
 

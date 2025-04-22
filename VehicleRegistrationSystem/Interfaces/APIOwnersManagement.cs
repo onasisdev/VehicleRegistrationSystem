@@ -8,7 +8,7 @@ namespace Interfaces
 {
     public interface IOwnersManagement
     {
-        public void OwnersManagamentFunction(
+        public void OwnersManagamentF(
             Dictionary<int, string> OwnerFullNames,
             Dictionary<int, string> OwnerSocialIds,
             Dictionary<int, string> OwnerAddresses,
