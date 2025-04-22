@@ -2,7 +2,7 @@
 {
     interface IuserActionSelection
     {
-        public void userActionSelection();
+        public void UserActionSelection();
 
     }
 

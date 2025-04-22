@@ -9,6 +9,6 @@ namespace Interfaces
     internal interface IMaintenanceManagement
     {
         public void MaintenanceManagement();
-        public void ViewAllMaintenances();
+      
     }
 }

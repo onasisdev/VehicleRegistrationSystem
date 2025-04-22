@@ -19,6 +19,22 @@
             this.OwnerIds = ownerIds;
 
         }
+
+        public override void ViewAllOwners()
+        {
+            Console.WriteLine("");
+
+            Console.WriteLine("Propietarios: ");
+
+            foreach (var ownerId in OwnerIds)
+            {
+                Console.WriteLine($"""
+                    id: {ownerId}   Nombre completo: {OwnerFullNames[ownerId]}   Cédula: {OwnerSocialIds[ownerId]}   Dirección: {OwnerAddresses[ownerId]}   Teléfono: {OwnerPhoneNumbers[ownerId]}   Correo electrónico: {OwnerEmails[ownerId]}
+                    """);
+            }
+
+            Console.WriteLine("");
+        }
     }
 }
 

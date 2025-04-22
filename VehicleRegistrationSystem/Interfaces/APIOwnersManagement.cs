@@ -9,6 +9,6 @@ namespace Interfaces
     interface IOwnersManagement
     {
         public void OwnersManagement();
-        public void ViewAllOwners();
+       
     }
 }

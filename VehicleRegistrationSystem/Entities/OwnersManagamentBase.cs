@@ -8,6 +8,9 @@
         public virtual Dictionary<int, string> OwnerPhoneNumbers { get; set; }
         public virtual Dictionary<int, string> OwnerEmails { get; set; }
         public virtual List<int> OwnerIds { get; set;}
+
+
+        public abstract void ViewAllOwners();
     }
 }
 

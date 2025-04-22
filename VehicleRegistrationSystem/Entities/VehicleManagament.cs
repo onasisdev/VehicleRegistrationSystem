@@ -16,16 +16,22 @@ namespace Entities
         public override Dictionary<int, string> FuelTypes { get; set; }
         public override List<int> Ids { get; set; }
 
-        public VehicleManagement(Dictionary<int, string> brands, Dictionary<int, string> models, Dictionary<int, int> years, Dictionary<int, string> colors, Dictionary<int, string> licensePlateNumbers, Dictionary<int, string> fuelTypes, List<int> ids, int getId)
+        public VehicleManagement(
+            )
             {
-                this.Brands = brands;
-                this.Models = models;
-                this.Years = years;
-                this.Colors = colors;
-                this.LicensePlateNumbers = licensePlateNumbers;
-                this.FuelTypes = fuelTypes;
-                this.Ids = ids;
+            this.Brands = new Dictionary<int, string>();
+            this.Models = new Dictionary<int, string>();
+            this.Years = new Dictionary<int, int>();
+            this.Colors = new Dictionary<int, string>();
+            this.LicensePlateNumbers = new Dictionary<int, string>();
+            this.FuelTypes = new Dictionary<int, string>();
+            this.Ids = new List<int>();
+           
              
             }
-        }
+
+        
+
+
+    }
     }

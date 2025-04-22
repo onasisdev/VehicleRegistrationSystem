@@ -6,9 +6,26 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    interface IVehicleStorage
+    public interface IVehicleStorage
     {
-        public void VehicleStorage();
-        public void ViewAllCars();
+        public void VehicleStorage(Dictionary<int, string> Brands,
+          Dictionary<int, string> Models,
+          Dictionary<int, int> Years,
+          Dictionary<int, string> Colors,
+          Dictionary<int, string> LicensePlateNumbers,
+          Dictionary<int, string> FuelTypes,
+          List<int> Ids);
+
+        public void ViewAllVehicles(Dictionary<int, string> Brands, 
+            Dictionary<int, string> Models, 
+            Dictionary<int, int> Years, 
+            Dictionary<int, string> Colors, 
+            Dictionary<int, string> LicensePlateNumbers, 
+            Dictionary<int, string> FuelTypes, 
+            List<int> Ids);
+        
+            
+        
+
     }
 }

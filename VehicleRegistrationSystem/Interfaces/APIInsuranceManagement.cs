@@ -9,6 +9,6 @@ namespace Interfaces
     internal interface IInsuranceManagement
     {
         public void InsuranceManagement();
-        public void ViewAllInsurances();
+      
     }
 }

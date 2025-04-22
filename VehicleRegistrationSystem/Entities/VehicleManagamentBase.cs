@@ -9,6 +9,13 @@
         public virtual Dictionary<int, string> LicensePlateNumbers { get; set; }
         public virtual Dictionary<int, string> FuelTypes { get; set; }
         public virtual List<int> Ids { get; set; }
+
+
+        
+
+        
+
+        
     }
 }
 

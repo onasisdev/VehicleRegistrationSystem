@@ -8,6 +8,9 @@
         public virtual Dictionary<int, string> MaintenanceOwnerFullNames { get; set; }
         public virtual Dictionary<int, string> MaintenanceOwnerSocialIds { get; set; }
         public virtual List<int> MaintenanceIds { get; set; }
+
+
+        public abstract void ViewAllMaintenances();
     }
 }
 
