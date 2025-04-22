@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
+using DataBase;
 using Entities;
 using Interfaces;
 
 
 namespace Logic
 {
-  
+
     public class Program
     {
 
@@ -25,11 +27,21 @@ namespace Logic
                 Console.WriteLine("El formato ingresado es incorrecto.");
             }
         }
+    
+
+   
     }
     public class UserActionSelectionLogic
     {
+
+        
+
+
+
         public string SearchCriteria = string.Empty;
         public int GetId = 0;
+
+        
 
         public void UserActionSelection()
         {
@@ -78,6 +90,12 @@ namespace Logic
                             vehicleManagement.FuelTypes,
                             vehicleManagement.Ids
                         );
+
+                        
+
+                        
+
+                        
 
                         break;
 

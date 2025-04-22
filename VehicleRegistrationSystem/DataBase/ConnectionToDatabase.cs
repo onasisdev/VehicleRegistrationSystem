@@ -11,7 +11,7 @@ namespace DataBase
         public string ConnectionToDatabase;
           
         public Database() {
-            this.ConnectionToDatabase = "Server=ONASIS-LAPTOP-H\\SQLEXPRESS;Database=vehicle_registration_system;Trusted_Connection=True;"; ;
+            this.ConnectionToDatabase = "Server=ONASIS-LAPTOP-H\\SQLEXPRESS;Database=vehicle_registration_system;Trusted_Connection=True;";
         }
     }
 }

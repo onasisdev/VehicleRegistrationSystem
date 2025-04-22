@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Entities;
 using Interfaces;
 using System.Data.SqlClient;
+using DataBase;
 
 namespace Logic
 {
@@ -27,6 +28,39 @@ namespace Logic
             }
         }
 
+        protected static void ConnectAndInsertElementsToDataBase(
+            Dictionary<int, string> getBrands,
+            Dictionary<int, string> getModels,
+            Dictionary<int, int> getYears,
+            Dictionary<int, string> getColors,
+            Dictionary<int, string> getLicensePlateNumbers,
+            Dictionary<int, string> getFuelTypes,
+            List<int> getIds
+          )
+            
+        {
+            int Id = getIds.Count;
+            
+
+            Database database = new Database();
+
+            using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
+            {
+                
+                conn.Open();
+                string sql = "INSERT INTO Vehiculo (Marca, Modelo, Anio, Color, NumeroDePlaca, TipoDeCombustible) VALUES (@Marca, @Modelo, @Anio, @Color, @NumeroDePlaca, @TipoDeCombustible)";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue("@Marca", getBrands[Id]);
+                cmd.Parameters.AddWithValue("@Modelo", getModels[Id]);
+                cmd.Parameters.AddWithValue("@Anio", getYears[Id]);
+                cmd.Parameters.AddWithValue("@Color", getColors[Id]);
+                cmd.Parameters.AddWithValue("@NumeroDePlaca", getLicensePlateNumbers[Id]);
+                cmd.Parameters.AddWithValue("@TipoDeCombustible", getFuelTypes[Id]);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
 
         public void VehicleManagementF(
           Dictionary<int, string> Brands,
@@ -38,6 +72,7 @@ namespace Logic
           List<int> Ids
           )
         {
+
 
             Console.WriteLine("""
                 Favor escoja la acción que desee realizar:
@@ -83,6 +118,10 @@ namespace Logic
                     Console.WriteLine("Favor ingrese el tipo de combustible del vehículo que desee registrar: ");
                     var FuelType = Console.ReadLine();
                     FuelTypes.Add(Id, FuelType);
+
+                    ConnectAndInsertElementsToDataBase(Brands, Models, 
+                        Years, Colors,LicensePlateNumbers,
+                        FuelTypes, Ids);
 
                     break;
 
