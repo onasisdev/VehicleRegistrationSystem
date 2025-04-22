@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    public interface IVehicleStorage
+    public interface IVehicleManagament
     {
-        public void VehicleStorage(Dictionary<int, string> Brands,
+        public void VehicleManagementF(Dictionary<int, string> Brands,
           Dictionary<int, string> Models,
           Dictionary<int, int> Years,
           Dictionary<int, string> Colors,

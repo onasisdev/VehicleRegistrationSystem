@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
@@ -20,8 +18,6 @@ namespace Logic
             {
                 UserActionSelectionLogic userActionSelectionLogic = new UserActionSelectionLogic();
                 userActionSelectionLogic.UserActionSelection();
-
-
             }
 
             catch (FormatException)
@@ -41,7 +37,7 @@ namespace Logic
 
             VehicleManagement vehicleManagament = new VehicleManagement();
 
-            VehicleStorageLogic vehicleStorageLogic = new VehicleStorageLogic();
+            VehicleManagementLogic vehicleManagementLogic = new VehicleManagementLogic();
 
             while (running)
             {
@@ -63,9 +59,7 @@ namespace Logic
                 {
                     case 1:
 
-                        
-
-                        vehicleStorageLogic.VehicleStorage(
+                        vehicleManagementLogic.VehicleManagementF(
                             vehicleManagament.Brands,
                             vehicleManagament.Models,
                             vehicleManagament.Years,
@@ -74,16 +68,6 @@ namespace Logic
                             vehicleManagament.FuelTypes,
                             vehicleManagament.Ids
                         );
-
-
-
-                        //vehicleStorageLogic.VehicleStorage(Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids);
-
-
-
-
-
-
 
                         break;
 

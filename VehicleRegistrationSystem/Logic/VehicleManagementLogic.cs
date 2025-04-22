@@ -12,10 +12,7 @@ using System.Data.SqlClient;
 namespace Logic
 {
     
-   
-  
-
-    public class VehicleStorageLogic : IVehicleStorage
+    public class VehicleManagementLogic : IVehicleManagament
     {
 
         public void ViewAllVehicles(Dictionary<int, string> Brands, Dictionary<int, string> Models, Dictionary<int, int> Years, Dictionary<int, string> Colors, Dictionary<int, string> LicensePlateNumbers, Dictionary<int, string> FuelTypes, List<int> Ids)
@@ -25,14 +22,13 @@ namespace Logic
             foreach (var id in Ids)
             {
                 Console.WriteLine($"""
-                        id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {LicensePlateNumbers[id]}
+                        id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {FuelTypes[id]}
                         """);
             }
         }
 
 
-
-        public void VehicleStorage(
+        public void VehicleManagementF(
           Dictionary<int, string> Brands,
           Dictionary<int, string> Models,
           Dictionary<int, int> Years,
@@ -42,14 +38,6 @@ namespace Logic
           List<int> Ids
           )
         {
-
-           
-            
-
-            
-            
-            
-
 
             Console.WriteLine("""
                 Favor escoja la acción que desee realizar:
@@ -64,7 +52,6 @@ namespace Logic
             int userVehicleStorageSelection = Convert.ToInt32(Console.ReadLine());
             int getId = 0;
             
-
 
             switch (userVehicleStorageSelection)
             {
@@ -96,12 +83,6 @@ namespace Logic
                     Console.WriteLine("Favor ingrese el tipo de combustible del vehículo que desee registrar: ");
                     var FuelType = Console.ReadLine();
                     FuelTypes.Add(Id, FuelType);
-
-
-                    
-
-
-
 
                     break;
 
@@ -186,7 +167,7 @@ namespace Logic
                     else if (userVehicleStorageSelection == 2)
                     {
 
-                        ViewAllVehicles( Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids);
+                        ViewAllVehicles(Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids);
 
                         Console.WriteLine("Favor seleccione el id del vehículo que desee modificar todos sus datos: ");
                         getId = Convert.ToInt32(Console.ReadLine());
@@ -236,7 +217,7 @@ namespace Logic
                         if (LicensePlateNumbers[id].ToLower().Contains(SearchCriteria) || Brands[id].ToLower().Contains(SearchCriteria) || Models[id].ToLower().Contains(SearchCriteria))
                         {
                             Console.WriteLine($"""
-                                id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {LicensePlateNumbers[id]}
+                                id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {FuelTypes[id]}
                                 """);
                         }
                     }
@@ -247,8 +228,8 @@ namespace Logic
                 case 4:
 
                     ViewAllVehicles(Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids);
+                    
                     break;
-
 
                 case 5:
 
@@ -281,7 +262,6 @@ namespace Logic
                         Console.WriteLine("Registro de vehículo eliminado satisfacoriamente.");
                     }
 
-
                     break;
             }
 
@@ -292,4 +272,3 @@ namespace Logic
         }
     }
 }
-
