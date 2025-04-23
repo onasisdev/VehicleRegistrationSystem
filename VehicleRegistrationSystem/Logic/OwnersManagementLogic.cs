@@ -12,19 +12,24 @@ namespace Logic
 {
     public class OwnersManagementLogic : IOwnersManagement
     {
-        VehicleManagementLogic vehicleManagementLogic = new VehicleManagementLogic();
+        VehiclesManagementLogic vehiclesManagementLogic = new VehiclesManagementLogic();
         
 
-        public void ViewAllOwners(Dictionary<int, string> OwnerFullNames, Dictionary<int, string> OwnerSocialIds, Dictionary<int, string> OwnerAddresses, Dictionary<int, string> OwnerPhoneNumbers, Dictionary<int, string> OwnerEmails, List<int> OwnerIds)
+        public void ViewAllOwners(Dictionary<int, string> getOwnerFullNames,
+            Dictionary<int, string> getOwnerSocialIds,
+            Dictionary<int, string> getOwnerAddresses,
+            Dictionary<int, string> getOwnerPhoneNumbers,
+            Dictionary<int, string> getOwnerEmails,
+            List<int> getOwnerIds)
         {
             Console.WriteLine("");
 
             Console.WriteLine("Propietarios: ");
 
-            foreach (var ownerId in OwnerIds)
+            foreach (var ownerId in getOwnerIds)
             {
                 Console.WriteLine($"""
-                    id: {ownerId}   Nombre completo: {OwnerFullNames[ownerId]}   Cédula: {OwnerSocialIds[ownerId]}   Dirección: {OwnerAddresses[ownerId]}   Teléfono: {OwnerPhoneNumbers[ownerId]}   Correo electrónico: {OwnerEmails[ownerId]}
+                    id: {ownerId}   Nombre completo: {getOwnerFullNames[ownerId]}   Cédula: {getOwnerSocialIds[ownerId]}   Dirección: {getOwnerAddresses[ownerId]}   Teléfono: {getOwnerPhoneNumbers[ownerId]}   Correo electrónico: {getOwnerEmails[ownerId]}
                     """);
             }
 
@@ -139,7 +144,7 @@ namespace Logic
                     List<int> getCarIds = new List<int>();
                     List<int> getOwnerIds = new List<int>();
                     
-                    vehicleManagementLogic.ViewAllVehicles(Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids);
+                    vehiclesManagementLogic.ViewAllVehicles(Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids);
 
 
                     Console.WriteLine("Favor ingrese el id del vehículo para asociarlo con un propietario: ");
@@ -158,7 +163,7 @@ namespace Logic
                     
                     while (wantToContinue != 2) {
                         
-                        vehicleManagementLogic.ViewAllVehicles(Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids);
+                        vehiclesManagementLogic.ViewAllVehicles(Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids);
 
                         Console.WriteLine("Ingrese el id de un vehículo para asociarlo con un propietario: ");
                         getCarIds.Add(Convert.ToInt32(Console.ReadLine()));

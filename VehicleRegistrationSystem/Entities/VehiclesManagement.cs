@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities
     {
-        public class VehicleManagement : VehicleManagementBase
+        public class VehiclesManagement : VehiclesManagementBase
         {
         public override Dictionary<int, string> Brands { get; set; }
         public override Dictionary<int, string> Models { get; set; }
@@ -16,7 +16,7 @@ namespace Entities
         public override Dictionary<int, string> FuelTypes { get; set; }
         public override List<int> Ids { get; set; }
 
-        public VehicleManagement(
+        public VehiclesManagement(
             )
             {
             this.Brands = new Dictionary<int, string>();

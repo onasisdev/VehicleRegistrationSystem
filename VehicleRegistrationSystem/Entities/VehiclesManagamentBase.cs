@@ -1,6 +1,6 @@
 ﻿namespace Entities
 {
-    public abstract class VehicleManagementBase
+    public abstract class VehiclesManagementBase
     {
         public virtual Dictionary<int, string> Brands { get; set; }
         public virtual Dictionary<int, string> Models { get; set; }

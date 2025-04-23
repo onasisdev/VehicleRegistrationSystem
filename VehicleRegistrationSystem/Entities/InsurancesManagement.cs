@@ -1,6 +1,6 @@
 ﻿namespace Entities
 {
-    public class InsuranceManagement : InsuranceManagementBase
+    public class InsurancesManagement : InsurancesManagementBase
     {
         public override Dictionary<int, string> InsuranceCompanieNames { get; set; }
         public override Dictionary<int, string> InsurancePolicyNumbers { get; set; }
@@ -8,7 +8,7 @@
         public override Dictionary<int, DateOnly> InsuranceExpirationDates { get; set; }
         public override List<int> InsuranceIds { get; set; }
 
-        public InsuranceManagement() 
+        public InsurancesManagement() 
         { 
             this.InsuranceCompanieNames = new Dictionary<int, string>();
             this.InsurancePolicyNumbers = new Dictionary<int, string>();

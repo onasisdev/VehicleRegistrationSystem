@@ -26,11 +26,11 @@ namespace Interfaces
             );
 
         public void ViewAllOwners(
-            Dictionary<int, string> OwnerFullNames, 
-            Dictionary<int, string> OwnerSocialIds, 
-            Dictionary<int, string> OwnerAddresses, 
-            Dictionary<int, string> OwnerPhoneNumbers, 
-            Dictionary<int, string> OwnerEmails, 
-            List<int> OwnerIds);
+            Dictionary<int, string> getOwnerFullNames, 
+            Dictionary<int, string> getOwnerSocialIds, 
+            Dictionary<int, string> getOwnerAddresses, 
+            Dictionary<int, string> getOwnerPhoneNumbers, 
+            Dictionary<int, string> getOwnerEmails, 
+            List<int> getOwnerIds);
     }
 }

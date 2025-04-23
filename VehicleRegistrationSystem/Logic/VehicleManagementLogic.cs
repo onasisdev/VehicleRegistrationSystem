@@ -14,18 +14,24 @@ namespace Logic
 {
 
     
-    public class VehicleManagementLogic : IVehicleManagament
+    public class VehiclesManagementLogic : IVehiclesManagament
     {
     
         
-        public void ViewAllVehicles(Dictionary<int, string> Brands, Dictionary<int, string> Models, Dictionary<int, int> Years, Dictionary<int, string> Colors, Dictionary<int, string> LicensePlateNumbers, Dictionary<int, string> FuelTypes, List<int> Ids)
+        public void ViewAllVehicles(Dictionary<int, string> getBrands,
+            Dictionary<int, string> getModels,
+            Dictionary<int, int> getYears,
+            Dictionary<int, string> getColors,
+            Dictionary<int, string> getLicensePlateNumbers,
+            Dictionary<int, string> getFuelTypes,
+            List<int> getIds)
         {
             Console.WriteLine("Vehículos:");
 
-            foreach (var id in Ids)
+            foreach (var id in getIds)
             {
                 Console.WriteLine($"""
-                        id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {FuelTypes[id]}
+                        id: {id}   Marca: {getBrands[id]}   Modelo: {getModels[id]}   Año: {getYears[id]}   Color: {getColors[id]}   Número de placa: {getLicensePlateNumbers[id]}   Tipo de combustible: {getFuelTypes[id]}
                         """);
             }
         }
@@ -64,7 +70,7 @@ namespace Logic
             }
         }
 
-        public void VehicleManagementF(
+        public void VehiclesManagementF(
           Dictionary<int, string> Brands,
           Dictionary<int, string> Models,
           Dictionary<int, int> Years,

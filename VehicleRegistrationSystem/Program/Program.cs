@@ -41,13 +41,14 @@ namespace Logic
         {
             bool running = true;
 
-            VehicleManagement vehicleManagement = new VehicleManagement();
-            VehicleManagementLogic vehicleManagementLogic = new VehicleManagementLogic();
+            VehiclesManagement vehiclesManagement = new VehiclesManagement();
+            VehiclesManagementLogic vehiclesManagementLogic = new VehiclesManagementLogic();
 
             OwnersManagement ownersManagement = new OwnersManagement();
             OwnersManagementLogic ownersManagamentLogic = new OwnersManagementLogic();
 
-            InsuranceManagement insuranceManagement = new InsuranceManagement();
+            InsurancesManagement insurancesManagement = new InsurancesManagement();
+            InsurancesManagementLogic insurancesManagementLogic = new InsurancesManagementLogic();
 
 
             
@@ -75,14 +76,14 @@ namespace Logic
                     case 1:
                         try
                         {
-                            vehicleManagementLogic.VehicleManagementF(
-                            vehicleManagement.Brands,
-                            vehicleManagement.Models,
-                            vehicleManagement.Years,
-                            vehicleManagement.Colors,
-                            vehicleManagement.LicensePlateNumbers,
-                            vehicleManagement.FuelTypes,
-                            vehicleManagement.Ids
+                            vehiclesManagementLogic.VehiclesManagementF(
+                            vehiclesManagement.Brands,
+                            vehiclesManagement.Models,
+                            vehiclesManagement.Years,
+                            vehiclesManagement.Colors,
+                            vehiclesManagement.LicensePlateNumbers,
+                            vehiclesManagement.FuelTypes,
+                            vehiclesManagement.Ids
                             );
 
                         }
@@ -106,26 +107,38 @@ namespace Logic
                             ownersManagement.OwnerEmails,
                             ownersManagement.OwnerIds,
                             
-                            vehicleManagement.Brands,
-                            vehicleManagement.Models,
-                            vehicleManagement.Years,
-                            vehicleManagement.Colors,
-                            vehicleManagement.LicensePlateNumbers,
-                            vehicleManagement.FuelTypes,
-                            vehicleManagement.Ids
+                            vehiclesManagement.Brands,
+                            vehiclesManagement.Models,
+                            vehiclesManagement.Years,
+                            vehiclesManagement.Colors,
+                            vehiclesManagement.LicensePlateNumbers,
+                            vehiclesManagement.FuelTypes,
+                            vehiclesManagement.Ids
                             );
                         
                         break;
 
 
-                    //case 3:
-                    //    InsuranceManagement insuranceManagement = new InsuranceManagement();
+                    case 3:
+                        
+                        try
+                        
+                        {
+                            insurancesManagementLogic.InsuranceManagementF(
+                                insurancesManagement.InsuranceCompanieNames,
+                                insurancesManagement.InsurancePolicyNumbers,
+                                insurancesManagement.InsuranceStartDates,
+                                insurancesManagement.InsuranceExpirationDates,
+                                insurancesManagement.InsuranceIds
+                                );
+                        }
 
-                    //    insuranceManagement.InsuranceManagementFunction(
-                    //        InsuranceCompanieNames, InsurancePolicyNumbers, InsuranceStartDates, InsuranceExpirationDates,
-                    //        InsuranceIds);
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("El formato ingresado es incorrecto, favor vuelva a intentar nuevamente.");
+                        }
 
-                    //    break;
+                        break;
 
 
                     //case 4:
