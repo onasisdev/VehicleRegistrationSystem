@@ -8,7 +8,7 @@
         public override Dictionary<int, DateOnly> InsuranceExpirationDates { get; set; }
         public override List<int> InsuranceIds { get; set; }
 
-        public InsuranceManagement(Dictionary<int, string> insuranceCompanieNames, Dictionary<int, string> insurancePolicyNumbers, Dictionary<int, DateOnly> insuranceStartDates, Dictionary<int, DateOnly> insuranceExpirationDates, List<int> insuranceIds) 
+        public InsuranceManagement() 
         { 
             this.InsuranceCompanieNames = new Dictionary<int, string>();
             this.InsurancePolicyNumbers = new Dictionary<int, string>();

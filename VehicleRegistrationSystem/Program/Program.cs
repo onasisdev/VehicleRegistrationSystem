@@ -24,39 +24,32 @@ namespace Logic
 
             catch (FormatException)
             {
-                Console.WriteLine("El formato ingresado es incorrecto.");
+                Console.WriteLine("El formato ingresado es incorrecto, favor vuelva a intentar nuevamente.");
             }
         }
-    
 
-   
     }
+    
     public class UserActionSelectionLogic
     {
-
-        
-
-
 
         public string SearchCriteria = string.Empty;
         public int GetId = 0;
 
         
-
         public void UserActionSelection()
         {
             bool running = true;
 
             VehicleManagement vehicleManagement = new VehicleManagement();
-
-            
-
             VehicleManagementLogic vehicleManagementLogic = new VehicleManagementLogic();
-            
 
-           
             OwnersManagement ownersManagement = new OwnersManagement();
-            OwnersManagamentLogic ownersManagamentLogic = new OwnersManagamentLogic();
+            OwnersManagementLogic ownersManagamentLogic = new OwnersManagementLogic();
+
+            InsuranceManagement insuranceManagement = new InsuranceManagement();
+
+
             
 
             
@@ -80,8 +73,9 @@ namespace Logic
                 switch (userModulesSelection)
                 {
                     case 1:
-
-                        vehicleManagementLogic.VehicleManagementF(
+                        try
+                        {
+                            vehicleManagementLogic.VehicleManagementF(
                             vehicleManagement.Brands,
                             vehicleManagement.Models,
                             vehicleManagement.Years,
@@ -89,39 +83,38 @@ namespace Logic
                             vehicleManagement.LicensePlateNumbers,
                             vehicleManagement.FuelTypes,
                             vehicleManagement.Ids
-                        );
+                            );
 
+                        }
                         
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("El formato ingresado es incorrecto, favor vuelva a intentar nuevamente.");
+                        }
 
-                        
-
-                        
 
                         break;
 
 
                     case 2:
-                        ownersManagamentLogic.OwnersManagamentF(
-
-
-                           ownersManagement.OwnerFullNames,
-                           ownersManagement.OwnerSocialIds,
-                           ownersManagement.OwnerAddresses,
-                           ownersManagement.OwnerPhoneNumbers,
-                           ownersManagement.OwnerEmails,
-                           ownersManagement.OwnerIds,
-
-                           vehicleManagement.Brands,
-                           vehicleManagement.Models,
-                           vehicleManagement.Years,
-                           vehicleManagement.Colors,
-                           vehicleManagement.LicensePlateNumbers,
-                           vehicleManagement.FuelTypes,
-                           vehicleManagement.Ids
-                       );
-
-
-
+                        
+                        ownersManagamentLogic.OwnersManagementF(
+                            ownersManagement.OwnerFullNames,
+                            ownersManagement.OwnerSocialIds,
+                            ownersManagement.OwnerAddresses,
+                            ownersManagement.OwnerPhoneNumbers,
+                            ownersManagement.OwnerEmails,
+                            ownersManagement.OwnerIds,
+                            
+                            vehicleManagement.Brands,
+                            vehicleManagement.Models,
+                            vehicleManagement.Years,
+                            vehicleManagement.Colors,
+                            vehicleManagement.LicensePlateNumbers,
+                            vehicleManagement.FuelTypes,
+                            vehicleManagement.Ids
+                            );
+                        
                         break;
 
 

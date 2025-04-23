@@ -12,10 +12,12 @@ using DataBase;
 
 namespace Logic
 {
+
     
     public class VehicleManagementLogic : IVehicleManagament
     {
-
+    
+        
         public void ViewAllVehicles(Dictionary<int, string> Brands, Dictionary<int, string> Models, Dictionary<int, int> Years, Dictionary<int, string> Colors, Dictionary<int, string> LicensePlateNumbers, Dictionary<int, string> FuelTypes, List<int> Ids)
         {
             Console.WriteLine("Vehículos:");
@@ -72,8 +74,8 @@ namespace Logic
           List<int> Ids
           )
         {
-
-
+            
+            
             Console.WriteLine("""
                 Favor escoja la acción que desee realizar:
                 1.Agregar un nuevo registro de vehículo
