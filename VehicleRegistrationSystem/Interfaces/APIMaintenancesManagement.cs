@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    internal interface IMaintenanceManagement
+    internal interface IMaintenancesManagement
     {
-        public void MaintenanceManagement();
+        public void MaintenancesManagement();
       
     }
 }

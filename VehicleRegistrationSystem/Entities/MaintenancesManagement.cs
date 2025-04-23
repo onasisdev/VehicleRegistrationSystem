@@ -9,31 +9,17 @@
         public override Dictionary<int, string> MaintenanceOwnerSocialIds { get; set; }
         public override List<int> MaintenanceIds { get; set; }
 
-        public MaintenanceManagament (Dictionary<int, DateOnly> maintenanceDates, Dictionary<int, string> maintenanceServiceTypes, Dictionary<int, string> maintenanceWorkshopNames, Dictionary<int, string> maintenanceOwnerFullNames, Dictionary<int, string> maintenanceOwnerSocialIds, List<int> maintenanceIds)
+        public MaintenanceManagament ()
         {
-            this.MaintenanceDates = maintenanceDates;
-            this.MaintenanceServiceTypes = maintenanceServiceTypes;
-            this.MaintenanceWorkshopNames = maintenanceWorkshopNames;
-            this.MaintenanceOwnerFullNames = maintenanceOwnerFullNames;
-            this.MaintenanceOwnerSocialIds = maintenanceOwnerSocialIds;
-            this.MaintenanceIds = maintenanceIds;
+            this.MaintenanceDates = new Dictionary<int, DateOnly>();
+            this.MaintenanceServiceTypes = new Dictionary<int, string>();
+            this.MaintenanceWorkshopNames = new Dictionary<int, string>();
+            this.MaintenanceOwnerFullNames = new Dictionary<int, string>();
+            this.MaintenanceOwnerSocialIds = new Dictionary<int, string>();
+            this.MaintenanceIds = new List<int>();
         }
 
-        public override void ViewAllMaintenances()
-        {
-            Console.WriteLine("");
-
-            Console.WriteLine("Mantenimientos: ");
-
-            foreach (var maintenanceId in MaintenanceIds)
-            {
-                Console.WriteLine($"""
-                    id: {maintenanceId}   Fecha del mantenimiento: {MaintenanceDates[maintenanceId]}   Tipo de servicio: {MaintenanceServiceTypes[maintenanceId]}   Nombre del taller: {MaintenanceWorkshopNames[maintenanceId]} Nombre completo del propietario: {MaintenanceOwnerFullNames[maintenanceId]}   Cédula del propietario: {MaintenanceOwnerSocialIds[maintenanceId]}
-                    """);
-            }
-
-            Console.WriteLine("");
-        }
+       
 
 
 

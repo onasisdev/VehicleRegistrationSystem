@@ -135,6 +135,7 @@ namespace Logic
 
 
                 case 2:
+                    Database database = new Database();
 
                     var getAllNewElements = string.Empty;
 
@@ -175,11 +176,37 @@ namespace Logic
 
                                         Brands[id] = newElement;
 
+                                        using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
+                                        {
+
+                                            conn.Open();
+                                            string sql = "UPDATE Vehiculo SET Marca = @Marca WHERE Id = @Id ";
+                                            SqlCommand cmd = new SqlCommand(sql, conn);
+
+                                            cmd.Parameters.AddWithValue("@Id", id);
+                                            cmd.Parameters.AddWithValue("@Marca", Brands[id]);
+                                            
+                                            cmd.ExecuteNonQuery();
+                                        }
+
                                         break;
 
                                     case 2:
 
                                         Models[id] = newElement;
+
+                                        using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
+                                        {
+
+                                            conn.Open();
+                                            string sql = "UPDATE Vehiculo SET Modelo = @Modelo WHERE Id = @Id ";
+                                            SqlCommand cmd = new SqlCommand(sql, conn);
+
+                                            cmd.Parameters.AddWithValue("@Id", id);
+                                            cmd.Parameters.AddWithValue("@Modelo", Models[id]);
+
+                                            cmd.ExecuteNonQuery();
+                                        }
 
                                         break;
 
@@ -187,11 +214,37 @@ namespace Logic
 
                                         Years[id] = Convert.ToInt32(newElement);
 
+                                        using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
+                                        {
+
+                                            conn.Open();
+                                            string sql = "UPDATE Vehiculo SET Anio = @Anio WHERE Id = @Id ";
+                                            SqlCommand cmd = new SqlCommand(sql, conn);
+
+                                            cmd.Parameters.AddWithValue("@Id", id);
+                                            cmd.Parameters.AddWithValue("@Anio", Years[id]);
+
+                                            cmd.ExecuteNonQuery();
+                                        }
+
                                         break;
 
                                     case 4:
 
                                         Colors[id] = newElement;
+
+                                        using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
+                                        {
+
+                                            conn.Open();
+                                            string sql = "UPDATE Vehiculo SET Color = @Color WHERE Id = @Id ";
+                                            SqlCommand cmd = new SqlCommand(sql, conn);
+
+                                            cmd.Parameters.AddWithValue("@Id", id);
+                                            cmd.Parameters.AddWithValue("@Color", Colors[id]);
+
+                                            cmd.ExecuteNonQuery();
+                                        }
 
                                         break;
 
@@ -199,11 +252,39 @@ namespace Logic
 
                                         LicensePlateNumbers[id] = newElement;
 
+                                        using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
+                                        {
+
+                                            conn.Open();
+                                            string sql = "UPDATE Vehiculo SET NumeroDePlaca = @NumeroDePlaca WHERE Id = @Id ";
+                                            SqlCommand cmd = new SqlCommand(sql, conn);
+
+                                            cmd.Parameters.AddWithValue("@Id", id);
+                                            cmd.Parameters.AddWithValue("@NumeroDePlaca", LicensePlateNumbers[id]);
+
+                                            cmd.ExecuteNonQuery();
+                                        }
+
+
+
                                         break;
 
                                     case 6:
 
                                         FuelTypes[id] = newElement;
+
+                                        using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
+                                        {
+
+                                            conn.Open();
+                                            string sql = "UPDATE Vehiculo SET TipoDeCombustible = @TipoDeCombustible WHERE Id = @Id ";
+                                            SqlCommand cmd = new SqlCommand(sql, conn);
+
+                                            cmd.Parameters.AddWithValue("@Id", id);
+                                            cmd.Parameters.AddWithValue("@TipoDeCombustible", FuelTypes[id]);
+
+                                            cmd.ExecuteNonQuery();
+                                        }
 
                                         break;
                                 }
@@ -247,6 +328,26 @@ namespace Logic
                                 Console.WriteLine("Favor ingrese el nuevo tipo de combustible: ");
                                 getAllNewElements = Console.ReadLine();
                                 FuelTypes[id] = getAllNewElements;
+
+                               
+
+                                using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
+                                {
+
+                                    conn.Open();
+                                    string sql = "UPDATE Vehiculo SET Marca = @Marca, Modelo = @Modelo, Anio = @Anio, Color = @Color, NumeroDePlaca = @NumeroDePlaca, TipoDeCombustible = @TipoDeCombustible  WHERE Id = @Id ";
+                                    SqlCommand cmd = new SqlCommand(sql, conn);
+
+                                    cmd.Parameters.AddWithValue("@Id", id);
+                                    cmd.Parameters.AddWithValue("@Marca", Brands[id]);
+                                    cmd.Parameters.AddWithValue("@Modelo", Models[id]);
+                                    cmd.Parameters.AddWithValue("@Anio", Years[id]);
+                                    cmd.Parameters.AddWithValue("@Color", Colors[id]);
+                                    cmd.Parameters.AddWithValue("@NumeroDePlaca", LicensePlateNumbers[id]);
+                                    cmd.Parameters.AddWithValue("@TipoDeCombustible", FuelTypes[id]);
+
+                                    cmd.ExecuteNonQuery();
+                                }
                             }
                         }
                     }

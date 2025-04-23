@@ -10,7 +10,7 @@
         public virtual List<int> MaintenanceIds { get; set; }
 
 
-        public abstract void ViewAllMaintenances();
+       
     }
 }
 
