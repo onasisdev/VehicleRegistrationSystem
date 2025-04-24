@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -77,20 +78,30 @@ namespace Logic
                         try
                         {
                             vehiclesManagementLogic.VehiclesManagementF(
-                            vehiclesManagement.Brands,
-                            vehiclesManagement.Models,
-                            vehiclesManagement.Years,
-                            vehiclesManagement.Colors,
-                            vehiclesManagement.LicensePlateNumbers,
-                            vehiclesManagement.FuelTypes,
-                            vehiclesManagement.Ids
+                                vehiclesManagement.Brands,
+                                vehiclesManagement.Models,
+                                vehiclesManagement.Years,
+                                vehiclesManagement.Colors,
+                                vehiclesManagement.LicensePlateNumbers,
+                                vehiclesManagement.FuelTypes,
+                                vehiclesManagement.Ids
                             );
 
                         }
                         
                         catch (FormatException)
                         {
+
                             Console.WriteLine("El formato ingresado es incorrecto, favor vuelva a intentar nuevamente.");
+
+                            vehiclesManagement.Brands.Remove(vehiclesManagement.Ids.Count());
+                            vehiclesManagement.Models.Remove(vehiclesManagement.Ids.Count());
+                            vehiclesManagement.Years.Remove(vehiclesManagement.Ids.Count());
+                            vehiclesManagement.Colors.Remove(vehiclesManagement.Ids.Count());
+                            vehiclesManagement.LicensePlateNumbers.Remove(vehiclesManagement.Ids.Count());
+                            vehiclesManagement.FuelTypes.Remove(vehiclesManagement.Ids.Count());
+                            vehiclesManagement.Ids.Remove(vehiclesManagement.Ids.Count());
+
                         }
 
 
@@ -135,7 +146,14 @@ namespace Logic
 
                         catch (FormatException)
                         {
+                            
                             Console.WriteLine("El formato ingresado es incorrecto, favor vuelva a intentar nuevamente.");
+
+                            insurancesManagement.InsuranceCompanieNames.Remove(insurancesManagement.InsuranceIds.Count());
+                            insurancesManagement.InsurancePolicyNumbers.Remove(insurancesManagement.InsuranceIds.Count());
+                            insurancesManagement.InsuranceStartDates.Remove(insurancesManagement.InsuranceIds.Count());
+                            insurancesManagement.InsuranceExpirationDates.Remove(insurancesManagement.InsuranceIds.Count());
+                            insurancesManagement.InsuranceIds.Remove(insurancesManagement.InsuranceIds.Count());
                         }
 
                         break;

@@ -56,8 +56,8 @@ namespace Logic
             {
                 
                 conn.Open();
-                string sql = "INSERT INTO Vehiculo (Marca, Modelo, Anio, Color, NumeroDePlaca, TipoDeCombustible) VALUES (@Marca, @Modelo, @Anio, @Color, @NumeroDePlaca, @TipoDeCombustible)";
-                SqlCommand cmd = new SqlCommand(sql, conn);
+                string insertDataQuery = "INSERT INTO Vehiculo (Marca, Modelo, Anio, Color, NumeroDePlaca, TipoDeCombustible) VALUES (@Marca, @Modelo, @Anio, @Color, @NumeroDePlaca, @TipoDeCombustible)";
+                SqlCommand cmd = new SqlCommand(insertDataQuery, conn);
 
                 cmd.Parameters.AddWithValue("@Marca", getBrands[Id]);
                 cmd.Parameters.AddWithValue("@Modelo", getModels[Id]);
@@ -85,7 +85,7 @@ namespace Logic
             Console.WriteLine("""
                 Favor escoja la acción que desee realizar:
                 1.Agregar un nuevo registro de vehículo
-                2.Editar la información de vehículo existentes
+                2.Editar la información de vehículos existentes
                 3.Buscar vehículos por número de placa, marca o modelo
                 4.Consultar el historial de vehículos.
                 5.Eliminar vehículos
@@ -94,10 +94,12 @@ namespace Logic
 
             int userVehicleStorageSelection = Convert.ToInt32(Console.ReadLine());
             int getId = 0;
-            
+
+            Database database = new Database();
 
             switch (userVehicleStorageSelection)
             {
+
                 case 1:
 
                     int Id = Ids.Count() + 1;
@@ -135,7 +137,7 @@ namespace Logic
 
 
                 case 2:
-                    Database database = new Database();
+                    
 
                     var getAllNewElements = string.Empty;
 
@@ -180,8 +182,8 @@ namespace Logic
                                         {
 
                                             conn.Open();
-                                            string sql = "UPDATE Vehiculo SET Marca = @Marca WHERE Id = @Id ";
-                                            SqlCommand cmd = new SqlCommand(sql, conn);
+                                            string updateQuery = "UPDATE Vehiculo SET Marca = @Marca WHERE Id = @Id ";
+                                            SqlCommand cmd = new SqlCommand(updateQuery, conn);
 
                                             cmd.Parameters.AddWithValue("@Id", id);
                                             cmd.Parameters.AddWithValue("@Marca", Brands[id]);
@@ -199,8 +201,8 @@ namespace Logic
                                         {
 
                                             conn.Open();
-                                            string sql = "UPDATE Vehiculo SET Modelo = @Modelo WHERE Id = @Id ";
-                                            SqlCommand cmd = new SqlCommand(sql, conn);
+                                            string updateQuery = "UPDATE Vehiculo SET Modelo = @Modelo WHERE Id = @Id ";
+                                            SqlCommand cmd = new SqlCommand(updateQuery, conn);
 
                                             cmd.Parameters.AddWithValue("@Id", id);
                                             cmd.Parameters.AddWithValue("@Modelo", Models[id]);
@@ -218,8 +220,8 @@ namespace Logic
                                         {
 
                                             conn.Open();
-                                            string sql = "UPDATE Vehiculo SET Anio = @Anio WHERE Id = @Id ";
-                                            SqlCommand cmd = new SqlCommand(sql, conn);
+                                            string updateQuery = "UPDATE Vehiculo SET Anio = @Anio WHERE Id = @Id ";
+                                            SqlCommand cmd = new SqlCommand(updateQuery, conn);
 
                                             cmd.Parameters.AddWithValue("@Id", id);
                                             cmd.Parameters.AddWithValue("@Anio", Years[id]);
@@ -237,8 +239,8 @@ namespace Logic
                                         {
 
                                             conn.Open();
-                                            string sql = "UPDATE Vehiculo SET Color = @Color WHERE Id = @Id ";
-                                            SqlCommand cmd = new SqlCommand(sql, conn);
+                                            string updateQuery = "UPDATE Vehiculo SET Color = @Color WHERE Id = @Id ";
+                                            SqlCommand cmd = new SqlCommand(updateQuery, conn);
 
                                             cmd.Parameters.AddWithValue("@Id", id);
                                             cmd.Parameters.AddWithValue("@Color", Colors[id]);
@@ -256,8 +258,8 @@ namespace Logic
                                         {
 
                                             conn.Open();
-                                            string sql = "UPDATE Vehiculo SET NumeroDePlaca = @NumeroDePlaca WHERE Id = @Id ";
-                                            SqlCommand cmd = new SqlCommand(sql, conn);
+                                            string updateQuery = "UPDATE Vehiculo SET NumeroDePlaca = @NumeroDePlaca WHERE Id = @Id ";
+                                            SqlCommand cmd = new SqlCommand(updateQuery, conn);
 
                                             cmd.Parameters.AddWithValue("@Id", id);
                                             cmd.Parameters.AddWithValue("@NumeroDePlaca", LicensePlateNumbers[id]);
@@ -277,8 +279,8 @@ namespace Logic
                                         {
 
                                             conn.Open();
-                                            string sql = "UPDATE Vehiculo SET TipoDeCombustible = @TipoDeCombustible WHERE Id = @Id ";
-                                            SqlCommand cmd = new SqlCommand(sql, conn);
+                                            string updateQuery = "UPDATE Vehiculo SET TipoDeCombustible = @TipoDeCombustible WHERE Id = @Id ";
+                                            SqlCommand cmd = new SqlCommand(updateQuery, conn);
 
                                             cmd.Parameters.AddWithValue("@Id", id);
                                             cmd.Parameters.AddWithValue("@TipoDeCombustible", FuelTypes[id]);
@@ -335,8 +337,8 @@ namespace Logic
                                 {
 
                                     conn.Open();
-                                    string sql = "UPDATE Vehiculo SET Marca = @Marca, Modelo = @Modelo, Anio = @Anio, Color = @Color, NumeroDePlaca = @NumeroDePlaca, TipoDeCombustible = @TipoDeCombustible  WHERE Id = @Id ";
-                                    SqlCommand cmd = new SqlCommand(sql, conn);
+                                    string updateQuery = "UPDATE Vehiculo SET Marca = @Marca, Modelo = @Modelo, Anio = @Anio, Color = @Color, NumeroDePlaca = @NumeroDePlaca, TipoDeCombustible = @TipoDeCombustible  WHERE Id = @Id ";
+                                    SqlCommand cmd = new SqlCommand(updateQuery, conn);
 
                                     cmd.Parameters.AddWithValue("@Id", id);
                                     cmd.Parameters.AddWithValue("@Marca", Brands[id]);
@@ -402,6 +404,19 @@ namespace Logic
                             Ids.Remove(id);
 
                             isCarRemoved = true;
+
+                            using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
+                            {
+
+                                conn.Open();
+                                string deleteQuery = "DELETE FROM Vehiculo WHERE Id = @Id";
+                                SqlCommand cmd = new SqlCommand(deleteQuery, conn);
+
+                                cmd.Parameters.AddWithValue("@Id", id);
+                                
+
+                                cmd.ExecuteNonQuery();
+                            }
                         }
                     }
 
