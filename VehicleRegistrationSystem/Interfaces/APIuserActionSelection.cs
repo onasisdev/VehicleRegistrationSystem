@@ -5,6 +5,5 @@
         public void UserActionSelection();
 
     }
-
 }
 

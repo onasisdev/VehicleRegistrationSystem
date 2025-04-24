@@ -23,9 +23,5 @@ namespace Interfaces
             Dictionary<int, string> getLicensePlateNumbers, 
             Dictionary<int, string> getFuelTypes, 
             List<int> getIds);
-        
-            
-        
-
     }
 }

@@ -16,9 +16,8 @@ namespace Entities
         public override Dictionary<int, string> FuelTypes { get; set; }
         public override List<int> Ids { get; set; }
 
-        public VehiclesManagement(
-            )
-            {
+        public VehiclesManagement()
+        {
             this.Brands = new Dictionary<int, string>();
             this.Models = new Dictionary<int, string>();
             this.Years = new Dictionary<int, int>();
@@ -26,12 +25,6 @@ namespace Entities
             this.LicensePlateNumbers = new Dictionary<int, string>();
             this.FuelTypes = new Dictionary<int, string>();
             this.Ids = new List<int>();
-           
-             
-            }
-
-        
-
-
+        }
     }
-    }
+}

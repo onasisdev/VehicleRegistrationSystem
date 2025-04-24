@@ -18,9 +18,7 @@
             this.OwnerEmails = new Dictionary<int, string>();
             this.OwnerIds = new List<int>();
 
-        }
-
-        
+        } 
     }
 }
 

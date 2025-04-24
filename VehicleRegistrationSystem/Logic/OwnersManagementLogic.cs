@@ -53,7 +53,6 @@ namespace Logic
 
             using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
             {
-
                 conn.Open();
                 string insertDataQuery = "INSERT INTO Propietario (NombreCompleto, Cedula, Direccion, Telefono, Email) VALUES (@NombreCompleto, @Cedula, @Direccion, @Telefono, @Email)";
                 SqlCommand cmd = new SqlCommand(insertDataQuery, conn);
@@ -131,11 +130,6 @@ namespace Logic
 
                         ConnectAndInsertElementsToDataBase(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
 
-
-
-
-
-
                         break;
 
 
@@ -144,8 +138,9 @@ namespace Logic
                     List<int> getCarIds = new List<int>();
                     List<int> getOwnerIds = new List<int>();
                     
-                    vehiclesManagementLogic.ViewAllVehicles(Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids);
-
+                    
+                    vehiclesManagementLogic.ViewAllVehicles(Brands, Models, 
+                        Years, Colors, LicensePlateNumbers, FuelTypes, Ids);
 
                     Console.WriteLine("Favor ingrese el id del vehículo para asociarlo con un propietario: ");
                         getCarIds.Add(Convert.ToInt32(Console.ReadLine()));
@@ -160,6 +155,7 @@ namespace Logic
                     
                     Console.WriteLine("¿Desea asociar más vehículos a un propietario?  1.Sí  2.No");
                     int wantToContinue = Convert.ToInt32(Console.ReadLine());
+                    
                     
                     while (wantToContinue != 2) {
                         
@@ -221,6 +217,7 @@ namespace Logic
                     
                     userOwnersManagamentSelection = Convert.ToInt32(Console.ReadLine());
                     
+                    
                     if (userOwnersManagamentSelection == 1)
                     {
                         ViewAllOwners(OwnerFullNames, OwnerSocialIds, 
@@ -243,6 +240,7 @@ namespace Logic
                                 Console.WriteLine("Favor ingrese el nuevo elemento:");
                                 var newElementFromOwners = Console.ReadLine();
                                 
+                                
                                 switch (getElementToModifyOwner)
                                 {
                                     case 1:
@@ -251,7 +249,6 @@ namespace Logic
 
                                         using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                         {
-
                                             conn.Open();
                                             string updateQuery = "UPDATE Propietario SET NombreCompleto = @NombreCompleto WHERE Id = @Id ";
                                             SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -264,13 +261,14 @@ namespace Logic
 
                                         break;
 
+                                    
                                     case 2:
 
                                         OwnerSocialIds[ownerId] = newElementFromOwners;
 
+                                        
                                         using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                         {
-
                                             conn.Open();
                                             string updateQuery = "UPDATE Propietario SET Cedula = @Cedula WHERE Id = @Id ";
                                             SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -283,13 +281,13 @@ namespace Logic
 
                                         break;
 
+                                    
                                     case 3:
 
                                         OwnerAddresses[ownerId] = newElementFromOwners;
 
                                         using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                         {
-
                                             conn.Open();
                                             string updateQuery = "UPDATE Propietario SET Direccion = @Direccion WHERE Id = @Id ";
                                             SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -300,17 +298,15 @@ namespace Logic
                                             cmd.ExecuteNonQuery();
                                         }
 
-
-
                                         break;
 
+                                    
                                     case 4:
 
                                         OwnerPhoneNumbers[ownerId] = newElementFromOwners;
 
                                         using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                         {
-
                                             conn.Open();
                                             string updateQuery = "UPDATE Propietario SET Telefono = @Telefono WHERE Id = @Id ";
                                             SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -321,17 +317,15 @@ namespace Logic
                                             cmd.ExecuteNonQuery();
                                         }
 
-
-
                                         break;
 
+                                    
                                     case 5:
 
                                         OwnerEmails[ownerId] = newElementFromOwners;
 
                                         using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                         {
-
                                             conn.Open();
                                             string updateQuery = "UPDATE Propietario SET Email = @Email WHERE Id = @Id ";
                                             SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -380,9 +374,9 @@ namespace Logic
                                 getAllNewElementsFromOwners = Console.ReadLine();
                                 OwnerEmails[ownerId] = getAllNewElementsFromOwners;
 
+                                
                                 using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                 {
-
                                     conn.Open();
                                     string updateQuery = "UPDATE Propietario SET NombreCompleto = @NombreCompleto, Cedula = @Cedula, Direccion = @Direccion, Telefono = @Telefono, Email = @Email  WHERE Id = @Id ";
                                     SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -394,7 +388,6 @@ namespace Logic
                                     cmd.Parameters.AddWithValue("@Telefono", OwnerPhoneNumbers[ownerId]);
                                     cmd.Parameters.AddWithValue("@Email", OwnerEmails[ownerId]);
                                     
-
                                     cmd.ExecuteNonQuery();
                                 }
                             }
@@ -423,6 +416,7 @@ namespace Logic
 
 
                     case 5:
+                    
                     ViewAllOwners(OwnerFullNames, OwnerSocialIds, OwnerAddresses, OwnerPhoneNumbers, OwnerEmails, OwnerIds);
 
                     break;
@@ -452,9 +446,9 @@ namespace Logic
 
                             isOwnerRemoved = true;
 
+                            
                             using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                             {
-
                                 conn.Open();
                                 string deleteQuery = "DELETE FROM Propietario WHERE Id = @Id";
                                 SqlCommand cmd = new SqlCommand(deleteQuery, conn);
@@ -464,15 +458,16 @@ namespace Logic
                                 cmd.ExecuteNonQuery();
                             }
                         }
-                        }
-
-                        if (isOwnerRemoved == true)
-                        {
-                            Console.WriteLine("Registro de propietario eliminado satisfactoriamente.");
-                        }
-
-                        break;
-                }
+                    }
+                    
+                    if (isOwnerRemoved == true)
+                    {
+                        Console.WriteLine("Registro de propietario eliminado satisfactoriamente.");
+                    }
+                    
+                    break;
+            }
+            
             
             if (userOwnersManagamentSelection > 6 || userOwnersManagamentSelection == 0)
             {

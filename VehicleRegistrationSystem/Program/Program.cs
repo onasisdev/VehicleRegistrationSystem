@@ -11,10 +11,8 @@ using Interfaces;
 
 namespace Logic
 {
-
     public class Program
     {
-
         static void Main(string[] args)
         {
             try
@@ -37,7 +35,6 @@ namespace Logic
         public string SearchCriteria = string.Empty;
         public int GetId = 0;
 
-        
         public void UserActionSelection()
         {
             bool running = true;
@@ -51,10 +48,9 @@ namespace Logic
             InsurancesManagement insurancesManagement = new InsurancesManagement();
             InsurancesManagementLogic insurancesManagementLogic = new InsurancesManagementLogic();
 
+            MaintenanceManagament maintenanceManagament = new MaintenanceManagament();
+            MaintenancesManagementLogic maintenancesManagementLogic = new MaintenancesManagementLogic();
 
-            
-
-            
 
             while (running)
             {
@@ -75,23 +71,22 @@ namespace Logic
                 switch (userModulesSelection)
                 {
                     case 1:
+                        
                         try
                         {
                             vehiclesManagementLogic.VehiclesManagementF(
-                                vehiclesManagement.Brands,
-                                vehiclesManagement.Models,
-                                vehiclesManagement.Years,
-                                vehiclesManagement.Colors,
-                                vehiclesManagement.LicensePlateNumbers,
-                                vehiclesManagement.FuelTypes,
-                                vehiclesManagement.Ids
+                            vehiclesManagement.Brands,
+                            vehiclesManagement.Models,
+                            vehiclesManagement.Years,
+                            vehiclesManagement.Colors,
+                            vehiclesManagement.LicensePlateNumbers,
+                            vehiclesManagement.FuelTypes,
+                            vehiclesManagement.Ids
                             );
-
                         }
                         
                         catch (FormatException)
                         {
-
                             Console.WriteLine("El formato ingresado es incorrecto, favor vuelva a intentar nuevamente.");
 
                             vehiclesManagement.Brands.Remove(vehiclesManagement.Ids.Count());
@@ -101,23 +96,22 @@ namespace Logic
                             vehiclesManagement.LicensePlateNumbers.Remove(vehiclesManagement.Ids.Count());
                             vehiclesManagement.FuelTypes.Remove(vehiclesManagement.Ids.Count());
                             vehiclesManagement.Ids.Remove(vehiclesManagement.Ids.Count());
-
                         }
 
-
                         break;
-
-
+                    
                     case 2:
-                        
-                        ownersManagamentLogic.OwnersManagementF(
+
+                        try
+                        {
+                            ownersManagamentLogic.OwnersManagementF(
                             ownersManagement.OwnerFullNames,
                             ownersManagement.OwnerSocialIds,
                             ownersManagement.OwnerAddresses,
                             ownersManagement.OwnerPhoneNumbers,
                             ownersManagement.OwnerEmails,
                             ownersManagement.OwnerIds,
-                            
+
                             vehiclesManagement.Brands,
                             vehiclesManagement.Models,
                             vehiclesManagement.Years,
@@ -126,6 +120,12 @@ namespace Logic
                             vehiclesManagement.FuelTypes,
                             vehiclesManagement.Ids
                             );
+                        }
+                        
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("El formato ingresado es incorrecto, favor vuelva a intentar nuevamente.");
+                        }
                         
                         break;
 
@@ -133,20 +133,18 @@ namespace Logic
                     case 3:
                         
                         try
-                        
                         {
                             insurancesManagementLogic.InsuranceManagementF(
-                                insurancesManagement.InsuranceCompanieNames,
-                                insurancesManagement.InsurancePolicyNumbers,
-                                insurancesManagement.InsuranceStartDates,
-                                insurancesManagement.InsuranceExpirationDates,
-                                insurancesManagement.InsuranceIds
-                                );
+                            insurancesManagement.InsuranceCompanieNames,
+                            insurancesManagement.InsurancePolicyNumbers,
+                            insurancesManagement.InsuranceStartDates,
+                            insurancesManagement.InsuranceExpirationDates,
+                            insurancesManagement.InsuranceIds
+                            );
                         }
 
                         catch (FormatException)
                         {
-                            
                             Console.WriteLine("El formato ingresado es incorrecto, favor vuelva a intentar nuevamente.");
 
                             insurancesManagement.InsuranceCompanieNames.Remove(insurancesManagement.InsuranceIds.Count());
@@ -157,21 +155,39 @@ namespace Logic
                         }
 
                         break;
+                    
+                    
+                    case 4:
+                        
+                        try
+                        {
+                            maintenancesManagementLogic.MaintenancesManagementF(
+                            maintenanceManagament.MaintenanceDates,
+                            maintenanceManagament.MaintenanceServiceTypes,
+                            maintenanceManagament.MaintenanceWorkshopNames,
+                            maintenanceManagament.MaintenanceOwnerFullNames,
+                            maintenanceManagament.MaintenanceOwnerSocialIds,
+                            maintenanceManagament.MaintenanceIds
+                            );
+                        }
 
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("El formato ingresado es incorrecto, favor vuelva a intentar nuevamente.");
 
-                    //case 4:
-                    //    MaintenanceManagement maintenanceManagement = new MaintenanceManagement();
+                            maintenanceManagament.MaintenanceDates.Remove(maintenanceManagament.MaintenanceIds.Count());
+                            maintenanceManagament.MaintenanceServiceTypes.Remove(maintenanceManagament.MaintenanceIds.Count());
+                            maintenanceManagament.MaintenanceWorkshopNames.Remove(maintenanceManagament.MaintenanceIds.Count());
+                            maintenanceManagament.MaintenanceOwnerFullNames.Remove(maintenanceManagament.MaintenanceIds.Count());
+                            maintenanceManagament.MaintenanceOwnerSocialIds.Remove(maintenanceManagament.MaintenanceIds.Count());
+                            maintenanceManagament.MaintenanceIds.Remove(maintenanceManagament.MaintenanceIds.Count());
+                        }
 
-                    //    maintenanceManagement.MaintenanceManagementFunction(
-                    //        MaintenanceDates, MaintenanceServiceTypes, MaintenanceWorkshopNames,
-                    //        MaintenanceOwnerFullNames, MaintenanceOwnerSocialIds,
-                    //        MaintenanceIds);
-
-                    //    break;
+                        break;
 
 
                     case 5:
-
+                        
                         running = false;
 
                         break;
@@ -185,16 +201,3 @@ namespace Logic
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

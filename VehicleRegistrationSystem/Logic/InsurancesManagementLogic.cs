@@ -26,8 +26,6 @@ namespace Logic
             Console.WriteLine("Seguros: ");
 
 
-            
-
             foreach (var insuranceId in getInsuranceIds)
             {
                 Console.WriteLine($"""
@@ -45,12 +43,12 @@ namespace Logic
             Dictionary<int, DateOnly> getInsuranceExpirationDates,
             List<int> getInsuranceIds
           )
-
+        
         {
             int Id = getInsuranceIds.Count;
 
-
             Database database = new Database();
+
 
             using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
             {
@@ -64,11 +62,9 @@ namespace Logic
                 cmd.Parameters.AddWithValue("@FechaDeInicio", getInsuranceStartDates[Id].ToString());
                 cmd.Parameters.AddWithValue("@FechaDeVencimiento", getInsuranceExpirationDates[Id].ToString());
                 
-
                 cmd.ExecuteNonQuery();
             }
         }
-
 
         public void InsuranceManagementF(
             Dictionary<int, string> InsuranceCompanieNames,
@@ -83,7 +79,6 @@ namespace Logic
 
             Database database = new Database();
             
-
 
             Console.WriteLine("""
                 Favor escoja la acción que desea realizar:
@@ -123,14 +118,15 @@ namespace Logic
                     InsuranceExpirationDates.Add(InsuranceId, InsuranceExpirationDate);
 
                     ConnectAndInsertElementsToDataBase(
-                        InsuranceCompanieNames, 
-                        InsurancePolicyNumbers, InsuranceStartDates,
-                        InsuranceExpirationDates, InsuranceIds);
+                        InsuranceCompanieNames,InsurancePolicyNumbers, 
+                        InsuranceStartDates,InsuranceExpirationDates, 
+                        InsuranceIds);
 
                     break;
 
 
                 case 2:
+                    
                     var getAllNewElementsFromInsurances = string.Empty;
 
                     Console.WriteLine("""
@@ -144,7 +140,8 @@ namespace Logic
 
                     if (userInsuranceManagementSelection == 1)
                     {
-                        ViewAllInsurances(InsuranceCompanieNames, InsurancePolicyNumbers, InsuranceStartDates, InsuranceExpirationDates,
+                        ViewAllInsurances(InsuranceCompanieNames, InsurancePolicyNumbers, 
+                            InsuranceStartDates, InsuranceExpirationDates,
                             InsuranceIds);
 
                         Console.WriteLine("Favor seleccione el id del registro de seguro que desee modificar: ");
@@ -173,7 +170,6 @@ namespace Logic
 
                                         using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                         {
-
                                             conn.Open();
                                             string updateQuery = "UPDATE Seguro SET NombreDeCompania = @NombreDeCompania WHERE Id = @Id ";
                                             SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -186,13 +182,13 @@ namespace Logic
 
                                         break;
 
+                                    
                                     case 2:
 
                                         InsurancePolicyNumbers[insuranceId] = newElementFromInsurances;
 
                                         using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                         {
-
                                             conn.Open();
                                             string updateQuery = "UPDATE Seguro SET NumeroDePoliza = @NumeroDePoliza WHERE Id = @Id ";
                                             SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -205,13 +201,13 @@ namespace Logic
 
                                         break;
 
+                                    
                                     case 3:
 
                                         InsuranceStartDates[insuranceId] = DateOnly.Parse(newElementFromInsurances);
 
                                         using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                         {
-
                                             conn.Open();
                                             string updateQuery = "UPDATE Seguro SET FechaDeInicio = @FechaDeInicio WHERE Id = @Id ";
                                             SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -224,13 +220,13 @@ namespace Logic
 
                                         break;
 
+                                    
                                     case 4:
 
                                         InsuranceExpirationDates[insuranceId] = DateOnly.Parse(newElementFromInsurances);
 
                                         using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                         {
-
                                             conn.Open();
                                             string updateQuery = "UPDATE Seguro SET FechaDeVencimiento = @FechaDeVencimiento WHERE Id = @Id ";
                                             SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -249,9 +245,9 @@ namespace Logic
 
                     else if (userInsuranceManagementSelection == 2)
                     {
-
-                        ViewAllInsurances(InsuranceCompanieNames, InsurancePolicyNumbers, InsuranceStartDates, InsuranceExpirationDates,
-                            InsuranceIds);
+                        
+                        ViewAllInsurances(InsuranceCompanieNames, InsurancePolicyNumbers, 
+                            InsuranceStartDates, InsuranceExpirationDates, InsuranceIds);
 
                         Console.WriteLine("Favor seleccione el id del registro de seguro que desee modificar: ");
                         getId = Convert.ToInt32(Console.ReadLine());
@@ -269,17 +265,16 @@ namespace Logic
                                 getAllNewElementsFromInsurances = Console.ReadLine();
                                 InsurancePolicyNumbers[insuranceId] = getAllNewElementsFromInsurances;
 
-                                Console.WriteLine("Favor ingrese la nueva fecha de inicio: ");
+                                Console.WriteLine("Favor ingrese la nueva fecha de inicio en el formato (aaaa-mm-dd): ");
                                 getAllNewElementsFromInsurances = Console.ReadLine();
                                 InsuranceStartDates[insuranceId] = DateOnly.Parse(getAllNewElementsFromInsurances);
 
-                                Console.WriteLine("Favor ingrese la nueva fecha de vencimiento: ");
+                                Console.WriteLine("Favor ingrese la nueva fecha de vencimiento en el formato (aaaa-mm-dd): ");
                                 getAllNewElementsFromInsurances = Console.ReadLine();
                                 InsuranceExpirationDates[insuranceId] = DateOnly.Parse(getAllNewElementsFromInsurances);
 
                                 using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                 {
-
                                     conn.Open();
                                     string updateQuery = "UPDATE Seguro SET NombreDeCompania = @NombreDeCompania, NumeroDePoliza = @NumeroDePoliza, FechaDeInicio = @FechaDeInicio, FechaDeVencimiento = @FechaDeVencimiento WHERE Id = @Id ";
                                     SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -290,7 +285,6 @@ namespace Logic
                                     cmd.Parameters.AddWithValue("@FechaDeInicio", InsuranceStartDates[insuranceId].ToString());
                                     cmd.Parameters.AddWithValue("@FechaDeVencimiento", InsuranceExpirationDates[insuranceId].ToString());
                                     
-
                                     cmd.ExecuteNonQuery();
                                 }
                             }
@@ -314,11 +308,9 @@ namespace Logic
 
                         if (getInsuranceDate.Year == 2025 && getInsuranceDate.Month >= 11 && getInsuranceDate.Day >= 20)
                         {
-
                             Console.WriteLine($"""
                                 id: {insuranceId}   Compañía aseguradora: {InsuranceCompanieNames[insuranceId]}   Número de póliza: {InsurancePolicyNumbers[insuranceId]}   Fecha de inicio: {InsuranceStartDates[insuranceId]}   Fecha de vencimiento: {InsuranceExpirationDates[insuranceId]}
                                 """);
-                           
                         }
                     }
 
@@ -326,12 +318,16 @@ namespace Logic
 
 
                 case 4:
-                    ViewAllInsurances(InsuranceCompanieNames, InsurancePolicyNumbers, InsuranceStartDates, InsuranceExpirationDates,
-                            InsuranceIds);
+                    
+                    ViewAllInsurances(InsuranceCompanieNames, InsurancePolicyNumbers, 
+                        InsuranceStartDates, InsuranceExpirationDates,
+                        InsuranceIds);
+
                     break;
 
 
                 case 5:
+                    
                     bool isInsuranceExpired = false;
 
                     foreach (var insuranceId in InsuranceIds.ToArray())
@@ -341,7 +337,6 @@ namespace Logic
 
                         if (getInsuranceExpirationDateToRemoveIt.Year == 2025 && getInsuranceExpirationDateToRemoveIt.Month == 12 && getInsuranceExpirationDateToRemoveIt.Day == 30)
                         {
-
                             InsuranceCompanieNames.Remove(insuranceId);
                             InsurancePolicyNumbers.Remove(insuranceId);
                             InsuranceStartDates.Remove(insuranceId);
@@ -353,7 +348,6 @@ namespace Logic
 
                             using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                             {
-
                                 conn.Open();
                                 string deleteQuery = "DELETE FROM Seguro WHERE Id = @Id";
                                 SqlCommand cmd = new SqlCommand(deleteQuery, conn);

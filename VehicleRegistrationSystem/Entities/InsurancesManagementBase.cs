@@ -8,7 +8,6 @@
         public virtual Dictionary<int, DateOnly> InsuranceExpirationDates { get; set; }
         public virtual List<int> InsuranceIds { get; set; }
 
-      
     }
 }
 

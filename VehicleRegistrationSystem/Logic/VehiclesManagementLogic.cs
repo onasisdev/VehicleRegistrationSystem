@@ -13,11 +13,9 @@ using DataBase;
 namespace Logic
 {
 
-    
     public class VehiclesManagementLogic : IVehiclesManagament
     {
     
-        
         public void ViewAllVehicles(Dictionary<int, string> getBrands,
             Dictionary<int, string> getModels,
             Dictionary<int, int> getYears,
@@ -31,8 +29,9 @@ namespace Logic
             foreach (var id in getIds)
             {
                 Console.WriteLine($"""
-                        id: {id}   Marca: {getBrands[id]}   Modelo: {getModels[id]}   Año: {getYears[id]}   Color: {getColors[id]}   Número de placa: {getLicensePlateNumbers[id]}   Tipo de combustible: {getFuelTypes[id]}
-                        """);
+                    id: {id}   Marca: {getBrands[id]}   Modelo: {getModels[id]}   Año: {getYears[id]}   Color: {getColors[id]}   Número de placa: {getLicensePlateNumbers[id]}   Tipo de combustible: {getFuelTypes[id]}
+                    
+                    """);
             }
         }
 
@@ -49,12 +48,11 @@ namespace Logic
         {
             int Id = getIds.Count;
             
-
             Database database = new Database();
 
+            
             using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
-            {
-                
+            { 
                 conn.Open();
                 string insertDataQuery = "INSERT INTO Vehiculo (Marca, Modelo, Anio, Color, NumeroDePlaca, TipoDeCombustible) VALUES (@Marca, @Modelo, @Anio, @Color, @NumeroDePlaca, @TipoDeCombustible)";
                 SqlCommand cmd = new SqlCommand(insertDataQuery, conn);
@@ -81,7 +79,6 @@ namespace Logic
           )
         {
             
-            
             Console.WriteLine("""
                 Favor escoja la acción que desee realizar:
                 1.Agregar un nuevo registro de vehículo
@@ -97,9 +94,9 @@ namespace Logic
 
             Database database = new Database();
 
+            
             switch (userVehicleStorageSelection)
             {
-
                 case 1:
 
                     int Id = Ids.Count() + 1;
@@ -138,7 +135,6 @@ namespace Logic
 
                 case 2:
                     
-
                     var getAllNewElements = string.Empty;
 
                     Console.WriteLine("""
@@ -150,9 +146,9 @@ namespace Logic
 
                     userVehicleStorageSelection = Convert.ToInt32(Console.ReadLine());
 
+                    
                     if (userVehicleStorageSelection == 1)
                     {
-
                         ViewAllVehicles(Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids);
 
                         Console.WriteLine("Favor seleccione el id del vehículo que desee modificar: ");
@@ -180,7 +176,6 @@ namespace Logic
 
                                         using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                         {
-
                                             conn.Open();
                                             string updateQuery = "UPDATE Vehiculo SET Marca = @Marca WHERE Id = @Id ";
                                             SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -199,7 +194,6 @@ namespace Logic
 
                                         using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                         {
-
                                             conn.Open();
                                             string updateQuery = "UPDATE Vehiculo SET Modelo = @Modelo WHERE Id = @Id ";
                                             SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -212,13 +206,13 @@ namespace Logic
 
                                         break;
 
+                                    
                                     case 3:
 
                                         Years[id] = Convert.ToInt32(newElement);
 
                                         using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                         {
-
                                             conn.Open();
                                             string updateQuery = "UPDATE Vehiculo SET Anio = @Anio WHERE Id = @Id ";
                                             SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -231,13 +225,13 @@ namespace Logic
 
                                         break;
 
+                                    
                                     case 4:
 
                                         Colors[id] = newElement;
 
                                         using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                         {
-
                                             conn.Open();
                                             string updateQuery = "UPDATE Vehiculo SET Color = @Color WHERE Id = @Id ";
                                             SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -250,13 +244,13 @@ namespace Logic
 
                                         break;
 
+                                    
                                     case 5:
 
                                         LicensePlateNumbers[id] = newElement;
 
                                         using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                         {
-
                                             conn.Open();
                                             string updateQuery = "UPDATE Vehiculo SET NumeroDePlaca = @NumeroDePlaca WHERE Id = @Id ";
                                             SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -267,17 +261,15 @@ namespace Logic
                                             cmd.ExecuteNonQuery();
                                         }
 
-
-
                                         break;
 
+                                    
                                     case 6:
 
                                         FuelTypes[id] = newElement;
 
                                         using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                         {
-
                                             conn.Open();
                                             string updateQuery = "UPDATE Vehiculo SET TipoDeCombustible = @TipoDeCombustible WHERE Id = @Id ";
                                             SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -332,10 +324,8 @@ namespace Logic
                                 FuelTypes[id] = getAllNewElements;
 
                                
-
                                 using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                                 {
-
                                     conn.Open();
                                     string updateQuery = "UPDATE Vehiculo SET Marca = @Marca, Modelo = @Modelo, Anio = @Anio, Color = @Color, NumeroDePlaca = @NumeroDePlaca, TipoDeCombustible = @TipoDeCombustible  WHERE Id = @Id ";
                                     SqlCommand cmd = new SqlCommand(updateQuery, conn);
@@ -405,16 +395,15 @@ namespace Logic
 
                             isCarRemoved = true;
 
+                            
                             using (SqlConnection conn = new SqlConnection(database.ConnectionToDatabase))
                             {
-
                                 conn.Open();
                                 string deleteQuery = "DELETE FROM Vehiculo WHERE Id = @Id";
                                 SqlCommand cmd = new SqlCommand(deleteQuery, conn);
 
                                 cmd.Parameters.AddWithValue("@Id", id);
                                 
-
                                 cmd.ExecuteNonQuery();
                             }
                         }

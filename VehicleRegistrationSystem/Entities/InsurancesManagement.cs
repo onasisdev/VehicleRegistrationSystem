@@ -15,7 +15,6 @@
             this.InsuranceStartDates = new Dictionary<int, DateOnly>();
             this.InsuranceExpirationDates = new Dictionary<int, DateOnly>();
             this.InsuranceIds = new List<int>();
-
         }
     }
 }
