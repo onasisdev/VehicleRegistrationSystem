@@ -1,9 +1,8 @@
 ﻿namespace Interfaces
 {
-    interface IuserActionSelection
+    public interface IUserActionSelection
     {
         public void UserActionSelection();
-
     }
 }
 

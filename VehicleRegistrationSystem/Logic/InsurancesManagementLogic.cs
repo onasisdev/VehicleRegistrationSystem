@@ -5,14 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataBase;
-using Entities;
 using Interfaces;
 
 namespace Logic
 {
     public class InsurancesManagementLogic : IInsurancesManagement
     {
-
         public void ViewAllInsurances(
             Dictionary<int, string> getInsuranceCompanieNames,
             Dictionary<int, string> getInsurancePolicyNumbers,
@@ -30,6 +28,7 @@ namespace Logic
             {
                 Console.WriteLine($"""
                     id: {insuranceId}   Compañía aseguradora: {getInsuranceCompanieNames[insuranceId]}   Número de póliza: {getInsurancePolicyNumbers[insuranceId]}   Fecha de inicio: {getInsuranceStartDates[insuranceId]}   Fecha de vencimiento: {getInsuranceExpirationDates[insuranceId]}
+
                     """);
             }
 

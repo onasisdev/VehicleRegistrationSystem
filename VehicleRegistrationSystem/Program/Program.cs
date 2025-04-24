@@ -4,12 +4,12 @@ using System.Data.SqlClient;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
-using DataBase;
 using Entities;
 using Interfaces;
+using Logic;
 
 
-namespace Logic
+namespace Program
 {
     public class Program
     {
@@ -29,7 +29,7 @@ namespace Logic
 
     }
     
-    public class UserActionSelectionLogic
+    public class UserActionSelectionLogic : IUserActionSelection
     {
 
         public string SearchCriteria = string.Empty;
@@ -58,10 +58,10 @@ namespace Logic
                 Bienvenido a nuestro sistema de registro de vehículos!
 
                 Favor escoja la acción que desee realizar:
-                1.Gestionar vehículos
+                1.Gestionar Vehículos
                 2.Gestionar Propietarios
                 3.Gestionar Seguros
-                4.Gestionar mantenimientos
+                4.Gestionar Mantenimientos
                 5.Salir
 
                 """);

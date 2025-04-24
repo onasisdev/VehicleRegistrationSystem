@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
-using Entities;
 using DataBase;
 
 namespace Logic
@@ -30,6 +29,7 @@ namespace Logic
             {
                 Console.WriteLine($"""
                     id: {ownerId}   Nombre completo: {getOwnerFullNames[ownerId]}   Cédula: {getOwnerSocialIds[ownerId]}   Dirección: {getOwnerAddresses[ownerId]}   Teléfono: {getOwnerPhoneNumbers[ownerId]}   Correo electrónico: {getOwnerEmails[ownerId]}
+
                     """);
             }
 
@@ -146,7 +146,7 @@ namespace Logic
                         getCarIds.Add(Convert.ToInt32(Console.ReadLine()));
                     
                     
-                    ViewAllOwners(OwnerFullNames, OwnerSocialIds, 
+                    ViewAllOwners(OwnerFullNames, OwnerSocialIds,
                         OwnerAddresses, OwnerPhoneNumbers, 
                         OwnerEmails, OwnerIds);
 
@@ -161,10 +161,15 @@ namespace Logic
                         
                         vehiclesManagementLogic.ViewAllVehicles(Brands, Models, Years, Colors, LicensePlateNumbers, FuelTypes, Ids);
 
-                        Console.WriteLine("Ingrese el id de un vehículo para asociarlo con un propietario: ");
+                        Console.WriteLine("Favor ingrese el id de un vehículo para asociarlo con un propietario: ");
                         getCarIds.Add(Convert.ToInt32(Console.ReadLine()));
 
-                        Console.WriteLine("Ingrese el id del propietario: ");
+                        
+                        ViewAllOwners(OwnerFullNames, OwnerSocialIds,
+                        OwnerAddresses, OwnerPhoneNumbers,
+                        OwnerEmails, OwnerIds);
+
+                        Console.WriteLine("Favor Ingrese el id del propietario: ");
                         getOwnerIds.Add(Convert.ToInt32(Console.ReadLine()));
 
                         Console.WriteLine("¿Desea asociar más vehículos a un propietario?  1.Sí  2.No");
@@ -182,7 +187,8 @@ namespace Logic
                             if (getCarIds.Contains(id))
                             {
                                 Console.WriteLine($"""
-                                    id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {LicensePlateNumbers[id]}
+                                    id: {id}   Marca: {Brands[id]}   Modelo: {Models[id]}   Año: {Years[id]}   Color: {Colors[id]}   Número de placa: {LicensePlateNumbers[id]}   Tipo de combustible: {FuelTypes[id]}
+
                                     """);
                             }
                         }
@@ -209,7 +215,6 @@ namespace Logic
                     
                     Console.WriteLine("""
                         Favor escoja la acción que desea realizar:
-                        
                         1.Editar una información de un propietario
                         2.Editar toda la información de un propietario
 

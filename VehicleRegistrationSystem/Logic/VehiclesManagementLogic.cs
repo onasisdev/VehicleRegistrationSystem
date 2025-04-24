@@ -5,17 +5,15 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using Entities;
 using Interfaces;
 using System.Data.SqlClient;
 using DataBase;
 
+
 namespace Logic
 {
-
     public class VehiclesManagementLogic : IVehiclesManagament
     {
-    
         public void ViewAllVehicles(Dictionary<int, string> getBrands,
             Dictionary<int, string> getModels,
             Dictionary<int, int> getYears,

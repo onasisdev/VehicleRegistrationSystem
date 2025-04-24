@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
-using Entities;
-using Logic;
 using System.Data.SqlClient;
 using DataBase;
 
@@ -13,7 +11,6 @@ namespace Logic
 {
     public class MaintenancesManagementLogic : IMaintenancesManagement
     {
-
         public void ViewAllMaintenances(
             Dictionary<int, DateOnly> getMaintenanceDates,
             Dictionary<int, string> getMaintenanceServiceTypes,
@@ -31,6 +28,7 @@ namespace Logic
             {
                 Console.WriteLine($"""
                     id: {maintenanceId}   Fecha del mantenimiento: {getMaintenanceDates[maintenanceId]}   Tipo de servicio: {getMaintenanceServiceTypes[maintenanceId]}   Nombre del taller: {getMaintenanceWorkshopNames[maintenanceId]} Nombre completo del propietario: {getMaintenanceOwnerFullNames[maintenanceId]}   Cédula del propietario: {getMaintenanceOwnerSocialIds[maintenanceId]}
+
                     """);
             }
 
